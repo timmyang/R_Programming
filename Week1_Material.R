@@ -17,6 +17,7 @@ myfunction <- function() {
         x <- rnorm(100)
         mean(x)
 }
+
 # Execute a Function
 myfunction()
 
@@ -34,8 +35,8 @@ x <- 5
 msg <- "hello"
 
 # Display the numeric object(vector), x, that has one element
-print(x)        #explicit printing
-x               #auto-printing
+print(x)        # explicit printing
+x               # auto-printing
 # [1] 5
 # The [1] indicated that x is a vector and 5 is the first element
 
@@ -124,3 +125,4 @@ x
 
 # [[4]]
 # [1] 1+4i
+
