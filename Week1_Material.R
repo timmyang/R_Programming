@@ -125,3 +125,88 @@ x
 
 # [[4]]
 # [1] 1+4i
+
+#
+# Matrices
+# Matrices are "vectors" with a "dimension attribute"
+m <- matrix(nrow = 2, ncol = 3)
+m
+#       [,1] [,2] [,3]
+# [1,]   NA   NA   NA
+# [2,]   NA   NA   NA
+
+dim(m)
+# [1] 2 3
+
+attributes(m)
+# $dim
+# [1] 2 3
+
+# Matrices are constructed "column-wise"
+m <- matrix(1:6, nrow = 2, ncol = 3)
+m
+#      [,1] [,2] [,3]
+# [1,]    1    3    5
+# [2,]    2    4    6
+
+# Matrices can also be created directly from "vectors" by adding a "dimension attribute"
+m <- 1:10
+m
+# [1]  1  2  3  4  5  6  7  8  9 10
+dim(m) <- c(2, 5)
+m
+#       [,1] [,2] [,3] [,4] [,5]
+# [1,]    1    3    5    7    9
+# [2,]    2    4    6    8   10
+
+# Another way to create matrices by "cbind()" and "rbind()"
+x <- 1:3
+y <- 10:12
+
+cbind(x, y)
+#      x  y
+# [1,] 1 10
+# [2,] 2 11
+# [3,] 3 12
+
+rbind(x, y)
+#    [,1] [,2] [,3]
+# x    1    2    3
+# y   10   11   12
+
+#
+# Factors
+# Factors are used to represent "categorical data"
+# Factors can be "un-ordered" or "ordered".
+# Factors are vectors with "labels"
+x <- factor(c("yes", "yes", "no", "yes", "no"))
+x
+# [1] yes yes no  yes no 
+# Levels: no yes
+
+table(x)
+# x
+# no yes 
+#  2   3 
+
+unclass(x)
+# [1] 2 2 1 2 1
+# attr(,"levels")
+# [1] "no"  "yes"
+
+# Setting the order of the levels
+x <- factor(c("yes", "yes", "no", "yes", "no"),
+            levels = c("yes", "no"))
+x
+# [1] yes yes no  yes no 
+# Levels: yes no
+
+table(x)
+# x
+# yes no 
+#  3  2 
+
+unclass(x)
+# [1] 1 1 2 1 2
+# attr(,"levels")
+# [1] "yes" "no"
