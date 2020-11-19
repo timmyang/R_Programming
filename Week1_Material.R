@@ -210,3 +210,16 @@ unclass(x)
 # [1] 1 1 2 1 2
 # attr(,"levels")
 # [1] "yes" "no"
+
+#
+# Missing Values
+NA
+NaN
+# "is.na()" is used to test objects if they are NA
+# "is.nan()" is used to test for NaN
+# NA values have a class also, so there are integer NA, character NA, etc.
+# A NaN value is also NA but the converse is not true (NaN means Not a Number, i.e. undefined value)
+is.na(NaN)
+# [1] TRUE
+is.nan(NA)
+# [1] FALSE
