@@ -129,6 +129,7 @@ x
 #
 # Matrices
 # Matrices are "vectors" with a "dimension attribute"
+# must have every element be the same class (object)
 m <- matrix(nrow = 2, ncol = 3)
 m
 #       [,1] [,2] [,3]
@@ -223,3 +224,99 @@ is.na(NaN)
 # [1] TRUE
 is.nan(NA)
 # [1] FALSE
+
+#
+# Data Frames
+# Data frames are used to store tabular data
+# represented as a special type of list where every element of the list has to have the same length
+# Each element of the list: column, and the length of each element of the list: the number of rows
+# However, each column doesn't have to be the same type
+
+# "row.names" - every row has its own name
+# Data frames are created by calling "read.table(0 or read.csv()"
+# Can be converted to a matrix by calling "data.matrix()"   - force objects will be coerced to be the same class
+
+x <- data.frame(foo = 1:4, bar = c(T, T, F, F))
+x
+#   foo   bar
+# 1   1  TRUE
+# 2   2  TRUE
+# 3   3 FALSE
+# 4   4 FALSE
+
+nrow(x)
+# [1] 4
+ncol(x)
+# [1] 2
+
+#
+# Names Attribute
+# Very useful for writing readable code and self-describing objects
+
+x <- 1:3
+names(x)
+# NULL
+names(x) <- c("foo", "bar", "norf") # name for each element
+x
+# foo  bar norf 
+#   1    2    3 
+names(x)
+# [1] "foo"  "bar"  "norf"
+
+x <- list(a = 1, b = 2, c = 3)
+x
+# $a
+# [1] 1
+# 
+# $b
+# [1] 2
+# 
+# $c
+# [1] 3
+
+m <- matrix(1:4, nrow = 2, ncol = 2)
+dimnames(m) <- list(c("a", "b"), c("c", "d"))
+m
+#   c d
+# a 1 3
+# b 2 4
+
+
+#
+## Summary
+# Data Types -
+# atomic classes: numeric, logical, character, integer, complex \
+# vectors, lists
+# factors
+# missing values
+# data frames
+# names
+
+#
+# Reading Data
+# Tabular Data: "read.table()", "read.csv()" (returns a dataframe in R)
+# Lines of a text file: "readLines()" 
+# R Code files: "source()"
+# R Code files: "dget()" for reading R objects that have been dparsed into text files
+# Reading binary objects into R: "load()" for reading in saved workspaces, "unserialize()" for reading single R objects in binary form
+
+# Writing Data
+# "write.table()"
+# "writeLines()"
+# "dump()"
+# "dput()"
+# "save()"
+# "serialize()"
+
+# "read.table()" function
+# "file", the name of a file, or a connection
+# "header", logical indicating if the file has a header line
+# "sep", a string indicating how the columns are separated
+# "colClasses", a charater vector indicating the class of each column in the dataset
+# "nrows", the number of rows in the dataset
+# "comment.char", a charater string indicating the comment character
+# "skip", the number of lines to skiip from the beginning
+# "stringAsFactors", should character variables be coded as factors? defualt = TRUE(yes)
+
+# e.g. "data <- read.table("foo.txt")"
+# "read.csv" = "read.table" except that the default separator is a comma
