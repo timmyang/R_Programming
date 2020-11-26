@@ -320,3 +320,10 @@ m
 
 # e.g. "data <- read.table("foo.txt")"
 # "read.csv" = "read.table" except that the default separator is a comma
+
+#
+# Reading Large Tables
+# To prvent R from choking:
+# Read the "help" page for "read.table()", which contains many hints
+# Make a rough calculation of the memory required to store your dataset.
+# Set "comment.char = "" if there are no commented lines in your file
