@@ -323,7 +323,13 @@ m
 
 #
 # Reading Large Tables
-# To prvent R from choking:
+# To prevent R from choking:
 # Read the "help" page for "read.table()", which contains many hints
-# Make a rough calculation of the memory required to store your dataset.
+# Make a rough calculation of the memory required to store your dataset
 # Set "comment.char = "" if there are no commented lines in your file
+
+# the "colClasses" argument
+# initial <- read.table("datatable.txt", nrows = 100)
+# classes <- sapply(initial, class)
+# tabAll <- read.table("datatable.text", colClasses = classes)
+
