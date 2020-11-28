@@ -233,7 +233,7 @@ is.nan(NA)
 # However, each column doesn't have to be the same type
 
 # "row.names" - every row has its own name
-# Data frames are created by calling "read.table(0 or read.csv()"
+# Data frames are created by calling "read.table()" or read.csv()"
 # Can be converted to a matrix by calling "data.matrix()"   - force objects will be coerced to be the same class
 
 x <- data.frame(foo = 1:4, bar = c(T, T, F, F))
@@ -333,3 +333,31 @@ m
 # classes <- sapply(initial, class)
 # tabAll <- read.table("datatable.text", colClasses = classes)
 
+#
+# Textual Data Formats
+# "dumping" and "dputing" preserves metadata(sacrificing some readability), so that antoher user doesn't have to specify it all over again.
+# advantage: editable
+# disadvanage: not space-efficient
+
+# "dput()"
+y <- data.frame(a = 1, b = "a")
+dput(y)
+# structure(list(a = 1, b = "a"), class = "data.frame", row.names = c(NA, -1L))
+dput(y, file = "y.R")
+new.y <- dget("y.R")
+new.y
+#   a b
+# 1 1 a
+
+# "dput()" function, essentially writes R code, which can be used to reconstruct an R object
+
+# "dump()"
+# "dget()" can only be used on a single R object
+# "dump()" can be used on multiple R objects
+x <- "foo"
+y <- data.frame(a = 1, b = "a")
+dump(c("x", "y"), file = "data.R")
+rm(x, y) # remove x and y
+source("data.R")
+y
+x
