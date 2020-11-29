@@ -1,15 +1,34 @@
 Week1\_Material
 ================
 
-## R Markdown
+## Background Material
 
-This is an R Markdown document. Markdown is a simple formatting syntax
-for authoring HTML, PDF, and MS Word documents. For more details on
-using R Markdown see <http://rmarkdown.rstudio.com>.
+**Get Working Directory**
 
-When you click the **Knit** button a document will be generated that
-includes both content as well as the output of any embedded R code
-chunks within the document. You can embed an R code chunk like this:
+``` r
+getwd()
+```
+
+    ## [1] "/Users/hyeonwooyang/Desktop/Desktop/5_Coursera/1_R_Programming/git_project"
+
+**Set a new Working Directory**
+
+``` r
+setwd("~/Desktop/Desktop/5_Coursera/1_R_Programming/data")
+```
+
+**Display a list of files in the working directory**
+
+``` r
+dir()
+```
+
+    ## [1] "git_project.Rproj"                "Practical R Exercises in swirl.R"
+    ## [3] "README.md"                        "Week1_Material_files"            
+    ## [5] "Week1_Material.md"                "Week1_Material.R"                
+    ## [7] "Week1_Material.Rmd"
+
+Link: <http://rmarkdown.rstudio.com>. Bold: **Knit**
 
 ``` r
 summary(cars)
