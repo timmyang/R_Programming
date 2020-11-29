@@ -2,11 +2,6 @@
 title: "Week1_Material"
 output: rmarkdown::github_document
 ---
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
 ## Background Material
 
 **Get Working Directory**
@@ -16,7 +11,10 @@ getwd()
 
 **Set a new Working Directory**
 ```{r}
-setwd("~/Desktop/Desktop/5_Coursera/1_R_Programming/git_proejct/data")
+setwd("/Users/hyeonwooyang/Desktop/Desktop/5_Coursera/1_R_Programming/git_project/data")
+```
+```{r, setup, echo = FALSE}
+knitr::opts_knit$set(root.dir = '/Users/hyeonwooyang/Desktop/Desktop/5_Coursera/1_R_Programming/git_project/data')
 ```
 
 **Display a list of files in the working directory**
@@ -24,24 +22,36 @@ setwd("~/Desktop/Desktop/5_Coursera/1_R_Programming/git_proejct/data")
 dir()
 ```
 
+**Create a Function**
+```{r}
+myfunction <- function() {
+        x <- rnorm(100)
+        mean(x)
+}
+```
+
+
+
+**Execute a Function**
+```{r}
+myfunction()
+```
+
+**Display a list of objects in the current environment**
+```{r}
+ls()
+```
+
+**Source(bring) all functions(objects) in a different file**
+
+`source("mycode.R")`
+
+
+
 
 
 Link: <http://rmarkdown.rstudio.com>.
 Bold: **Knit**
 
-
-
-```{r cars}
-summary(cars)
-```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
-
+Inserting R Code: Cmd+Option+I 
+Avoid printing the code: `echo = FALSE`
