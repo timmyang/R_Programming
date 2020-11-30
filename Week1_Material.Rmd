@@ -4,12 +4,12 @@ output: rmarkdown::github_document
 ---
 ## Background Material
 
-**Get Working Directory**
+Get working directory
 ```{r}
 getwd()
 ```
 
-**Set a new Working Directory**
+Set a new working directory
 ```{r}
 setwd("/Users/hyeonwooyang/Desktop/Desktop/5_Coursera/1_R_Programming/git_project/data")
 ```
@@ -17,12 +17,12 @@ setwd("/Users/hyeonwooyang/Desktop/Desktop/5_Coursera/1_R_Programming/git_projec
 knitr::opts_knit$set(root.dir = '/Users/hyeonwooyang/Desktop/Desktop/5_Coursera/1_R_Programming/git_project/data')
 ```
 
-**Display a list of files in the working directory**
+Display a list of files in the working directory
 ```{r}
 dir()
 ```
 
-**Create a Function**
+Create a function
 ```{r}
 myfunction <- function() {
         x <- rnorm(100)
@@ -32,26 +32,501 @@ myfunction <- function() {
 
 
 
-**Execute a Function**
+Execute a function
 ```{r}
 myfunction()
 ```
 
-**Display a list of objects in the current environment**
+Display a list of objects in the current environment
 ```{r}
 ls()
 ```
 
-**Source(bring) all functions(objects) in a different file**
-
+Source(bring) all functions (objects) in a different file:  
 `source("mycode.R")`
 
+## Week 1: Getting Started and R Nuts and Bolts 
+
+Assignment operator, `<-`
+```{r}
+x <- 5
+msg <- "hello"
+```
+
+Display the numeric object (vector), `x`, that has one element
+```{r}
+print(x)        # explicit printing
+x               # auto-printing
+```
+*The [1] indicated that x is a `vector` and 5 is the first element*
+
+Display the character object (vector), `msg`, that has one element
+```{r}
+print(msg)
+msg
+```
+
+Create integer sequences
+```{r}
+x <- 1:20
+x
+```
+
+## Objects
+Everything in R is an `object`. `Atomic` classes of objects:  
+
+- character  
+- numeric (real numbers)  
+- integer  
+- complex  
+- logical (TRUE/FALSE)  
+
+
+
+The most basic object is a `vector` 
+
+- A vector can only contain objects of the same class  
+BUT: The one exception is a "list", which is represented as a vector but can contain objects of different classes
+
+## Numbers
+Infinity  
+`Inf`
+
+Not a Number (undefined value)  
+`NaN`
+
+Attributes: `name`, `dimnames`, `dimensions` (e.g. matrices, arrays), `class`, `length`  
+`attributes()`
+
+
+## Vectors
+Create vectors of objects `c()`
+```{r}
+x <- c(0.5, 0.6)        # numeric
+x <- c(TRUE, FALSE)     # logical
+x <- c(T, F)            # logical
+x <- c("a", "b", "c")   # character
+x <- 9:29               # integer
+x <- c(1+0i, 2+4i)      # complex
+```
+
+`vector()` function
+```{r}
+x <- vector("numeric", length = 10)
+x
+```
+
+## Mixing Objects        
+Coerces to the least common denominator
+```{r}
+y <- c(1.7, "a")        # character
+y <- c(TRUE, 2)         # numeric
+y <- c("a", TRUE)       # character
+```
+
+Explicit Coercion: `as.`
+```{r}
+x <- 0:6
+x
+
+class(x)
+
+as.numeric(x)
+as.logical(x)
+as.character(x)
+```
+
+Nonsensical coercion results in NAs
+```{r}
+x <- c("a", "b", "c")
+
+as.numeric(x)
+as.logical(x)
+as.complex(x)
+```
+
+## List
+```{r}
+x <- list(1, "a", TRUE, 1 + 4i)
+x
+```
+*[[1]] Elements of a list*  
+*[1] 1 Elements of a vector*
+
+## Matrices
+Matrices are `vectors` with a `dimension attribute`  
+Must have every element be the same class (object)
+```{r}
+m <- matrix(nrow = 2, ncol = 3)
+m
+
+dim(m)
+attributes(m)
+```
+
+
+Matrices are constructed `column-wise`
+```{r}
+m <- matrix(1:6, nrow = 2, ncol = 3)
+m
+```
+
+Matrices can also be created directly from `vectors` by adding a `dimension attribute`
+```{r}
+m <- 1:10
+m
+
+dim(m) <- c(2, 5)
+m
+
+```
+
+Another way to create matrices by `cbind()` and `rbind()`
+```{r}
+x <- 1:3
+y <- 10:12
+
+cbind(x, y)
+rbind(x, y)
+```
+
+## Factors
+Factors are used to represent `categorical data`  
+Factors can be `un-ordered` or `ordered`  
+Factors are vectors with `labels`  
+```{r}
+x <- factor(c("yes", "yes", "no", "yes", "no"))
+x
+
+table(x)
+unclass(x)
+```
+
+Setting the order of the levels
+```{r}
+x <- factor(c("yes", "yes", "no", "yes", "no"),
+            levels = c("yes", "no"))
+x
+
+table(x)
+unclass(x)
+```
+
+## Missing Values
+`NA`  
+`NaN`  
+`is.na()` is used to test objects if they are NA  
+`is.nan()` is used to test for NaN  
+NA values have a class also, so there are integer NA, character NA, etc.  
+A NaN value is also NA but the converse is not true (NaN means Not a Number, i.e. undefined value)  
+```{r}
+is.na(NaN)
+is.nan(NA)
+```
+
+## Data Frames
+Data frames are used to store tabular data  
+Represented as a special type of list where every element of the list has to have the same length  
+Each element of the list: column, and the length of each element of the list: the number of rows  
+However, each column doesn't have to be the same type  
+
+`row.names` - every row has its own name  
+Data frames are created by calling `read.table()` or `read.csv()`  
+Can be converted to a matrix by calling `data.matrix()` - force objects will be coerced to be the same class
+
+```{r}
+x <- data.frame(foo = 1:4, bar = c(T, T, F, F))
+x
+
+nrow(x)
+ncol(x)
+```
+
+## Names Attribute  
+Very useful for writing readable code and self-describing objects
+```{r}
+x <- 1:3
+names(x)
+
+names(x) <- c("foo", "bar", "norf") # name for each element
+x
+names(x)
+
+x <- list(a = 1, b = 2, c = 3)
+x
+
+m <- matrix(1:4, nrow = 2, ncol = 2)
+dimnames(m) <- list(c("a", "b"), c("c", "d"))
+m
+```
+
+## Summary
+Data Types:  
+
+- atomic classes: numeric, logical, character, integer, complex
+- vectors, lists
+- factors
+- missing values
+- data frames
+- names
+
+## Reading Data  
+Tabular Data: `read.table()`, `read.csv()` (returns a dataframe in R)  
+Lines of a text file: `readLines()`  
+R Code files: `source()`  
+R Code files: `dget()` for reading R objects that have been dparsed into text files  
+Reading binary objects into R: `load()` for reading in saved workspaces, `unserialize()` for reading single R objects in binary form  
+
+## Writing Data
+`write.table()`  
+`writeLines()`  
+`dump()`  
+`dput()`  
+`save()`  
+`serialize()`  
+
+`read.table()` function  
+```{r}
+str(read.table)
+```
+
+- `file`, the name of a file, or a connection  
+- `header`, logical indicating if the file has a header line  
+- `sep`, a string indicating how the columns are separated  
+- `colClasses`, a character vector indicating the class of each column in the dataset  
+- `nrows`, the number of rows in the dataset  
+- `comment.char`, a character string indicating the comment character  
+- `skip`, the number of lines to skip from the beginning  
+- `stringAsFactors`, should character variables be coded as factors? `defualt = TRUE(yes)`  
+
+e.g. `data <- read.table("foo.txt")`  
+`read.csv` = `read.table` except that the default separator is a comma  
+
+## Reading Large Tables
+To prevent R from choking:  
+Read the "help" page for `read.table()`, which contains many hints  
+Make a rough calculation of the memory required to store your dataset  
+Set `comment.char = ""` if there are no commented lines in your file  
+
+the `colClasses` argument  
+initial <- `read.table("datatable.txt", nrows = 100)`  
+classes <- `sapply(initial, class)`   
+tabAll <- `read.table("datatable.text", colClasses = classes)`  
+
+## Textual Data Formats  
+`dumping` and `dputing` preserves metadata(sacrificing some readability), so that another user doesn't have to specify it all over again.  
+advantage: editable  
+disadvanage: not space-efficient  
+
+`dput()`
+```{r}
+y <- data.frame(a = 1, b = "a")
+dput(y)
+
+dput(y, file = "y.R")
+new.y <- dget("y.R")
+new.y
+```
+
+`dput()` function, essentially writes R code, which can be used to reconstruct an R object  
+
+`dump()`  
+`dget()` can only be used on a single R object  
+`dump()` can be used on multiple R objects  
+```{r}
+x <- "foo"
+y <- data.frame(a = 1, b = "a")
+
+dump(c("x", "y"), file = "data.R")
+rm(x, y) # remove x and y
+source("data.R")
+
+y
+x
+```
+
+## Connections: Interfaces to the Outside World
+`file` opens a connection to a file  
+`gzfile` opens a connection to a file compressed with gzip  
+`bzfile` opens a connection to a file compressed with bzip2  
+`url` opens a connection to a webpage  
+
+```{r}
+str(file) # "str()" displays the internal structure of a R object
+
+```
+
+- `description` is the name of the file    
+- `open` is a code indicating    
+- `r` read only  
+- `w` writing (and initializina new file)  
+- `a` appending  
+- `rb`, `wb`, `ab` reading, writing, or appending in binary mode (Windows)  
+
+`con <- file("foo.txt", "r")`  
+`data <- read.csv(con)`  
+`close(con)`  
+
+is the same as  
+`data <- read.csv("foo.txt")`  
+
+```{r}
+connection <- url("http://www.jhsph.edu", "r")
+x <- readLines(connection)
+head(x)
+```
+
+## Subsetting: Basics  
+`[` always returns an `object` of the same class as original (vector -> vector) (list -> list)  
+Can be used to select more than one element of an object (there is one exception)  
+`[[` extracts `elements` of a list or a dataframe  
+Can only be used to extract a single element and the class of the returned object will not necessarily be a list or dataframe  
+`$` extracts `elements` of a list or dataframe `by name`
+
+```{r}
+x <- c("a", "b", "c", "c", "d", "a")
+x[1]
+x[1:4]                          # numeric index
+x[x > "a"]                      # logical index
+
+u <- x > "a"
+u
+x[u]
+```
+
+## Subsetting: Lists
+```{r}
+x <- list(foo = 1:4, bar = 0.6)
+x
+
+x[1]
+
+x[[1]]
+x[[2]]
+
+x$bar
+x[["bar"]]      # = x[[2]]
+x["bar"]        # = x[2]
+```
+
+```{r}
+x <- list(foo = 1:4, bar = 0.6, baz = "hello")
+x
+
+x[c(1, 3)]
+
+name <- "foo"
+x[[name]]       # = x[[1]]
+x$name          # element 'name' doesn't exist!
+x$foo
+```
+
+```{r}
+x <- list(a = list(10, 12, 14), b = c(3.14, 2.81))
+x
+
+x[[c(1, 3)]]
+x[[1]][[3]]
+
+x[[c(2, 1)]]
+```
+
+## Subsetting - Matrices
+```{r}
+x <- matrix(1:6, 2, 3)
+x
+
+x[1, 2]
+x[2, 1]
+
+x[1, ]
+x[, 2]
+```
+
+By default, when a single element of a matrix is retrieved, it is returned as a `vector` of length 1 rather than a 1 x 1 matrix  
+This behavior can be turned off by setting `drop = FALSE`  
+```{r}
+x[1, 2]
+x[1, 2, drop = FALSE]
+
+x[1, ]
+x[1, , drop = FALSE]
+```
+
+## Subsetting - Partial Matching
+```{r}
+x <- list(aardvark = 1:5)
+x
+
+x$a
+x[["a"]]
+x [["a", exact = FALSE]]
+```
+
+## Subsetting - Removing Missing Values
+```{r}
+x <- c(1, 2, NA, 4, NA, 5)
+is.na(x)
+bad <- is.na(x)
+x[!bad]
+```
+
+```{r}
+x <- c(1, 2, NA, 4, NA, 5)
+y <- c("a", "b", NA, "d", NA, NA)
+complete.cases(x, y)
+
+good <- complete.cases(x, y)
+x[good]
+y[good]
+```
+
+```{r}
+airquality[1:6, ]
+complete.cases(airquality[1:6, ])
+good <- complete.cases(airquality)
+airquality[good, ][1:6, ]
+```
+
+## Vectorized Operations
+```{r}
+x <- 1:4; y <- 6:9
+x
+y
+
+x + y
+x > 2
+x >= 2
+y == 8
+x * y
+x / y
+```
+
+```{r}
+x <- matrix(1:4, 2, 2); y <- matrix(rep(10, 4), 2, 2)
+x
+y
+
+x * y                   # element-wise multiplication
+x / y
+x %*% y                 # true matrix multiplication
+```
 
 
 
 
-Link: <http://rmarkdown.rstudio.com>.
-Bold: **Knit**
 
-Inserting R Code: Cmd+Option+I 
+
+
+
+
+
+
+<LINK>    
+*Italic*  
+**Bold**  
+
+- bullet point  
+
+Inserting R Code: `Cmd+Option+I`   
 Avoid printing the code: `echo = FALSE`
