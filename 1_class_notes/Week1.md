@@ -4,9 +4,8 @@ Week1\_Material
 # Table of Contents
 
   - **Background Material**
-      - Working directory
-      - Functions
   - **Week 1: Getting Started and R Nuts and Bolts**
+      - Objects
   - **Week 1 Quiz**
 
 # Background Material
@@ -48,7 +47,7 @@ Execute a function
 myfunction()
 ```
 
-    ## [1] -0.1587337
+    ## [1] 0.005797889
 
 Display a list of objects in the current environment
 
