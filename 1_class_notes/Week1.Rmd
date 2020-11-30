@@ -5,9 +5,8 @@ output: rmarkdown::github_document
 # Table of Contents
 
 - **Background Material**
-  - Working directory
-  - Functions
 - **Week 1: Getting Started and R Nuts and Bolts** 
+  - Objects
 - **Week 1 Quiz** 
 
 # Background Material
