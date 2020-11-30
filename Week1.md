@@ -1,6 +1,14 @@
 Week1\_Material
 ================
 
+# Table of Contents
+
+  - **Background Material**
+      - Working directory
+      - Functions
+  - **Week 1: Getting Started and R Nuts and Bolts**
+  - **Week 1 Quiz**
+
 # Background Material
 
 Get working directory
@@ -40,7 +48,7 @@ Execute a function
 myfunction()
 ```
 
-    ## [1] 0.1797899
+    ## [1] 0.03807704
 
 Display a list of objects in the current environment
 
@@ -555,10 +563,8 @@ Set `comment.char = ""` if there are no commented lines in your file
 the `colClasses` argument  
 initial \<- `read.table("datatable.txt", nrows = 100)`  
 classes \<- `sapply(initial, class)`  
-tabAll \<- `read.table("datatable.text", colClasses = classes)`
-
-## Textual Data Formats
-
+tabAll \<- `read.table("datatable.text", colClasses = classes)`  
+\#\# Textual Data Formats  
 `dumping` and `dputing` preserves metadata(sacrificing some
 readability), so that another user doesn’t have to specify it all over
 again.  

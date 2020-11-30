@@ -2,6 +2,14 @@
 title: "Week1_Material"
 output: rmarkdown::github_document
 ---
+# Table of Contents
+
+- **Background Material**
+  - Working directory
+  - Functions
+- **Week 1: Getting Started and R Nuts and Bolts** 
+- **Week 1 Quiz** 
+
 # Background Material
 
 Get working directory
@@ -29,8 +37,6 @@ myfunction <- function() {
         mean(x)
 }
 ```
-
-
 
 Execute a function
 ```{r}
@@ -81,8 +87,6 @@ Everything in R is an `object`. `Atomic` classes of objects:
 - complex  
 - logical (TRUE/FALSE)  
 
-
-
 The most basic object is a `vector` 
 
 - A vector can only contain objects of the same class  
@@ -97,7 +101,6 @@ Not a Number (undefined value)
 
 Attributes: `name`, `dimnames`, `dimensions` (e.g. matrices, arrays), `class`, `length`  
 `attributes()`
-
 
 ## Vectors
 Create vectors of objects `c()`
@@ -163,7 +166,6 @@ m
 dim(m)
 attributes(m)
 ```
-
 
 Matrices are constructed `column-wise`
 ```{r}
@@ -312,7 +314,6 @@ the `colClasses` argument
 initial <- `read.table("datatable.txt", nrows = 100)`  
 classes <- `sapply(initial, class)`   
 tabAll <- `read.table("datatable.text", colClasses = classes)`  
-
 ## Textual Data Formats  
 `dumping` and `dputing` preserves metadata(sacrificing some readability), so that another user doesn't have to specify it all over again.  
 advantage: editable  
@@ -598,7 +599,6 @@ table <- read.csv("hw1_data.csv")
 
 colnames(table)
 ```
-
 
 ## Question 12
 **Extract the first 2 rows of the data frame and print them to the console.**  
