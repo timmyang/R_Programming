@@ -1,4 +1,4 @@
-Week1\_Material
+Week1
 ================
 
 # Table of Contents
@@ -47,7 +47,7 @@ Execute a function
 myfunction()
 ```
 
-    ## [1] 0.005797889
+    ## [1] -0.0801005
 
 Display a list of objects in the current environment
 
