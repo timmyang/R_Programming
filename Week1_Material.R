@@ -285,7 +285,7 @@ m
 #
 ## Summary
 # Data Types -
-# atomic classes: numeric, logical, character, integer, complex \
+# atomic classes: numeric, logical, character, integer, complex 
 # vectors, lists
 # factors
 # missing values

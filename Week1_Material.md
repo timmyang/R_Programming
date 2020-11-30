@@ -1,7 +1,7 @@
 Week1\_Material
 ================
 
-## Background Material
+# Background Material
 
 Get working directory
 
@@ -40,7 +40,7 @@ Execute a function
 myfunction()
 ```
 
-    ## [1] 0.07964859
+    ## [1] -0.01707488
 
 Display a list of objects in the current environment
 
@@ -53,7 +53,7 @@ ls()
 Source(bring) all functions (objects) in a different file:  
 `source("mycode.R")`
 
-## Week 1: Getting Started and R Nuts and Bolts
+# Week 1: Getting Started and R Nuts and Bolts
 
 Assignment operator, `<-`
 
@@ -1080,11 +1080,276 @@ x %*% y                 # true matrix multiplication
     ## [1,]   40   40
     ## [2,]   60   60
 
-<LINK>  
-*Italic*  
-**Bold**
+# Week 1 Quiz
 
-  - bullet point
+## Question 1
 
-Inserting R Code: `Cmd+Option+I`  
-Avoid printing the code: `echo = FALSE`
+The R language is a dialect of which of the following programming
+languages?  
+**(Answer): S**
+
+## Question 2
+
+The definition of free software consists of four freedoms (freedoms 0
+through 3). Which of the following is NOT one of the freedoms that are
+part of the definition? Select all that apply.  
+**(Answer): all except the following**
+
+  - Freedom 0: to run the program, for any purpose  
+  - Freedom 1: to study how the program works, and adapt it to your
+    needs  
+  - Freedom 2: to redistribute copies so you can help your neighbor  
+  - Freedom 3: improve the program, and release your improvements to the
+    public, so that the whole community benefits
+
+## Question 3
+
+In R the following are all atomic data types EXCEPT: (Select all that
+apply)  
+**(Answer):**
+
+  - **Atomic data types:** numeric, complex, integer, logical, character
+  - **non-atomic data types:** table, matrix, array, data frame, list
+
+## Question 4
+
+If I execute the expression `x <- 4` in R,  
+what is the class of the object `x` as determined by the `class()`
+function?
+
+``` r
+x <- 4
+class(x)
+```
+
+    ## [1] "numeric"
+
+## Question 5
+
+What is the class of the object defined by the expression `x <- c(4,
+"a", TRUE)`?
+
+``` r
+x <- c(4, "a", TRUE)
+class(x)
+```
+
+    ## [1] "character"
+
+## Question 6
+
+If I have two vectors `x <- c(1,3, 5)` and `y <- c(3, 2, 10)`,  
+what is produced by the expression `rbind(x, y)`?
+
+``` r
+x <- c(1, 3, 5); y <- c(3, 2, 10)
+rbind(x, y)
+```
+
+    ##   [,1] [,2] [,3]
+    ## x    1    3    5
+    ## y    3    2   10
+
+## Question 7
+
+A key property of vectors in R is that  
+**(Answer): elements of a vector all must be of the same class**
+
+## Question 8
+
+Suppose I have a list defined as `x <- list(2, "a", "b", TRUE)`.  
+What does `x[[2]]` give me? Select all that apply
+
+``` r
+x <- list(2, "a", "b", TRUE)
+x[[2]]
+```
+
+    ## [1] "a"
+
+## Question 9
+
+Suppose I have a vector `x <- 1:4` and a vector `y <- 2`.  
+What is produced by the expression `x + y`?
+
+``` r
+x <- 1:4; y <- 2
+x + y
+```
+
+    ## [1] 3 4 5 6
+
+## Question 10
+
+Suppose I have a vector `x <- c(17, 14, 4, 5, 13, 12, 10)` and I want to
+set all elements of this vector that are greater than 10 to be equal to
+4.  
+What R code achieves this? Select all that apply.
+
+``` r
+x <- c(17, 14, 4, 5, 13, 12, 10)
+
+x[x > 10] <- 4
+# OR
+x[x >= 11] <- 4
+```
+
+## Question 11
+
+Use the Week 1 Quiz Data Set to answer questions 11-20.  
+In the dataset provided for this Quiz, what are the column names of the
+dataset?
+
+``` r
+getwd()
+```
+
+    ## [1] "/Users/hyeonwooyang/Desktop/Desktop/5_Coursera/1_R_Programming/git_project/data"
+
+``` r
+dir()
+```
+
+    ## [1] "data.R"       "hw1_data.csv" "y.R"
+
+``` r
+table <- read.csv("hw1_data.csv")
+
+colnames(table)
+```
+
+    ## [1] "Ozone"   "Solar.R" "Wind"    "Temp"    "Month"   "Day"
+
+## Question 12
+
+Extract the first 2 rows of the data frame and print them to the
+console.  
+What does the output look like?
+
+``` r
+table[1:2, ]
+```
+
+    ##   Ozone Solar.R Wind Temp Month Day
+    ## 1    41     190  7.4   67     5   1
+    ## 2    36     118  8.0   72     5   2
+
+``` r
+head(table, 2)
+```
+
+    ##   Ozone Solar.R Wind Temp Month Day
+    ## 1    41     190  7.4   67     5   1
+    ## 2    36     118  8.0   72     5   2
+
+## Question 13
+
+How many observations (i.e. rows) are in this data frame?
+
+``` r
+nrow(table)
+```
+
+    ## [1] 153
+
+## Question 14
+
+Extract the last 2 rows of the data frame and print them to the
+console.  
+What does the output look like?
+
+``` r
+tail(table, 2)
+```
+
+    ##     Ozone Solar.R Wind Temp Month Day
+    ## 152    18     131  8.0   76     9  29
+    ## 153    20     223 11.5   68     9  30
+
+## Question 15
+
+What is the value of `Ozone` in the 47th row?
+
+``` r
+table[47, "Ozone"]
+```
+
+    ## [1] 21
+
+## Question 16
+
+How many missing values are in the `Ozone` column of this data frame?
+
+``` r
+sum(is.na(table[, 1]))
+```
+
+    ## [1] 37
+
+## Question 17
+
+What is the mean of the `Ozone` column in this dataset?  
+Exclude missing values (coded as NA) from this calculation.
+
+``` r
+mean(table[, 1], na.rm = TRUE)
+```
+
+    ## [1] 42.12931
+
+``` r
+# OR
+x <- complete.cases(table[, 1])
+mean(table[x, 1])
+```
+
+    ## [1] 42.12931
+
+``` r
+# OR
+x <- is.na(table[, 1])
+mean(table[!x, 1])
+```
+
+    ## [1] 42.12931
+
+## Question 18
+
+Extract the subset of rows of the data frame where `Ozone` values are
+above 31 and `Temp` values are above 90.  
+What is the mean of Solar.R in this subset?
+
+``` r
+x <- complete.cases(table[, "Ozone"], table[, "Temp"])
+y <- table[x, ]
+# View(y)
+
+z <- y[y$Ozone > 31 & y$Temp > 90, ]
+# View(z)
+mean(z[, "Solar.R"])
+```
+
+    ## [1] 212.8
+
+## Question 19
+
+What is the mean of `Temp` when `Month` is equal to 6?
+
+``` r
+x <- table[table$Month == 6, ]
+mean(x[, "Temp"])
+```
+
+    ## [1] 79.1
+
+## Question 20
+
+What was the maximum `ozone` value in the month of May (i.e. Month is
+equal to 5)?
+
+``` r
+x <- table[table$Month == 5, ]
+max(x[, "Ozone"], na.rm = TRUE)
+```
+
+    ## [1] 115
