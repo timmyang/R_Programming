@@ -1,0 +1,108 @@
+---
+title: "R Notebook"
+output: rmarkdown::github_document
+---
+# 7: Matrices and Data Frames
+
+  |                                                                                                                                                                                                     |   0%
+
+| In this lesson, we'll cover matrices and data frames. Both represent 'rectangular' data types, meaning that they are used to store tabular data, with rows and columns.
+
+...
+
+  |=====                                                                                                                                                                                                |   3%
+| The main difference, as you'll see, is that matrices can only contain a single class of data, while data frames can consist of many different classes of data.
+
+...
+
+  |===========                                                                                                                                                                                          |   6%
+| Let's create a vector containing the numbers 1 through 20 using the `:` operator. Store the result in a variable called my_vector.
+
+> my_vector <- 1:20
+
+| That's correct!
+
+  |================                                                                                                                                                                                     |   8%
+| View the contents of the vector you just created.
+
+> my_vector
+ [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20
+
+| Perseverance, that's the answer.
+
+  |======================                                                                                                                                                                               |  11%
+| The dim() function tells us the 'dimensions' of an object. What happens if we do dim(my_vector)? Give it a try.
+
+**`> dim(my_vector)`**  
+**`NULL`**
+
+| Keep working like that and you'll get there!
+
+  |===========================                                                                                                                                                                          |  14%
+| Clearly, that's not very helpful! Since my_vector is a vector, it doesn't have a `dim` attribute (so it's just NULL), but we can find its length using the length() function. Try that now.
+
+> length(my_vector)
+[1] 20
+
+| You got it right!
+
+  |=================================                                                                                                                                                                    |  17%
+| Ah! That's what we wanted. But, what happens if we give my_vector a `dim` attribute? Let's give it a try. Type dim(my_vector) <- c(4, 5).
+
+**`> dim(my_vector) <- c(4, 5)'** 
+
+| That's the answer I was looking for.
+
+  |======================================                                                                                                                                                               |  19%
+| It's okay if that last command seemed a little strange to you. It should! The dim() function allows you to get OR set the `dim` attribute for an R object. In this case, we assigned the value c(4, 5) to
+| the `dim` attribute of my_vector.
+
+...
+
+  |============================================                                                                                                                                                         |  22%
+| Use dim(my_vector) to confirm that we've set the `dim` attribute correctly.
+
+**`> dim(my_vector)`**
+**`[1] 4 5`**
+
+| That's the answer I was looking for.
+
+  |=================================================                                                                                                                                                    |  25%
+| Another way to see this is by calling the attributes() function on my_vector. Try it now.
+
+**`> attributes(my_vector)`** 
+**`$dim`**  
+**[1] 4 5`**  
+
+
+| You are doing so well!
+
+  |=======================================================                                                                                                                                              |  28%
+| Just like in math class, when dealing with a 2-dimensional object (think rectangular table), the first number is the number of rows and the second is the number of columns. Therefore, we just gave
+| my_vector 4 rows and 5 columns.
+
+...
+
+  |============================================================                                                                                                                                         |  31%
+| But, wait! That doesn't sound like a vector any more. Well, it's not. Now it's a matrix. View the contents of my_vector now to see what it looks like.
+
+> my_vector
+     [,1] [,2] [,3] [,4] [,5]
+[1,]    1    5    9   13   17
+[2,]    2    6   10   14   18
+[3,]    3    7   11   15   19
+[4,]    4    8   12   16   20
+
+| You got it!
+
+  |==================================================================                                                                                                                                   |  33%
+| Now, let's confirm it's actually a matrix by using the class() function. Type class(my_vector) to see what I mean.
+
+**`> class(my_vector)`**  
+**`[1] "matrix" "array"`** 
+
+| You got it right!
+
+  |=======================================================================                                                                                                                              |  36%
+| Sure enough, my_vector is now a matrix. We should store it in a new variable that helps us remember what it is. Store the value of my_vector in a new variable called my_matrix.
+
