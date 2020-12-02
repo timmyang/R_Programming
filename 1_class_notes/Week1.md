@@ -1,7 +1,7 @@
 Week1
 ================
 
-# Table of Contents
+# Table of Contents (Summary)
 
   - **Review of Attributes**
 
@@ -22,6 +22,7 @@ Week1
       - List
       - Matrices
           - *m \<- 1:10, dim(m) \<- c(nrow, ncol)*
+          - *matrix(rep(10, 4), 2, 2)*
           - *cbind(), rbind()*
       - Factors
           - *x \<- factor(c(“yes”, “yes”, “no”), levels = c(“yes”,
@@ -36,6 +37,16 @@ Week1
       - Reading Data
           - *read.table(), read.csv(), readLines()*
       - Writing Data
+      - Reading Large Tables
+          - *dput(), dump(), dget()*
+      - Connections: Interfaces to the Outside World
+      - Subsetting: Basics
+      - Subsetting: Lists
+      - Subsetting: Matrices
+      - Subsetting: Partial Matching
+      - Subsetting: Removing Missing Values
+          - *x\[\!is.na(x)\], complete.cases(x, y)*
+      - Vectorized Operations
 
   - **Quiz**
 
@@ -144,7 +155,7 @@ Execute a function
 myfunction()
 ```
 
-    ## [1] 0.1744097
+    ## [1] 0.2119746
 
 Display a list of objects in the current environment
 
@@ -930,7 +941,7 @@ x[[c(2, 1)]]
 
     ## [1] 3.14
 
-## Subsetting - Matrices
+## Subsetting: Matrices
 
 ``` r
 x <- matrix(1:6, 2, 3)
@@ -995,7 +1006,7 @@ x[1, , drop = FALSE]
     ##      [,1] [,2] [,3]
     ## [1,]    1    3    5
 
-## Subsetting - Partial Matching
+## Subsetting: Partial Matching
 
 ``` r
 x <- list(aardvark = 1:5)
@@ -1023,7 +1034,7 @@ x [["a", exact = FALSE]]
 
     ## [1] 1 2 3 4 5
 
-## Subsetting - Removing Missing Values
+## Subsetting: Removing Missing Values
 
 ``` r
 x <- c(1, 2, NA, 4, NA, 5)
