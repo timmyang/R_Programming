@@ -24,7 +24,7 @@ output: rmarkdown::github_document
     - *matrix(rep(10, 4), 2, 2)*
     - *cbind(), rbind()*
   - Factors
-    - *x <- factor(c("yes", "yes", "no"), levels = c("yes", "no))*
+    - *x <- factor(c("yes", "yes", "no"), levels = c("yes", "no"))*
   - Missing Values  
     - *is.na(), is.nan()*
     - *is.na(NaN) = TRUE, is.nan(NA) = FALSE*
