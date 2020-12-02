@@ -7,7 +7,7 @@ Week1
 
   - **Background Material**
     
-      - working directory
+      - Working Directory
           - *getwd(), dir(), ls(), rm(list=ls()), source()*
 
   - **Week 1: Getting Started and R Nuts and Bolts**
@@ -26,12 +26,13 @@ Week1
           - *cbind(), rbind()*
       - Factors
           - *x \<- factor(c(“yes”, “yes”, “no”), levels = c(“yes”,
-            "no))*
+            “no”))*
       - Missing Values
           - *is.na(), is.nan()*
           - *is.na(NaN) = TRUE, is.nan(NA) = FALSE*
       - Data Frames
           - *nrow(), ncol()*
+          - *rownames(), colnames()*
       - Names
       - Summary
       - Reading Data
@@ -49,6 +50,10 @@ Week1
       - Vectorized Operations
 
   - **Quiz**
+    
+      - *head(table, 2), tail(table, 2)*
+      - *table\[, “Ozone”\], table\[table$Ozone \> 5, \]*
+      - *max(vector, na.rm = TRUE)*
 
 # Attributes (objects may have)
 
@@ -155,7 +160,7 @@ Execute a function
 myfunction()
 ```
 
-    ## [1] 0.2119746
+    ## [1] -0.01785642
 
 Display a list of objects in the current environment
 
@@ -1224,7 +1229,7 @@ apply)**
 (Answer):
 
   - **Atomic data types:** numeric, complex, integer, logical, character
-  - **non-atomic data types:** table, matrix, array, data frame, list
+  - **Data structures:** table, matrix, array, data frame, list
 
 ## Question 4
 

@@ -7,7 +7,7 @@ output: rmarkdown::github_document
 - **Review of Attributes**
   
 - **Background Material**
-  - working directory
+  - Working Directory
     - *getwd(), dir(), ls(), rm(list=ls()), source()*
     
 - **Week 1: Getting Started and R Nuts and Bolts** 
@@ -30,6 +30,7 @@ output: rmarkdown::github_document
     - *is.na(NaN) = TRUE, is.nan(NA) = FALSE*
   - Data Frames
     - *nrow(), ncol()*
+    - *rownames(), colnames()*
   - Names
   - Summary
   - Reading Data
@@ -48,6 +49,9 @@ output: rmarkdown::github_document
   
     
 - **Quiz** 
+  - *head(table, 2), tail(table, 2)* 
+  - *table[, "Ozone"], table[table$Ozone > 5, ]* 
+  - *max(vector, na.rm = TRUE)*
 
 # Attributes (objects may have)
 
@@ -636,7 +640,7 @@ x %*% y                 # true matrix multiplication
 (Answer):
 
 - **Atomic data types:** numeric, complex, integer, logical, character
-- **non-atomic data types:** table, matrix, array, data frame, list
+- **Data structures:** table, matrix, array, data frame, list
 
 ## Question 4
 **If I execute the expression `x <- 4` in R,**  
