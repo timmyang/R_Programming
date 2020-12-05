@@ -63,7 +63,7 @@ Execute a function
 myfunction()
 ```
 
-    ## [1] -0.03969725
+    ## [1] -0.1077409
 
 Display a list of objects in the current environment
 
@@ -1405,7 +1405,10 @@ max(x[, "Ozone"], na.rm = TRUE)
 
 *Date*
 
-*Time*
+Time
+
+  - **`POSIXct`**  
+  - **`POSIXt`**
 
 #### length
 

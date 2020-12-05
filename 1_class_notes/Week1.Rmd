@@ -709,7 +709,10 @@ max(x[, "Ozone"], na.rm = TRUE)
 
 *Date*  
 
-*Time*  
+Time   
+
+- **`POSIXct`** (default)   
+- **`POSIXlt`**
 
 
 #### length
@@ -782,7 +785,9 @@ max(x[, "Ozone"], na.rm = TRUE)
   - Reading Data
     - *read.table(), read.csv(), readLines()*
   - Reading Large Tables
-    - *dput(), dump(), dget()*
+    - *dput(), dump(), dget()*  
+  - Connections: Interfaces to the Outside World
+    - *str()*
   - Subsetting: Removing Missing Values
     - *x[!is.na(x)], complete.cases(x, y)*
   
