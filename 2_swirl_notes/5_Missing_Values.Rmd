@@ -1,5 +1,5 @@
 ---
-title: "R Notebook"
+title: "Practical R Exercises in Swirl"
 output: rmarkdown::github_document
 ---
 # 5: Missing Values 

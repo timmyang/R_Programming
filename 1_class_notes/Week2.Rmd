@@ -446,11 +446,11 @@ x-y
   - `seq_len(x)`  
 
 - **While Loops**  
-  - &, | = vectorized (returns multiple elements)  
-  - &&, || = (always returns a single value)  
+  - `&`, `|` = vectorized (returns multiple elements)  
+  - `&&`, `||` = (always returns a single value)  
 
 - **Functions**  
-  - rnorm(n) = A random, normal distribution with size = n, mean = 0, sd = 1 as a default  
+  - `rnorm(n)` = A random, normal distribution with size = n, mean = 0, sd = 1 as a default  
 
 - **Coding Standards**    
   - Auto indent = `Cmd + I`   
