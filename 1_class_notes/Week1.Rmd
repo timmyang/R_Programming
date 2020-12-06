@@ -326,6 +326,7 @@ the `colClasses` argument
 initial <- `read.table("datatable.txt", nrows = 100)`  
 classes <- `sapply(initial, class)`   
 tabAll <- `read.table("datatable.text", colClasses = classes)`  
+
 ## Textual Data Formats  
 `dumping` and `dputing` preserves metadata(sacrificing some readability), so that another user doesn't have to specify it all over again.  
 advantage: editable  
@@ -761,6 +762,7 @@ Time
   - factors (is an atomic vector with "labels (= levels)")  
 
 # Key Takeaway Functions
+Comment out a block of code: `Cmd` + `Shift` + `C`  
 
 - **Background Material**
   - Working Directory

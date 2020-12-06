@@ -46,7 +46,8 @@ Display a list of files in the working directory
 dir()
 ```
 
-    ## [1] "data.R"       "hw1_data.csv" "y.R"
+    ## [1] "data.R"          "hw1_data.csv"    "pollutantmean.R" "specdata"       
+    ## [5] "y.R"
 
 Create a function
 
@@ -63,7 +64,7 @@ Execute a function
 myfunction()
 ```
 
-    ## [1] -0.03563028
+    ## [1] 0.01050193
 
 Display a list of objects in the current environment
 
@@ -579,8 +580,10 @@ Set `comment.char = ""` if there are no commented lines in your file
 the `colClasses` argument  
 initial \<- `read.table("datatable.txt", nrows = 100)`  
 classes \<- `sapply(initial, class)`  
-tabAll \<- `read.table("datatable.text", colClasses = classes)`  
-\#\# Textual Data Formats  
+tabAll \<- `read.table("datatable.text", colClasses = classes)`
+
+## Textual Data Formats
+
 `dumping` and `dputing` preserves metadata(sacrificing some
 readability), so that another user doesn’t have to specify it all over
 again.  
@@ -1234,7 +1237,8 @@ getwd()
 dir()
 ```
 
-    ## [1] "data.R"       "hw1_data.csv" "y.R"
+    ## [1] "data.R"          "hw1_data.csv"    "pollutantmean.R" "specdata"       
+    ## [5] "y.R"
 
 ``` r
 table <- read.csv("hw1_data.csv")
@@ -1455,6 +1459,8 @@ Time
       - factors (is an atomic vector with “labels (= levels)”)
 
 # Key Takeaway Functions
+
+Comment out a block of code: `Cmd` + `Shift` + `C`
 
   - **Background Material**
       - Working Directory

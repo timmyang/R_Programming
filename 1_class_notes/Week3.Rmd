@@ -5,7 +5,7 @@ output: rmarkdown::github_document
 
 # Table of Contents  
 
-- Loop Functions  
+- **Loop Functions**  
   - lapply
   - sapply
   - apply
@@ -13,17 +13,17 @@ output: rmarkdown::github_document
   - tapply
   - split
 
-- Debugging Tools
+- **Debugging Tools**
   - Diagnosing the Problem
   - Basic Tools
   - Using the Tools
   - Summary
   
-- Quiz
+- **Quiz**
 
-- Programming Assignment
+- **Programming Assignment**
 
-- Key Takeaway Functions
+- **Key Takeaway Functions**
 
 # Loop Functions  
 

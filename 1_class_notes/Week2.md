@@ -27,6 +27,8 @@ Week 2
 
   - **Quiz**
 
+  - **Programming Assignment**
+
   - **Key Takeaway Functions**
 
 # Control Strcutures
@@ -485,7 +487,7 @@ get("pow", environment(cube))
     ## function(x) {
     ##                 x^n
     ##         }
-    ## <environment: 0x7fd496d37090>
+    ## <environment: 0x7fe0bf0bdd68>
 
 ``` r
 ls(environment(square))
@@ -506,8 +508,8 @@ get("pow", environment(square))
     ## function(x) {
     ##                 x^n
     ##         }
-    ## <bytecode: 0x7fd49aaeb740>
-    ## <environment: 0x7fd49a99d478>
+    ## <bytecode: 0x7fe0c128bd48>
+    ## <environment: 0x7fe0c1179258>
 
 #### Lexical Scoping in R vs. Dynamic Scoping
 
@@ -552,9 +554,15 @@ f <- function(x) {
 }
 ```
 
+``` r
+f(3)
+```
+
+    ## [1] 10
+
 #### Other Languages
 
-Support lexical scoping
+Supporting lexical scoping:
 
   - Scheme
   - Perl
@@ -616,40 +624,40 @@ x <- Sys.time() # already in *POSIXct* format
 x
 ```
 
-    ## [1] "2020-12-06 11:06:29 CST"
+    ## [1] "2020-12-06 17:51:38 CST"
 
 ``` r
 p <- as.POSIXct(x) # atomic vector (useful for a data frame)
 p
 ```
 
-    ## [1] "2020-12-06 11:06:29 CST"
+    ## [1] "2020-12-06 17:51:38 CST"
 
 ``` r
 unclass(p)
 ```
 
-    ## [1] 1607274389
+    ## [1] 1607298698
 
 ``` r
 p <- as.POSIXlt(x) # list
 p
 ```
 
-    ## [1] "2020-12-06 11:06:29 CST"
+    ## [1] "2020-12-06 17:51:38 CST"
 
 ``` r
 unclass(p)
 ```
 
     ## $sec
-    ## [1] 29.24422
+    ## [1] 38.34103
     ## 
     ## $min
-    ## [1] 6
+    ## [1] 51
     ## 
     ## $hour
-    ## [1] 11
+    ## [1] 17
     ## 
     ## $mday
     ## [1] 6
@@ -689,7 +697,7 @@ names(unclass(p))
 p$sec
 ```
 
-    ## [1] 29.24422
+    ## [1] 38.34103
 
 The`strptime` function in case your dates are written in a different
 format
@@ -706,7 +714,7 @@ x
 # ?strptime
 ```
 
-## Operations on Dates and Times:
+## Operations on Dates and Times
 
 ``` r
 x <- as.Date("2012-01-01")
@@ -721,23 +729,209 @@ x-y
 
 ## Question 1
 
+**Suppose I define the following function in R**
+
+``` r
+cube <- function(x, n) {
+        x^3
+}
+```
+
+**What is the result of running**
+
+``` r
+cube(3)
+```
+
+    ## [1] 27
+
 ## Question 2
+
+**The following code will produce a warning in R**  
+`x <- 1:10`  
+`if(x > 5) {`  
+`x <- 0`  
+`}`
+
+(Answer): `x` is a vector of length 10 and `if` can only test a single
+logical statement.
 
 ## Question 3
 
+**Consider the following function**
+
+``` r
+f <- function(x) {
+        g <- function(y) {
+                y + z
+        }
+        z <- 4
+        x + g(x)
+}
+```
+
+**If I then run in R, what value is returned?**
+
+``` r
+z <- 10
+f(3)
+```
+
+    ## [1] 10
+
 ## Question 4
+
+**Consider the following expression:**
+
+``` r
+x <- 5
+y <- if(x < 3) {
+        NA
+} else {
+        10
+}
+```
+
+**What is the value of `y` after evaluating this expression?**
+
+``` r
+y
+```
+
+    ## [1] 10
 
 ## Question 5
 
+**Consider the following R function**
+
+``` r
+h <- function(x, y = NULL, d = 2L) {
+        z <- cbind(x, d)
+        if(!is.null(y)) {
+                z <- z + y
+        }
+        else {
+                z <- z + f
+        }
+        
+        g <- x + y / z
+        if(d == 3L) {
+                return(g)
+        }
+        
+        g <- g + 10
+        g
+} 
+```
+
+**which symbol in the above function is a free variable?**  
+(Answer): f
+
 ## Question 6
+
+**What is an environment in R?**  
+(Answer): a collection of symbol/value pairs
 
 ## Question 7
 
+**The R language uses what type of scoping rule for resolving free
+variables?**  
+(Answer): lexical scoping
+
 ## Question 8
+
+**How are free variables in R functions resolved?**  
+(Answer): The values of free variables are searched for in the
+environment in which the function was defined
 
 ## Question 9
 
+**What is one of the consequences of the scoping rules used in R?**  
+(Answer): All objects must be stored in memory
+
 ## Question 10
+
+**In R, what is the parent frame?**  
+(Answer): It is the environment in which a function was called
+
+# Programming Assignment
+
+Get working directory
+
+``` r
+getwd()
+```
+
+    ## [1] "/Users/hyeonwooyang/Desktop/Desktop/5_Coursera/1_R_Programming/git_project/1_class_notes"
+
+Set a new working directory
+
+``` r
+setwd("/Users/hyeonwooyang/Desktop/Desktop/5_Coursera/1_R_Programming/git_project/data")
+```
+
+## Part 1
+
+``` r
+pollutantmean <- function(directory, pollutant, id = 1:332) {
+        # Setting working directory
+        setwd(paste("/Users/hyeonwooyang/Desktop/Desktop/5_Coursera/1_R_Programming/git_project/data", directory, sep = "/"))
+        
+        # Reading files from the given id range
+        df <- data.frame()
+        for(i in id) {
+                if(i < 10) {
+                        x <- data.frame(read.csv(paste("00", i, ".csv", sep = "")))
+                        df <- rbind(df, x)
+                }
+                else if(i < 100) {
+                        x <- data.frame(read.csv(paste("0", i, ".csv", sep = "")))
+                        df <- rbind(df, x)
+                }
+                else {
+                        x <- data.frame(read.csv(paste(i, ".csv", sep = "")))
+                        df <- rbind(df, x)
+                }
+        }
+        
+        # Which pollutant? sulfate or nitrate?
+        mean(df[, pollutant], na.rm = TRUE)
+}
+```
+
+``` r
+# Saving the function (object) to a file
+dump("pollutantmean", file = "pollutantmean.R")
+```
+
+``` r
+print(R.version.string)
+```
+
+    ## [1] "R version 4.0.2 (2020-06-22)"
+
+``` r
+rm(list = ls())
+source("pollutantmean.R")
+```
+
+``` r
+pollutantmean("specdata", "sulfate", 1:10)
+```
+
+    ## [1] 4.064128
+
+``` r
+pollutantmean("specdata", "nitrate", 70:72)
+```
+
+    ## [1] 1.706047
+
+``` r
+pollutantmean("specdata", "nitrate", 23)
+```
+
+    ## [1] 1.280833
 
 # Key Takeaway Functions
 
