@@ -481,7 +481,7 @@ get("pow", environment(cube))
     ## function(x) {
     ##                 x^n
     ##         }
-    ## <environment: 0x7ffe20649e80>
+    ## <environment: 0x7ffd0f52c888>
 
 ``` r
 ls(environment(square))
@@ -502,8 +502,8 @@ get("pow", environment(square))
     ## function(x) {
     ##                 x^n
     ##         }
-    ## <bytecode: 0x7ffe1eecfd30>
-    ## <environment: 0x7ffe1edc3468>
+    ## <bytecode: 0x7ffd0f752338>
+    ## <environment: 0x7ffd0f63b670>
 
 **Lexical Scoping in R vs. Dynamic Scoping:**
 
@@ -611,43 +611,43 @@ x <- Sys.time() # already in *POSIXct* format
 x
 ```
 
-    ## [1] "2020-12-03 00:24:27 CST"
+    ## [1] "2020-12-05 19:36:49 CST"
 
 ``` r
 p <- as.POSIXct(x) # atomic vector (useful for a data frame)
 p
 ```
 
-    ## [1] "2020-12-03 00:24:27 CST"
+    ## [1] "2020-12-05 19:36:49 CST"
 
 ``` r
 unclass(p)
 ```
 
-    ## [1] 1606976668
+    ## [1] 1607218609
 
 ``` r
 p <- as.POSIXlt(x) # list
 p
 ```
 
-    ## [1] "2020-12-03 00:24:27 CST"
+    ## [1] "2020-12-05 19:36:49 CST"
 
 ``` r
 unclass(p)
 ```
 
     ## $sec
-    ## [1] 27.8126
+    ## [1] 49.13732
     ## 
     ## $min
-    ## [1] 24
+    ## [1] 36
     ## 
     ## $hour
-    ## [1] 0
+    ## [1] 19
     ## 
     ## $mday
-    ## [1] 3
+    ## [1] 5
     ## 
     ## $mon
     ## [1] 11
@@ -656,10 +656,10 @@ unclass(p)
     ## [1] 120
     ## 
     ## $wday
-    ## [1] 4
+    ## [1] 6
     ## 
     ## $yday
-    ## [1] 337
+    ## [1] 339
     ## 
     ## $isdst
     ## [1] 0
@@ -684,7 +684,7 @@ names(unclass(p))
 p$sec
 ```
 
-    ## [1] 27.8126
+    ## [1] 49.13732
 
 The`strptime` function in case your dates are written in a different
 format
@@ -740,10 +740,10 @@ x-y
       - `seq_along(x)`  
       - `seq_len(x)`
   - **While Loops**
-      - &, | = vectorized (returns multiple elements)  
-      - &&, || = (always returns a single value)
+      - `&`, `|` = vectorized (returns multiple elements)  
+      - `&&`, `||` = (always returns a single value)
   - **Functions**
-      - rnorm(n) = A random, normal distribution with size = n, mean =
+      - `rnorm(n)` = A random, normal distribution with size = n, mean =
         0, sd = 1 as a default
   - **Coding Standards**
       - Auto indent = `Cmd + I`

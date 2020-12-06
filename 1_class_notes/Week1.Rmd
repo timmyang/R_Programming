@@ -700,7 +700,7 @@ max(x[, "Ozone"], na.rm = TRUE)
     - **complex:** `c(1 + 4i)`  
 
   - **Factors**:  atomic vectors with "labels (= levels)", `factor(c("yes", "no"))`         
-  - **Matrix** (array):  atomic vectors, `matrix(1:6, nrow = 2, ncol = 3)` with "dimension" attributes,  
+  - **Matrix** (two dimensional array):  atomic vectors, `matrix(1:6, nrow = 2, ncol = 3)` with "dimension" attributes  
 
 - **List:**  vectors consisted of multiple classes, `list(1, "a")`    
   - **Data Frame:**  every element = same "length", but != same "type", `data.frame(foo = 1:2, bar = c(T, F))` with "dimension" attributes      

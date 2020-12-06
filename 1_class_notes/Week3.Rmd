@@ -1,0 +1,492 @@
+---
+title: "Week 3"
+output: rmarkdown::github_document
+---
+
+# Table of Contents  
+
+- Loop Functions  
+  - lapply
+  - sapply
+  - apply
+  - mapply
+  - tapply
+  - split
+
+- Debugging Tools
+  - Diagnosing the Problem
+  - Basic Tools
+  - Using the Tools
+  - Summary
+  
+- Quiz
+
+- Programming Assignment
+
+- Key Takeaway Functions
+
+# Loop Functions  
+
+- `lapply`: Loop over a "list" and evaluate a function on each element
+- `sapply`: Same as `lapply` but try to "simplify" the result
+- `apply`: Apply a function over the "margins" of an "array"
+- `mapply`: "Multivariate" version of `lapply`
+- `tapply`: Apply a function over "subsets" of a "vector"
+
+An auxiliary function `split` is also useful, particularly in conjunction with `lapply`. Splits objects into sub-pieces.
+
+#### lapply    
+Takes three arguments  
+
+1. a list `X` (if X is not a list, it will be coerced to a list using `as.list`)
+2. a function `FUN`
+3. `...`
+
+```{r}
+lapply
+```
+
+```{r}
+x <- list(a = 1:5, b = rnorm(10))
+lapply(x, mean)
+```
+`lapply` always returns a list.  
+
+```{r}
+x <- 1:4
+lapply(x, runif, min = 0, max = 10)
+```
+
+`lapply` makes heavy use of *anonymous* functions, functions that have no names.
+```{r}
+x <- list(a = matrix(1:4, 2, 2), b = matrix(1:6, 3, 2))
+x
+```
+
+An anonymous function for extracting the first column of each matrix.
+```{r}
+lapply(x, function(elt) {elt[, 1]})
+```
+
+#### sapply
+`sapply` will try to simplify the result of `lapply` if possible.
+
+- If the result is a list where every element is "length 1", then "a vector" is returned
+- If the result is a list where every element is a vector of "the same length" (> 1), "a matrix" is returned
+- If it can't figure things out, "a list" is returned
+
+```{r}
+x <- list(a = 1:4, b = rnorm(10), c = rnorm(20, 1), d = rnorm(100, 5))
+lapply(x, mean)
+sapply(x, mean)
+```
+
+#### apply   
+`apply` is used to evaluate a function (often an anonymous one) over the margins of an **array**.
+
+- It is most often used to apply a function to the rows or columns of a matrix
+- It can be used with general arrays, e.g. taking the average of an array of matrices
+- It is not really faster than writing a loop, but it works in one line!
+
+```{r}
+str(apply)
+```
+
+- `X` is an **array**
+- `MARGIN` is an integer vector indicating which margins should be "retained".
+- `FUN` is a function to be applied
+- `...` is fr other arguments to be passed to `FUN`
+
+```{r}
+x <- matrix(rnorm(200), 20, 10) # dimension 1 has 20 rows, and dimension 2 has 10 columns
+apply(x, 2, mean) 
+apply(x, 1, sum)
+```
+
+- `rowSums` = `apply(x, 1, sum)`
+- `rowMeans` = `apply(x, 1, mean)`
+- `colSums` = `apply(x, 2, sum)`
+- `colMeans` = `apply(x, 2, mean)`
+
+```{r}
+x <- matrix(rnorm(200), 20, 10)
+apply(x, 1, quantile, probs = c(0.25, 0.75))
+```
+
+```{r}
+a <- array(rnorm(2 * 2 * 10), c(2, 2, 10))
+apply(a, c(1, 2), mean) # collapse (average over) the 3rd dimension
+apply(a, 1, mean)
+apply(a, 2, mean)
+```
+
+#### mapply    
+`mapply` is a multivariate apply of sorts which applies a function in parallel over a set of arguments.  
+`mapply` can take multiple list arguments and then apply a function to the elements of thos of the multipe lists in parallel.
+
+```{r}
+str(mapply)
+```
+
+- `FUN` is a function to apply (the number of arguments of `FUN` >= the number of lists to be passed)
+- `...` contains arguments to apply over
+- `MoreArgs` is a list of other arguments to `FUN`.
+- `Simplify` indicates whether the result should be simplified
+
+The following is tedious to type
+```{r}
+list(rep(1, 4), rep(2, 3), rep(3, 2), rep(4, 1))
+```
+Instead we can do
+```{r}
+mapply(rep, 1:4, 4:1)
+```
+
+#### tapply    
+`tapply` is used to apply a function over subsets of a vector.
+```{r}
+str(tapply)
+```
+
+- `X` is a vector
+- `INDEX` is a factor or a list of factors (or else they are coerced to factors) "same length as `X`"
+- `FUN` is a function to be applied
+- `...` contains other arguments to be passed `FUN`
+- `simplify`, should we simplify the result?
+
+```{r}
+x <- c(rnorm(10), runif(10), rnorm(10, 1))
+x
+
+f <- gl(3, 10)
+f
+
+tapply(x, f, mean)
+tapply(x, f, mean, simplify = FALSE)
+```
+
+#### split  
+Always returns a list.  
+`tapply` without summary statistics  
+`split` takes a vector or other objects and splits it into groups determined by a factor or a list of factors.
+```{r}
+str(split)
+```
+
+- `x` is a vector (or list) or data frame
+- `f` is a factor (or coerced to one) or a list of factors
+- `drop` indicates whether empty factors levels should be dropped
+
+```{r}
+x <- c(rnorm(10), runif(10), rnorm(10, 1))
+f <- gl(3, 10)
+split(x, f)
+```
+
+```{r}
+lapply(split(x, f), mean) # = tapply(x, f, mean)
+```
+
+```{r}
+library(datasets)
+head(airquality)
+
+# Split the data frame to "monthly" pieces
+s <- split(airquality, airquality$Month)
+airquality$Month
+
+lapply(s, function(x) {colMeans(x[, c("Ozone", "Solar.R", "Wind")], na.rm = TRUE)})
+sapply(s, function(x) {colMeans(x[, c("Ozone", "Solar.R", "Wind")], na.rm = TRUE)})
+```
+
+**Splitting on More than One Level:**  
+```{r}
+x <- rnorm(10)
+f1 <- gl(2, 5)
+f2 <- gl(5, 2)
+
+f1
+f2
+
+interaction(f1, f2)
+```
+
+Interactions can create empty levels.
+```{r}
+str(split(x, list(f1, f2))) # drop = FALSE
+```
+
+# Debugging Tools  
+
+#### Diagnosing the Problem  
+Indications that something's not right  
+
+- `message`: A generic notification/diagnostic message. Execution of the function continues
+- `warning`: Something wrong, but not fatal. Execution of the function continues
+- `error`: A fatal problem has occurred. Execution stops
+- `condition`: Something unexpected can occur. Programmers can create their own conditions
+
+**Warning:**  
+```{r}
+log(-1)
+```
+
+**Error:**  
+```{r}
+printmessage <- function(x) {
+        if(x > 0) {
+                print("x is greater than zero")
+        }
+        else {
+                print("x is less than or equal to zero")
+        }
+        invisible(x) # prevents auto printing
+}
+
+printmessage(1)
+# printmessage(NA)
+## Error in if (x > 0) { : missing value where TRUE/FALSE needed
+```
+
+Fix this problem 
+```{r}
+printmessage2 <- function(x) {
+        if(is.na(x)) {
+                print("x is a missing value!")
+        }
+        else if (x > 0) {
+                print("x is greater than zero")
+        }
+        else {
+                print("x is less than or equal to zero")
+        }
+        invisible(x)
+}
+
+x <- log(-1)
+printmessage2(x)
+```
+
+#### Basic Tools  
+The primary tools for debugging functions in R are  
+
+- `traceback`: prints out the "function call stack" after an error occurs; tells you how many function calls you are in and where the error occurred 
+- `debug`: flags a function for "debug" mode
+- `browser`: suspends the execution of a function wherever it is called and puts the function in debug mode
+- `trace`: allows you to insert debugging code into a function in specific places
+- `recover`: "a error handler function". allows you to modify the error behavior, to browse the function call stack
+
+#### Using the Tools  
+**traceback:**  
+```{r}
+rm(list = ls())
+
+# mean(x)
+## Error in mean(x) : object 'x' not found
+
+# traceback()
+## 1: mean(x)
+
+# lm(y ~ x)
+## Error in eval(expr, envir, enclos) : object `y` not found
+
+## traceback()
+## 7: eval(expr, envir, enclos)         <- this is where the error occurred
+## 6: eval(predvars, data, env)
+## 5: model.frame.default(formula = y ~ x, drop.unused.levels = TRUE)
+## 4: model.frame(formula = y ~ x, drop.unused.levels = TRUE)
+## 3: eval(expr, envir, enclose)
+## 2: eval(mf, parent.frame())
+## 1: lm(y ~ x)
+```
+
+**debug:**  
+```{r}
+# debug(lm)
+# lm(y ~x)
+## debugging in: lm(y ~ x)
+## debug: {
+##      ret.x <- x
+##      ret.y <- y
+##      cl <- match.call()
+##      ...
+##      if (!qr)
+##              z$qr <- NULL
+##      z
+## }
+## Browse[2]>                   <- This is the prompt. Now you are in the browser
+```
+
+```{r}
+# Browse[2]> n                   <- 'n' stands for 'next'
+## debug: ret.x <- x
+# Browse[2]> n
+## debug: ret.y <- y
+# Browse[2]> n
+## debug: cl <- match.call()
+# Browse[2]> n
+## debug: mf <- match.call(expand.dots = FALSE)
+# Browse[2]> n
+## debug: m <- match(c("formula", "data", "subset", "weights", "na.action", 
+##      "offset"), names(mf), 0L)
+```
+
+**recover:**  
+```{r}
+options(error = recover)
+# read.csv("nosuchfile")
+## Error in file(file, "rt") : cannot open the connection
+## In addition: Warning message:
+## In file(file, "rt") :
+##      cannot open file 'nosuchfile': No such file or directory
+##
+## Enter a frame number, or 0 to exit
+##
+## 1: read.csv("nosuchfile")
+## 2: read.table(file = file, header = header, sep = sep, quote = quote, dec =
+## 3: file(file, "rt")          <- this is where the error occurred
+##
+## Selection:
+```
+
+#### Summary  
+
+- There are "three" main indications of a problem/condition: `message, warning, error`  
+  - only an `error` is fatal
+- When analyzing a function with a problem, make sure you can "reproduce" the problem, clearly state your "expectations" and how the output "differs" from your expectation
+- Interactive debugging tools `traceback, debug, browser, trace,` and `recover` can be used to find problematic code in functions
+- Debugging tools are not a substitute for thinking!
+
+# Week 3 Quiz  
+
+## Question 1  
+**Take a look at the 'iris' dataset that comes with R.**  
+*The data can be loaded with the code:**
+```{r}
+library(datasets)
+data(iris)
+```
+
+**A description of the dataset can be found by running**
+```{r}
+?iris
+head(iris)
+```
+
+**There will be an obejct called 'iris' in your workspace. In this dataset, what is the mean of 'Sepal.Length' for the species *virginica*?**  
+
+**Please round your answer to the nearest whole number.**  
+```{r}
+x <- iris[iris$Species == "virginica", ]
+mean(x[, "Sepal.Length"])
+
+y <- tapply(iris$Sepal.Length, iris$Species, mean)
+y
+
+mean(y["virginica"])
+```
+
+(Answer): 7
+
+## Question 2  
+**Continuing with the 'iris' dataset from the previous Question, what R code returns a vector of the means of the variables 'Sepal.Length', 'Sepal.Width', and 'Petal.Width'?**  
+
+```{r}
+head(iris)
+
+apply(iris[, 1:4], 2, mean)
+```
+
+## Question 3  
+**Load the 'mtcars' dataset in R with the following code**  
+```{r}
+library(datasets)
+data(mtcars)
+```
+
+**There will be an object names 'mtcars' in your workspace.**  
+**You can find some information about the dataset by running**  
+```{r}
+?mtcars
+head(mtcars)
+```
+
+**How can one calculate the average miles per gallon (mpg) by number of cylinders in the car (cyl)?**  
+**Select all that apply.**  
+
+```{r}
+sapply(split(mtcars$mpg, mtcars$cyl), mean)
+
+tapply(mtcars$mpg, mtcars$cyl, mean)
+
+with(mtcars, tapply(mpg, cyl, mean))
+```
+
+## Question 4  
+**Continuing with the 'mtcars' dataset from the previous Question,** 
+**what is the absolute difference between the average horsepower of 4-cylinder cars and the average horsepower of 8-cylinder cars?**  
+
+**(Please round your final answer to the nearest whole number)**  
+```{r}
+t <- tapply(mtcars$hp, mtcars$cyl, mean, simplify = FALSE)
+t
+
+abs(t[["4"]] - t[["8"]])
+```
+
+(Answer): 127
+
+## Question 5  
+**If you run**  
+```{r}
+debug(ls)
+```
+**What happens when you next call the 'ls()' function?**  
+```{r}
+# ls()
+## debugging in: ls()
+## debug: {
+##     if (!missing(name)) {
+##         pos <- tryCatch(name, error = function(e) e)
+##         if (inherits(pos, "error")) {
+##             name <- substitute(name)
+##             if (!is.character(name)) 
+##                 name <- deparse(name)
+##             warning(gettextf("%s converted to character string", 
+##                 sQuote(name)), domain = NA)
+##             pos <- name
+##         }
+##     }
+##     all.names <- .Internal(ls(envir, all.names, sorted))
+##     if (!missing(pattern)) {
+##         if ((ll <- length(grep("[", pattern, fixed = TRUE))) && 
+##             ll != length(grep("]", pattern, fixed = TRUE))) {
+##             if (pattern == "[") {
+##                 pattern <- "\\["
+##                 warning("replaced regular expression pattern '[' by  '\\\\['")
+##             }
+##             else if (length(grep("[^\\\\]\\[<-", pattern))) {
+##                 pattern <- sub("\\[<-", "\\\\\\[<-", pattern)
+##                 warning("replaced '[<-' by '\\\\[<-' in regular expression pattern")
+##             }
+##         }
+##         grep(pattern, all.names, value = TRUE)
+##     }
+##     else all.names
+## }
+## Browse[2]> 
+```
+
+(Answer): Execution of 'ls' will suspend at the beginning of the function and you will be in the browser  
+
+# Programming Assignment  
+
+# Key Takeaway Functions
+
+- **Loop Functions**  
+  - lapply
+    - *rnorm(n, mean = 0, sd = 1), runif(n, min = 0, max = 1)*
+    
+- **Debugging Tools**
+  - Diagnosing the Problem
+    - *invisible()*

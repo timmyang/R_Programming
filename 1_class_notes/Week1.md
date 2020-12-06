@@ -63,7 +63,7 @@ Execute a function
 myfunction()
 ```
 
-    ## [1] -0.1077409
+    ## [1] -0.02372719
 
 Display a list of objects in the current environment
 
@@ -1394,8 +1394,8 @@ max(x[, "Ozone"], na.rm = TRUE)
           - **complex:** `c(1 + 4i)`
       - **Factors**: atomic vectors with “labels (= levels)”,
         `factor(c("yes", "no"))`  
-      - **Matrix** (array): atomic vectors, `matrix(1:6, nrow = 2, ncol
-        = 3)` with “dimension” attributes,
+      - **Matrix** (two dimensional array): atomic vectors, `matrix(1:6,
+        nrow = 2, ncol = 3)` with “dimension” attributes
   - **List:** vectors consisted of multiple classes, `list(1, "a")`
       - **Data Frame:** every element = same “length”, but \!= same
         “type”, `data.frame(foo = 1:2, bar = c(T, F))` with
@@ -1407,8 +1407,8 @@ max(x[, "Ozone"], na.rm = TRUE)
 
 Time
 
-  - **`POSIXct`**  
-  - **`POSIXt`**
+  - **`POSIXct`** (default)  
+  - **`POSIXlt`**
 
 #### length
 
@@ -1479,7 +1479,9 @@ Time
       - Reading Data
           - *read.table(), read.csv(), readLines()*
       - Reading Large Tables
-          - *dput(), dump(), dget()*
+          - *dput(), dump(), dget()*  
+      - Connections: Interfaces to the Outside World
+          - *str()*
       - Subsetting: Removing Missing Values
           - *x\[\!is.na(x)\], complete.cases(x, y)*
   - **Quiz**
