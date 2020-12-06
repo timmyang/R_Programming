@@ -1,0 +1,7 @@
+---
+title: "Practical R Exercises in Swirl"
+output: rmarkdown::github_document
+---
+
+# 11: vapply and tapply  
+

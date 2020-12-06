@@ -35,7 +35,7 @@ output: rmarkdown::github_document
 
 An auxiliary function `split` is also useful, particularly in conjunction with `lapply`. Splits objects into sub-pieces.
 
-#### lapply    
+## lapply    
 Takes three arguments  
 
 1. a list `X` (if X is not a list, it will be coerced to a list using `as.list`)
@@ -68,7 +68,7 @@ An anonymous function for extracting the first column of each matrix.
 lapply(x, function(elt) {elt[, 1]})
 ```
 
-#### sapply
+## sapply
 `sapply` will try to simplify the result of `lapply` if possible.
 
 - If the result is a list where every element is "length 1", then "a vector" is returned
@@ -81,7 +81,7 @@ lapply(x, mean)
 sapply(x, mean)
 ```
 
-#### apply   
+## apply   
 `apply` is used to evaluate a function (often an anonymous one) over the margins of an **array**.
 
 - It is most often used to apply a function to the rows or columns of a matrix
@@ -120,7 +120,7 @@ apply(a, 1, mean)
 apply(a, 2, mean)
 ```
 
-#### mapply    
+## mapply    
 `mapply` is a multivariate apply of sorts which applies a function in parallel over a set of arguments.  
 `mapply` can take multiple list arguments and then apply a function to the elements of thos of the multipe lists in parallel.
 
@@ -142,7 +142,7 @@ Instead we can do
 mapply(rep, 1:4, 4:1)
 ```
 
-#### tapply    
+## tapply    
 `tapply` is used to apply a function over subsets of a vector.
 ```{r}
 str(tapply)
@@ -165,7 +165,7 @@ tapply(x, f, mean)
 tapply(x, f, mean, simplify = FALSE)
 ```
 
-#### split  
+## split  
 Always returns a list.  
 `tapply` without summary statistics  
 `split` takes a vector or other objects and splits it into groups determined by a factor or a list of factors.
@@ -199,7 +199,7 @@ lapply(s, function(x) {colMeans(x[, c("Ozone", "Solar.R", "Wind")], na.rm = TRUE
 sapply(s, function(x) {colMeans(x[, c("Ozone", "Solar.R", "Wind")], na.rm = TRUE)})
 ```
 
-**Splitting on More than One Level:**  
+#### Splitting on More than One Level  
 ```{r}
 x <- rnorm(10)
 f1 <- gl(2, 5)
@@ -218,7 +218,7 @@ str(split(x, list(f1, f2))) # drop = FALSE
 
 # Debugging Tools  
 
-#### Diagnosing the Problem  
+## Diagnosing the Problem  
 Indications that something's not right  
 
 - `message`: A generic notification/diagnostic message. Execution of the function continues
@@ -226,12 +226,12 @@ Indications that something's not right
 - `error`: A fatal problem has occurred. Execution stops
 - `condition`: Something unexpected can occur. Programmers can create their own conditions
 
-**Warning:**  
+#### Warning
 ```{r}
 log(-1)
 ```
 
-**Error:**  
+#### Error
 ```{r}
 printmessage <- function(x) {
         if(x > 0) {
@@ -267,7 +267,7 @@ x <- log(-1)
 printmessage2(x)
 ```
 
-#### Basic Tools  
+## Basic Tools  
 The primary tools for debugging functions in R are  
 
 - `traceback`: prints out the "function call stack" after an error occurs; tells you how many function calls you are in and where the error occurred 
@@ -276,8 +276,8 @@ The primary tools for debugging functions in R are
 - `trace`: allows you to insert debugging code into a function in specific places
 - `recover`: "a error handler function". allows you to modify the error behavior, to browse the function call stack
 
-#### Using the Tools  
-**traceback:**  
+## Using the Tools  
+#### traceback  
 ```{r}
 rm(list = ls())
 
@@ -300,7 +300,7 @@ rm(list = ls())
 ## 1: lm(y ~ x)
 ```
 
-**debug:**  
+#### debug  
 ```{r}
 # debug(lm)
 # lm(y ~x)
@@ -331,7 +331,7 @@ rm(list = ls())
 ##      "offset"), names(mf), 0L)
 ```
 
-**recover:**  
+#### recover   
 ```{r}
 options(error = recover)
 # read.csv("nosuchfile")
@@ -349,7 +349,7 @@ options(error = recover)
 ## Selection:
 ```
 
-#### Summary  
+## Summary  
 
 - There are "three" main indications of a problem/condition: `message, warning, error`  
   - only an `error` is fatal

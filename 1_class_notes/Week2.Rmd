@@ -29,7 +29,7 @@ output: rmarkdown::github_document
 
 # Control Strcutures
 
-#### Introduction
+## Introduction
 Common structures in R:
 
 - `if, else`
@@ -40,7 +40,7 @@ Common structures in R:
 - `next`
 - `return`
 
-#### If-else
+## If-else
 
 ```{r}
 x <- 0
@@ -54,7 +54,7 @@ if(x > 3) {
 }
 ```
 
-#### For loops
+## For loops
 ```{r}
 for(i in 1:10) {
         print(i)
@@ -92,7 +92,7 @@ for(i in seq_len(nrow(x))) {
 }
 ```
 
-#### While loop
+## While loop
 Conditions are always evaluated from left to right
 ```{r}
 count <- 0
@@ -104,8 +104,8 @@ while(count >= 0 && count < 10) {
 &, | = vectorized (returns multiple elements)  
 &&, || = (always returns a single value)
 
-#### Repeat, Next, Break
-#### Repeat
+## Repeat, Next, Break
+#### Repeat  
 Initiates an *infinite loop*. The only way to exit a `repeat` loop is to call `break`.
 ```{r}
 x0 <- 1
@@ -174,7 +174,7 @@ columnmean(airquality, FALSE)
 columnmean(airquality)
 ```
 
-#### Functions (Part 1)
+## Functions (Part 1)
 Functions are R objects of class "function"  
 Functions in R are "first class objects", which means that they can be treated much like any other R object    
 
@@ -185,20 +185,20 @@ Functions have `named arguments` which potentially have `default` values.
 
 When an argument is matched by name, it is "taken out" of the argument list and the remaining, unnamed arguments are matched "in the order" that they are listed in the function definition.
 
-**Argument Matching:**  
+#### Argument Matching    
 The order of operations when given an argument is  
 
 1. Check for *exact* match for a named argument
 2. Check for a *partial* match
 3. Check for a *positional* match
 
-#### Functions (Part 2)
+## Functions (Part 2)
 ```{r}
 f <- function(a, b = 1, c = 2, d = NULL) { # a, b, c, d are "formal" arguments
         
 }
 ```
-**Lazy Evaluation:**  
+#### Lazy Evaluation
 Arguments to functions are evaluated *only* as needed
 ```{r}
 f <- function(a, b) {
@@ -215,7 +215,7 @@ f <- function(a, b) {
 `[1] 45`  
 `## Error: argument "b" is missing, with no default`  
 
-**The "..." Argument:**  
+#### The "..." Argument  
 Any arguments that appear *after* ... on the argument list must be named explicitly and cannot be partially matched  
 ```{r}
 args(paste)
@@ -225,7 +225,7 @@ paste("a", "b", se = ":")
 ```
 
 # Scoping Rules
-#### Symbol Binding 
+## Symbol Binding 
 The scoping rules determine how a value is associated with `a free variable (symbol, name)` in a function  
 
 When R tries to bind a value to `a free variable (symbol, name)`, the order is roughly:  
@@ -241,7 +241,7 @@ The order of the packages on the search list matters!
 
 When a user loads a package with `library` the namespace of that package gets put in the 2 of the search list (by default) and everything else gets shifted down the list.  
 
-**Lexical Scoping (R Scoping Rules):**  
+#### Lexical Scoping (R Scoping Rules)    
 Means that *the values of free variables are searched for in the environment in which the function was defined.*  
 What is an *environment*?  
 
@@ -306,7 +306,7 @@ get("n", environment(square))
 get("pow", environment(square))
 ```
 
-**Lexical Scoping in R vs. Dynamic Scoping:**  
+#### Lexical Scoping in R vs. Dynamic Scoping    
 ```{r}
 y <- 10
 
@@ -343,15 +343,15 @@ f <- function(x) {
 }
 ```
 
-**Other Languages:**  
-Support lexical scoping
+#### Other Languages  
+Supporting lexical scoping:
 
 - Scheme
 - Perl
 - Python
 - Common Lisp
 
-#### Optimization Example (Optional)
+## Optimization Example (Optional)
 
 # Coding Standards
 
@@ -410,7 +410,7 @@ x
 # ?strptime
 ```
 
-**Operations on Dates and Times:**  
+## Operations on Dates and Times    
 ```{r}
 x <- as.Date("2012-01-01")
 y <- as.Date("2011-01-09 01:00:00")

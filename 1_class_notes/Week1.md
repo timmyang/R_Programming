@@ -63,7 +63,7 @@ Execute a function
 myfunction()
 ```
 
-    ## [1] -0.02372719
+    ## [1] -0.03563028
 
 Display a list of objects in the current environment
 
@@ -675,8 +675,9 @@ head(x)
     ## [5] "<meta charset=\"utf-8\" />"                                    
     ## [6] "<title>Johns Hopkins Bloomberg School of Public Health</title>"
 
-## Subsetting: Basics
+## Subsetting
 
+**Basics:**  
 `[` always returns an `object` of the same class as original (vector -\>
 vector) (list -\> list)  
 Can be used to select more than one element of an object (there is one
@@ -718,7 +719,7 @@ x[u]
 
     ## [1] "b" "c" "c" "d"
 
-## Subsetting: Lists
+**Lists:**
 
 ``` r
 x <- list(foo = 1:4, bar = 0.6)
@@ -849,7 +850,7 @@ x[[c(2, 1)]]
 
     ## [1] 3.14
 
-## Subsetting: Matrices
+**Matrices**:
 
 ``` r
 x <- matrix(1:6, 2, 3)
@@ -914,7 +915,7 @@ x[1, , drop = FALSE]
     ##      [,1] [,2] [,3]
     ## [1,]    1    3    5
 
-## Subsetting: Partial Matching
+**Partial Matching:**
 
 ``` r
 x <- list(aardvark = 1:5)
@@ -942,7 +943,7 @@ x [["a", exact = FALSE]]
 
     ## [1] 1 2 3 4 5
 
-## Subsetting: Removing Missing Values
+**Removing Missing Values:**
 
 ``` r
 x <- c(1, 2, NA, 4, NA, 5)

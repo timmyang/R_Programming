@@ -31,7 +31,7 @@ Week 2
 
 # Control Strcutures
 
-#### Introduction
+## Introduction
 
 Common structures in R:
 
@@ -43,7 +43,7 @@ Common structures in R:
   - `next`
   - `return`
 
-#### If-else
+## If-else
 
 ``` r
 x <- 0
@@ -57,7 +57,7 @@ if(x > 3) {
 }
 ```
 
-#### For loops
+## For loops
 
 ``` r
 for(i in 1:10) {
@@ -139,7 +139,7 @@ for(i in seq_len(nrow(x))) {
     ## [1] 4
     ## [1] 6
 
-#### While loop
+## While loop
 
 Conditions are always evaluated from left to right
 
@@ -165,7 +165,7 @@ while(count >= 0 && count < 10) {
 &, | = vectorized (returns multiple elements)  
 &&, || = (always returns a single value)
 
-#### Repeat, Next, Break
+## Repeat, Next, Break
 
 #### Repeat
 
@@ -261,7 +261,7 @@ columnmean(airquality)
 
     ## [1]  42.129310 185.931507   9.957516  77.882353   6.993464  15.803922
 
-#### Functions (Part 1)
+## Functions (Part 1)
 
 Functions are R objects of class “function”  
 Functions in R are “first class objects”, which means that they can be
@@ -279,14 +279,15 @@ When an argument is matched by name, it is “taken out” of the argument
 list and the remaining, unnamed arguments are matched “in the order”
 that they are listed in the function definition.
 
-**Argument Matching:**  
+#### Argument Matching
+
 The order of operations when given an argument is
 
 1.  Check for *exact* match for a named argument
 2.  Check for a *partial* match
 3.  Check for a *positional* match
 
-#### Functions (Part 2)
+## Functions (Part 2)
 
 ``` r
 f <- function(a, b = 1, c = 2, d = NULL) { # a, b, c, d are "formal" arguments
@@ -294,7 +295,8 @@ f <- function(a, b = 1, c = 2, d = NULL) { # a, b, c, d are "formal" arguments
 }
 ```
 
-**Lazy Evaluation:**  
+#### Lazy Evaluation
+
 Arguments to functions are evaluated *only* as needed
 
 ``` r
@@ -317,7 +319,8 @@ f <- function(a, b) {
 `[1] 45`  
 `## Error: argument "b" is missing, with no default`
 
-**The “…” Argument:**  
+#### The “…” Argument
+
 Any arguments that appear *after* … on the argument list must be named
 explicitly and cannot be partially matched
 
@@ -342,7 +345,7 @@ paste("a", "b", se = ":")
 
 # Scoping Rules
 
-#### Symbol Binding
+## Symbol Binding
 
 The scoping rules determine how a value is associated with `a free
 variable (symbol, name)` in a function
@@ -370,7 +373,8 @@ When a user loads a package with `library` the namespace of that package
 gets put in the 2 of the search list (by default) and everything else
 gets shifted down the list.
 
-**Lexical Scoping (R Scoping Rules):**  
+#### Lexical Scoping (R Scoping Rules)
+
 Means that *the values of free variables are searched for in the
 environment in which the function was defined.*  
 What is an *environment*?
@@ -481,7 +485,7 @@ get("pow", environment(cube))
     ## function(x) {
     ##                 x^n
     ##         }
-    ## <environment: 0x7ffd0f52c888>
+    ## <environment: 0x7fd496d37090>
 
 ``` r
 ls(environment(square))
@@ -502,10 +506,10 @@ get("pow", environment(square))
     ## function(x) {
     ##                 x^n
     ##         }
-    ## <bytecode: 0x7ffd0f752338>
-    ## <environment: 0x7ffd0f63b670>
+    ## <bytecode: 0x7fd49aaeb740>
+    ## <environment: 0x7fd49a99d478>
 
-**Lexical Scoping in R vs. Dynamic Scoping:**
+#### Lexical Scoping in R vs. Dynamic Scoping
 
 ``` r
 y <- 10
@@ -548,7 +552,8 @@ f <- function(x) {
 }
 ```
 
-**Other Languages:**  
+#### Other Languages
+
 Support lexical scoping
 
   - Scheme
@@ -556,7 +561,7 @@ Support lexical scoping
   - Python
   - Common Lisp
 
-#### Optimization Example (Optional)
+## Optimization Example (Optional)
 
 # Coding Standards
 
@@ -611,43 +616,43 @@ x <- Sys.time() # already in *POSIXct* format
 x
 ```
 
-    ## [1] "2020-12-05 19:36:49 CST"
+    ## [1] "2020-12-06 11:06:29 CST"
 
 ``` r
 p <- as.POSIXct(x) # atomic vector (useful for a data frame)
 p
 ```
 
-    ## [1] "2020-12-05 19:36:49 CST"
+    ## [1] "2020-12-06 11:06:29 CST"
 
 ``` r
 unclass(p)
 ```
 
-    ## [1] 1607218609
+    ## [1] 1607274389
 
 ``` r
 p <- as.POSIXlt(x) # list
 p
 ```
 
-    ## [1] "2020-12-05 19:36:49 CST"
+    ## [1] "2020-12-06 11:06:29 CST"
 
 ``` r
 unclass(p)
 ```
 
     ## $sec
-    ## [1] 49.13732
+    ## [1] 29.24422
     ## 
     ## $min
-    ## [1] 36
+    ## [1] 6
     ## 
     ## $hour
-    ## [1] 19
+    ## [1] 11
     ## 
     ## $mday
-    ## [1] 5
+    ## [1] 6
     ## 
     ## $mon
     ## [1] 11
@@ -656,10 +661,10 @@ unclass(p)
     ## [1] 120
     ## 
     ## $wday
-    ## [1] 6
+    ## [1] 0
     ## 
     ## $yday
-    ## [1] 339
+    ## [1] 340
     ## 
     ## $isdst
     ## [1] 0
@@ -684,7 +689,7 @@ names(unclass(p))
 p$sec
 ```
 
-    ## [1] 49.13732
+    ## [1] 29.24422
 
 The`strptime` function in case your dates are written in a different
 format
@@ -701,7 +706,7 @@ x
 # ?strptime
 ```
 
-**Operations on Dates and Times:**
+## Operations on Dates and Times:
 
 ``` r
 x <- as.Date("2012-01-01")
