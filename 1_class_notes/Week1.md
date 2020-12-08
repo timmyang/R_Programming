@@ -64,7 +64,7 @@ Execute a function
 myfunction()
 ```
 
-    ## [1] 0.01050193
+    ## [1] 0.03905466
 
 Display a list of objects in the current environment
 
@@ -680,7 +680,8 @@ head(x)
 
 ## Subsetting
 
-**Basics:**  
+#### Basics
+
 `[` always returns an `object` of the same class as original (vector -\>
 vector) (list -\> list)  
 Can be used to select more than one element of an object (there is one
@@ -722,7 +723,7 @@ x[u]
 
     ## [1] "b" "c" "c" "d"
 
-**Lists:**
+#### Lists
 
 ``` r
 x <- list(foo = 1:4, bar = 0.6)
@@ -853,7 +854,7 @@ x[[c(2, 1)]]
 
     ## [1] 3.14
 
-**Matrices**:
+#### Matrices
 
 ``` r
 x <- matrix(1:6, 2, 3)
@@ -918,7 +919,7 @@ x[1, , drop = FALSE]
     ##      [,1] [,2] [,3]
     ## [1,]    1    3    5
 
-**Partial Matching:**
+#### Partial Matching
 
 ``` r
 x <- list(aardvark = 1:5)
@@ -946,7 +947,7 @@ x [["a", exact = FALSE]]
 
     ## [1] 1 2 3 4 5
 
-**Removing Missing Values:**
+#### Removing Missing Values
 
 ``` r
 x <- c(1, 2, NA, 4, NA, 5)

@@ -487,7 +487,7 @@ get("pow", environment(cube))
     ## function(x) {
     ##                 x^n
     ##         }
-    ## <environment: 0x7fe0bf0bdd68>
+    ## <environment: 0x7ff32d085f80>
 
 ``` r
 ls(environment(square))
@@ -508,8 +508,8 @@ get("pow", environment(square))
     ## function(x) {
     ##                 x^n
     ##         }
-    ## <bytecode: 0x7fe0c128bd48>
-    ## <environment: 0x7fe0c1179258>
+    ## <bytecode: 0x7ff32b35cb18>
+    ## <environment: 0x7ff32b2113f0>
 
 #### Lexical Scoping in R vs. Dynamic Scoping
 
@@ -624,40 +624,40 @@ x <- Sys.time() # already in *POSIXct* format
 x
 ```
 
-    ## [1] "2020-12-06 17:51:38 CST"
+    ## [1] "2020-12-06 18:00:28 CST"
 
 ``` r
 p <- as.POSIXct(x) # atomic vector (useful for a data frame)
 p
 ```
 
-    ## [1] "2020-12-06 17:51:38 CST"
+    ## [1] "2020-12-06 18:00:28 CST"
 
 ``` r
 unclass(p)
 ```
 
-    ## [1] 1607298698
+    ## [1] 1607299228
 
 ``` r
 p <- as.POSIXlt(x) # list
 p
 ```
 
-    ## [1] "2020-12-06 17:51:38 CST"
+    ## [1] "2020-12-06 18:00:28 CST"
 
 ``` r
 unclass(p)
 ```
 
     ## $sec
-    ## [1] 38.34103
+    ## [1] 28.47044
     ## 
     ## $min
-    ## [1] 51
+    ## [1] 0
     ## 
     ## $hour
-    ## [1] 17
+    ## [1] 18
     ## 
     ## $mday
     ## [1] 6
@@ -697,7 +697,7 @@ names(unclass(p))
 p$sec
 ```
 
-    ## [1] 38.34103
+    ## [1] 28.47044
 
 The`strptime` function in case your dates are written in a different
 format
@@ -932,6 +932,10 @@ pollutantmean("specdata", "nitrate", 23)
 ```
 
     ## [1] 1.280833
+
+## Part 2
+
+## Part 3
 
 # Key Takeaway Functions
 
