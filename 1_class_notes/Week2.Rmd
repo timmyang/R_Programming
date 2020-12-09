@@ -542,6 +542,7 @@ knitr::opts_knit$set(root.dir = "/Users/hyeonwooyang/Desktop/Desktop/5_Coursera/
 ```
 
 ## Part 1  
+**Write a function named 'pollutantmean' that calculates the mean of a pollutant (sulfate or nitrate) across a specified list of monitors. The function 'pollutantmean' takes three arguments: 'directory', 'pollutant', and 'id'. Given a vector monitor ID numbers, 'pollutantmean' reads that monitors' particulate matter data from the directory specified in the 'directory' argument and returns the mean of the pollutant across all of the monitors, ignoring any missing values coded as NA.**  
 ```{r}
 pollutantmean <- function(directory, pollutant, id = 1:332) {
         # Setting working directory
@@ -549,6 +550,7 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
         
         # Reading files from the given id range
         df <- data.frame()
+        
         for(i in id) {
                 if(i < 10) {
                         x <- data.frame(read.csv(paste("00", i, ".csv", sep = "")))
@@ -590,23 +592,236 @@ pollutantmean("specdata", "nitrate", 23)
 ```
 
 ## Part 2  
+**Write a function that reads a directory full of files and reports the number of completely observed cases in each data file. The function should return a data frame where the first column is the name of the file and the second column is the number of complete cases.**  
+```{r}
+complete <- function(directory, id = 1:332) {
+        # Setting working directory
+        setwd(paste("/Users/hyeonwooyang/Desktop/Desktop/5_Coursera/1_R_Programming/git_project/data", directory, sep = "/"))
+        
+        # Reading files from the given id range
+        df <- data.frame()
+        
+        for(i in id) {
+                if(i < 10) {
+                        x <- data.frame(read.csv(paste("00", i, ".csv", sep = "")))
+                        s <- sum(complete.cases(x))
+                        df <- rbind(df, c(i, s))
+                }
+                else if(i < 100) {
+                        x <- data.frame(read.csv(paste("0", i, ".csv", sep = "")))
+                        s <- sum(complete.cases(x))
+                        df <- rbind(df, c(i, s))
+                }
+                else {
+                        x <- data.frame(read.csv(paste(i, ".csv", sep = "")))
+                        s <- sum(complete.cases(x))
+                        df <- rbind(df, c(i, s))
+                }
+        }
+        
+        names(df) <- c("id", "nobs")
+        
+        # Return the dataframe
+        df
+}
+```
+
+```{r}
+# Saving the function (object) to a file
+dump("complete", file = "complete.R")
+```
+
+```{r}
+rm(list = ls())
+source("complete.R")
+complete("specdata", 1)
+complete("specdata", c(2, 4, 8, 10, 12))
+complete("specdata", 30:25)
+complete("specdata", 3)
+```
 
 ## Part 3  
+**Write a function that takes a directory of data files and a threshold for complete cases and calculates the correlation between sulfate and nitrate for monitor locations where the number of completely observed cases (on all variables) is greater than the threshold. The function should return a vector of correlations for the monitors that meet the threshold requirement. If no monitors meet the threshold requirement, then the function should return a numeric vector of length 0.**  
+```{r}
+corr <- function(directory, threshold = 0) {
+        # Setting working directory
+        setwd(paste("/Users/hyeonwooyang/Desktop/Desktop/5_Coursera/1_R_Programming/git_project/data", directory, sep = "/"))
+        
+        # Reading files from the given id range
+        v <- c()
+        
+        for(i in 1:332) {
+                if(i < 10) {
+                        x <- data.frame(read.csv(paste("00", i, ".csv", sep = "")))
+                        s <- sum(complete.cases(x))
+                                
+                        if(s > threshold) {
+                                good <- complete.cases(x)
+                                c <- cor(x[good, ][, "sulfate"], x[good, ][, "nitrate"])
+                                v <- append(v, c)
+                        }
+                }
+                else if(i < 100) {
+                        x <- data.frame(read.csv(paste("0", i, ".csv", sep = "")))
+                        s <- sum(complete.cases(x))
+                        
+                        if(s > threshold) {
+                                good <- complete.cases(x)
+                                c <- cor(x[good, ][, "sulfate"], x[good, ][, "nitrate"])
+                                v <- append(v, c)
+                        }
+                }
+                else {
+                        x <- data.frame(read.csv(paste(i, ".csv", sep = "")))
+                        s <- sum(complete.cases(x))
+                        
+                        if(s > threshold) {
+                                good <- complete.cases(x)
+                                c <- cor(x[good, ][, "sulfate"], x[good, ][, "nitrate"])
+                                v <- append(v, c)
+                        }
+                }
+        }
+
+        # Return a numeric vector of correlations
+        v
+}
+```
+
+```{r}
+# Saving the function (object) to a file
+dump("corr", file = "corr.R")
+```
+
+```{r}
+rm(list = ls())
+source("corr.R")
+
+cr <- corr("specdata", 150)
+head(cr)
+summary(cr)
+
+cr <- corr("specdata", 400)
+head(cr)
+summary(cr)
+
+cr <- corr("specdata", 5000)
+summary(cr)
+length(cr)
+
+cr <- corr("specdata")
+summary(cr)
+length(cr)
+```
+
+## Programming Assignment Quiz 
+
+```{r}
+rm(list = ls())
+source("pollutantmean.R")
+source("complete.R")
+source("corr.R")
+```
 
 
+#### Question 1  
+**What value is returned by the following call to pollutantmean()?**  
+**You should round your output to 3 digits.**  
+```{r}
+pollutantmean("specdata", "sulfate", 1:10)
+```
+
+#### Question 2  
+**What value is returned by the following call to pollutantmean()?**  
+**You should round your output to 3 digits.**  
+```{r}
+pollutantmean("specdata", "nitrate", 70:72)
+```
+
+#### Question 3  
+**What value is returned by the following call to pollutantmean()?**  
+**You should round your output to 3 digits.**  
+```{r}
+pollutantmean("specdata", "sulfate", 34)
+```
+
+#### Question 4  
+**What value is returned by the following call to pollutantmean()?**  
+**You should round your output to 3 digits.**  
+```{r}
+pollutantmean("specdata", "nitrate")
+```
+
+#### Question 5  
+**What value is printed at the end of the following code?**  
+```{r}
+cc <- complete("specdata", c(6, 10, 20, 34, 100, 200, 310))
+print(cc$nobs)
+```
+
+#### Question 6   
+**What value is printed at the end of the following code?**  
+```{r}
+cc <- complete("specdata", 54)
+print(cc$nobs)
+```
+
+#### Question 7  
+**What value is printed at the end of the following code?**  
+```{r}
+RNGversion("3.5.1")
+set.seed(42)
+cc <- complete("specdata", 332:1)
+use <- sample(332, 10)
+print(cc[use, "nobs"])
+```
+
+#### Question 8  
+**What value is printed at the end of the following code?**  
+```{r}
+cr <- corr("specdata")
+cr <- sort(cr)
+RNGversion("3.5.1")
+set.seed(868)
+out <- round(cr[sample(length(cr), 5)], 4)
+print(out)
+```
+
+#### Question 9  
+**What value is printed at the end of the following code?**  
+```{r}
+cr <- corr("specdata", 129)
+cr <- sort(cr)
+n <- length(cr)
+RNGversion("3.5.1")
+set.seed(197)
+out <- c(n, round(cr[sample(n, 5)], 4))
+print(out)
+```
+
+#### Question 10  
+**What value is printed at the end of the following code?**  
+```{r}
+cr <- corr("specdata", 2000)
+n <- length(cr)
+cr <- corr("specdata", 1000)
+cr <- sort(cr)
+print(c(n, round(cr, 4)))
+```
 
 # Key Takeaway Functions
 
-- **For Loops**  
-  - `seq_along(x)`  
-  - `seq_len(x)`  
+- **Control Structures**
+  - For Loops  
+    - `seq_along(x)`  
+    - `seq_len(x)`  
 
-- **While Loops**  
-  - `&`, `|` = vectorized (returns multiple elements)  
-  - `&&`, `||` = (always returns a single value)  
+  - While Loops  
+    - `&`, `|` = vectorized (returns multiple elements)  
+    - `&&`, `||` = (always returns a single value)  
 
-- **Functions**  
-  - `rnorm(n)` = A random, normal distribution with size = n, mean = 0, sd = 1 as a default  
+  - Functions  
+    - `rnorm(n)` = A random, normal distribution with size = n, mean = 0, sd = 1 as a default  
 
 - **Coding Standards**    
   - Auto indent = `Cmd + I`   
@@ -614,3 +829,6 @@ pollutantmean("specdata", "nitrate", 23)
 - **Date and Times**    
   - `as.Date("1970-01-01")`   
   - `Sys.time()`  
+  
+- **Programming Assignment**
+  - `append(vector, element, index)`

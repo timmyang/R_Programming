@@ -1,5 +1,5 @@
-pollutantmean <-
-function(directory, pollutant, id = 1:332) {
+complete <-
+function(directory, id = 1:332) {
         # Setting working directory
         setwd(paste("/Users/hyeonwooyang/Desktop/Desktop/5_Coursera/1_R_Programming/git_project/data", directory, sep = "/"))
         
@@ -9,18 +9,23 @@ function(directory, pollutant, id = 1:332) {
         for(i in id) {
                 if(i < 10) {
                         x <- data.frame(read.csv(paste("00", i, ".csv", sep = "")))
-                        df <- rbind(df, x)
+                        s <- sum(complete.cases(x))
+                        df <- rbind(df, c(i, s))
                 }
                 else if(i < 100) {
                         x <- data.frame(read.csv(paste("0", i, ".csv", sep = "")))
-                        df <- rbind(df, x)
+                        s <- sum(complete.cases(x))
+                        df <- rbind(df, c(i, s))
                 }
                 else {
                         x <- data.frame(read.csv(paste(i, ".csv", sep = "")))
-                        df <- rbind(df, x)
+                        s <- sum(complete.cases(x))
+                        df <- rbind(df, c(i, s))
                 }
         }
         
-        # Which pollutant? sulfate or nitrate?
-        mean(df[, pollutant], na.rm = TRUE)
+        names(df) <- c("id", "nobs")
+        
+        # Return the dataframe
+        df
 }

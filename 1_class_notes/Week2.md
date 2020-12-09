@@ -487,7 +487,7 @@ get("pow", environment(cube))
     ## function(x) {
     ##                 x^n
     ##         }
-    ## <environment: 0x7ff32d085f80>
+    ## <environment: 0x7fb2b8cc78a0>
 
 ``` r
 ls(environment(square))
@@ -508,8 +508,8 @@ get("pow", environment(square))
     ## function(x) {
     ##                 x^n
     ##         }
-    ## <bytecode: 0x7ff32b35cb18>
-    ## <environment: 0x7ff32b2113f0>
+    ## <bytecode: 0x7fb2b8550940>
+    ## <environment: 0x7fb2b8d1d630>
 
 #### Lexical Scoping in R vs. Dynamic Scoping
 
@@ -624,43 +624,43 @@ x <- Sys.time() # already in *POSIXct* format
 x
 ```
 
-    ## [1] "2020-12-06 18:00:28 CST"
+    ## [1] "2020-12-08 22:16:44 CST"
 
 ``` r
 p <- as.POSIXct(x) # atomic vector (useful for a data frame)
 p
 ```
 
-    ## [1] "2020-12-06 18:00:28 CST"
+    ## [1] "2020-12-08 22:16:44 CST"
 
 ``` r
 unclass(p)
 ```
 
-    ## [1] 1607299228
+    ## [1] 1607487405
 
 ``` r
 p <- as.POSIXlt(x) # list
 p
 ```
 
-    ## [1] "2020-12-06 18:00:28 CST"
+    ## [1] "2020-12-08 22:16:44 CST"
 
 ``` r
 unclass(p)
 ```
 
     ## $sec
-    ## [1] 28.47044
+    ## [1] 44.83854
     ## 
     ## $min
-    ## [1] 0
+    ## [1] 16
     ## 
     ## $hour
-    ## [1] 18
+    ## [1] 22
     ## 
     ## $mday
-    ## [1] 6
+    ## [1] 8
     ## 
     ## $mon
     ## [1] 11
@@ -669,10 +669,10 @@ unclass(p)
     ## [1] 120
     ## 
     ## $wday
-    ## [1] 0
+    ## [1] 2
     ## 
     ## $yday
-    ## [1] 340
+    ## [1] 342
     ## 
     ## $isdst
     ## [1] 0
@@ -697,7 +697,7 @@ names(unclass(p))
 p$sec
 ```
 
-    ## [1] 28.47044
+    ## [1] 44.83854
 
 The`strptime` function in case your dates are written in a different
 format
@@ -872,6 +872,15 @@ setwd("/Users/hyeonwooyang/Desktop/Desktop/5_Coursera/1_R_Programming/git_projec
 
 ## Part 1
 
+**Write a function named ‘pollutantmean’ that calculates the mean of a
+pollutant (sulfate or nitrate) across a specified list of monitors. The
+function ‘pollutantmean’ takes three arguments: ‘directory’,
+‘pollutant’, and ‘id’. Given a vector monitor ID numbers,
+‘pollutantmean’ reads that monitors’ particulate matter data from the
+directory specified in the ‘directory’ argument and returns the mean of
+the pollutant across all of the monitors, ignoring any missing values
+coded as NA.**
+
 ``` r
 pollutantmean <- function(directory, pollutant, id = 1:332) {
         # Setting working directory
@@ -879,6 +888,7 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
         
         # Reading files from the given id range
         df <- data.frame()
+        
         for(i in id) {
                 if(i < 10) {
                         x <- data.frame(read.csv(paste("00", i, ".csv", sep = "")))
@@ -935,21 +945,376 @@ pollutantmean("specdata", "nitrate", 23)
 
 ## Part 2
 
+**Write a function that reads a directory full of files and reports the
+number of completely observed cases in each data file. The function
+should return a data frame where the first column is the name of the
+file and the second column is the number of complete cases.**
+
+``` r
+complete <- function(directory, id = 1:332) {
+        # Setting working directory
+        setwd(paste("/Users/hyeonwooyang/Desktop/Desktop/5_Coursera/1_R_Programming/git_project/data", directory, sep = "/"))
+        
+        # Reading files from the given id range
+        df <- data.frame()
+        
+        for(i in id) {
+                if(i < 10) {
+                        x <- data.frame(read.csv(paste("00", i, ".csv", sep = "")))
+                        s <- sum(complete.cases(x))
+                        df <- rbind(df, c(i, s))
+                }
+                else if(i < 100) {
+                        x <- data.frame(read.csv(paste("0", i, ".csv", sep = "")))
+                        s <- sum(complete.cases(x))
+                        df <- rbind(df, c(i, s))
+                }
+                else {
+                        x <- data.frame(read.csv(paste(i, ".csv", sep = "")))
+                        s <- sum(complete.cases(x))
+                        df <- rbind(df, c(i, s))
+                }
+        }
+        
+        names(df) <- c("id", "nobs")
+        
+        # Return the dataframe
+        df
+}
+```
+
+``` r
+# Saving the function (object) to a file
+dump("complete", file = "complete.R")
+```
+
+``` r
+rm(list = ls())
+source("complete.R")
+complete("specdata", 1)
+```
+
+    ##   id nobs
+    ## 1  1  117
+
+``` r
+complete("specdata", c(2, 4, 8, 10, 12))
+```
+
+    ##   id nobs
+    ## 1  2 1041
+    ## 2  4  474
+    ## 3  8  192
+    ## 4 10  148
+    ## 5 12   96
+
+``` r
+complete("specdata", 30:25)
+```
+
+    ##   id nobs
+    ## 1 30  932
+    ## 2 29  711
+    ## 3 28  475
+    ## 4 27  338
+    ## 5 26  586
+    ## 6 25  463
+
+``` r
+complete("specdata", 3)
+```
+
+    ##   id nobs
+    ## 1  3  243
+
 ## Part 3
+
+**Write a function that takes a directory of data files and a threshold
+for complete cases and calculates the correlation between sulfate and
+nitrate for monitor locations where the number of completely observed
+cases (on all variables) is greater than the threshold. The function
+should return a vector of correlations for the monitors that meet the
+threshold requirement. If no monitors meet the threshold requirement,
+then the function should return a numeric vector of length 0.**
+
+``` r
+corr <- function(directory, threshold = 0) {
+        # Setting working directory
+        setwd(paste("/Users/hyeonwooyang/Desktop/Desktop/5_Coursera/1_R_Programming/git_project/data", directory, sep = "/"))
+        
+        # Reading files from the given id range
+        v <- c()
+        
+        for(i in 1:332) {
+                if(i < 10) {
+                        x <- data.frame(read.csv(paste("00", i, ".csv", sep = "")))
+                        s <- sum(complete.cases(x))
+                                
+                        if(s > threshold) {
+                                good <- complete.cases(x)
+                                c <- cor(x[good, ][, "sulfate"], x[good, ][, "nitrate"])
+                                v <- append(v, c)
+                        }
+                }
+                else if(i < 100) {
+                        x <- data.frame(read.csv(paste("0", i, ".csv", sep = "")))
+                        s <- sum(complete.cases(x))
+                        
+                        if(s > threshold) {
+                                good <- complete.cases(x)
+                                c <- cor(x[good, ][, "sulfate"], x[good, ][, "nitrate"])
+                                v <- append(v, c)
+                        }
+                }
+                else {
+                        x <- data.frame(read.csv(paste(i, ".csv", sep = "")))
+                        s <- sum(complete.cases(x))
+                        
+                        if(s > threshold) {
+                                good <- complete.cases(x)
+                                c <- cor(x[good, ][, "sulfate"], x[good, ][, "nitrate"])
+                                v <- append(v, c)
+                        }
+                }
+        }
+
+        # Return a numeric vector of correlations
+        v
+}
+```
+
+``` r
+# Saving the function (object) to a file
+dump("corr", file = "corr.R")
+```
+
+``` r
+rm(list = ls())
+source("corr.R")
+
+cr <- corr("specdata", 150)
+head(cr)
+```
+
+    ## [1] -0.01895754 -0.14051254 -0.04389737 -0.06815956 -0.12350667 -0.07588814
+
+``` r
+summary(cr)
+```
+
+    ##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+    ## -0.21057 -0.04999  0.09463  0.12525  0.26844  0.76313
+
+``` r
+cr <- corr("specdata", 400)
+head(cr)
+```
+
+    ## [1] -0.01895754 -0.04389737 -0.06815956 -0.07588814  0.76312884 -0.15782860
+
+``` r
+summary(cr)
+```
+
+    ##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+    ## -0.17623 -0.03109  0.10021  0.13969  0.26849  0.76313
+
+``` r
+cr <- corr("specdata", 5000)
+summary(cr)
+```
+
+    ## Length  Class   Mode 
+    ##      0   NULL   NULL
+
+``` r
+length(cr)
+```
+
+    ## [1] 0
+
+``` r
+cr <- corr("specdata")
+summary(cr)
+```
+
+    ##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+    ## -1.00000 -0.05282  0.10718  0.13684  0.27831  1.00000
+
+``` r
+length(cr)
+```
+
+    ## [1] 323
+
+## Programming Assignment Quiz
+
+``` r
+rm(list = ls())
+source("pollutantmean.R")
+source("complete.R")
+source("corr.R")
+```
+
+#### Question 1
+
+**What value is returned by the following call to pollutantmean()?**  
+**You should round your output to 3 digits.**
+
+``` r
+pollutantmean("specdata", "sulfate", 1:10)
+```
+
+    ## [1] 4.064128
+
+#### Question 2
+
+**What value is returned by the following call to pollutantmean()?**  
+**You should round your output to 3 digits.**
+
+``` r
+pollutantmean("specdata", "nitrate", 70:72)
+```
+
+    ## [1] 1.706047
+
+#### Question 3
+
+**What value is returned by the following call to pollutantmean()?**  
+**You should round your output to 3 digits.**
+
+``` r
+pollutantmean("specdata", "sulfate", 34)
+```
+
+    ## [1] 1.477143
+
+#### Question 4
+
+**What value is returned by the following call to pollutantmean()?**  
+**You should round your output to 3 digits.**
+
+``` r
+pollutantmean("specdata", "nitrate")
+```
+
+    ## [1] 1.702932
+
+#### Question 5
+
+**What value is printed at the end of the following code?**
+
+``` r
+cc <- complete("specdata", c(6, 10, 20, 34, 100, 200, 310))
+print(cc$nobs)
+```
+
+    ## [1] 228 148 124 165 104 460 232
+
+#### Question 6
+
+**What value is printed at the end of the following code?**
+
+``` r
+cc <- complete("specdata", 54)
+print(cc$nobs)
+```
+
+    ## [1] 219
+
+#### Question 7
+
+**What value is printed at the end of the following code?**
+
+``` r
+RNGversion("3.5.1")
+```
+
+    ## Warning in RNGkind("Mersenne-Twister", "Inversion", "Rounding"): non-uniform
+    ## 'Rounding' sampler used
+
+``` r
+set.seed(42)
+cc <- complete("specdata", 332:1)
+use <- sample(332, 10)
+print(cc[use, "nobs"])
+```
+
+    ##  [1] 711 135  74 445 178  73  49   0 687 237
+
+#### Question 8
+
+**What value is printed at the end of the following code?**
+
+``` r
+cr <- corr("specdata")
+cr <- sort(cr)
+RNGversion("3.5.1")
+```
+
+    ## Warning in RNGkind("Mersenne-Twister", "Inversion", "Rounding"): non-uniform
+    ## 'Rounding' sampler used
+
+``` r
+set.seed(868)
+out <- round(cr[sample(length(cr), 5)], 4)
+print(out)
+```
+
+    ## [1]  0.2688  0.1127 -0.0085  0.4586  0.0447
+
+#### Question 9
+
+**What value is printed at the end of the following code?**
+
+``` r
+cr <- corr("specdata", 129)
+cr <- sort(cr)
+n <- length(cr)
+RNGversion("3.5.1")
+```
+
+    ## Warning in RNGkind("Mersenne-Twister", "Inversion", "Rounding"): non-uniform
+    ## 'Rounding' sampler used
+
+``` r
+set.seed(197)
+out <- c(n, round(cr[sample(n, 5)], 4))
+print(out)
+```
+
+    ## [1] 243.0000   0.2540   0.0504  -0.1462  -0.1680   0.5969
+
+#### Question 10
+
+**What value is printed at the end of the following code?**
+
+``` r
+cr <- corr("specdata", 2000)
+n <- length(cr)
+cr <- corr("specdata", 1000)
+cr <- sort(cr)
+print(c(n, round(cr, 4)))
+```
+
+    ## [1]  0.0000 -0.0190  0.0419  0.1901
 
 # Key Takeaway Functions
 
-  - **For Loops**
-      - `seq_along(x)`  
-      - `seq_len(x)`
-  - **While Loops**
-      - `&`, `|` = vectorized (returns multiple elements)  
-      - `&&`, `||` = (always returns a single value)
-  - **Functions**
-      - `rnorm(n)` = A random, normal distribution with size = n, mean =
-        0, sd = 1 as a default
+  - **Control Structures**
+      - For Loops
+          - `seq_along(x)`  
+          - `seq_len(x)`
+      - While Loops
+          - `&`, `|` = vectorized (returns multiple elements)  
+          - `&&`, `||` = (always returns a single value)
+      - Functions
+          - `rnorm(n)` = A random, normal distribution with size = n,
+            mean = 0, sd = 1 as a default
   - **Coding Standards**
       - Auto indent = `Cmd + I`
   - **Date and Times**
       - `as.Date("1970-01-01")`  
       - `Sys.time()`
+  - **Programming Assignment**
+      - `append(vector, element, index)`

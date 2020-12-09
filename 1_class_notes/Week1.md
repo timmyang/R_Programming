@@ -46,8 +46,8 @@ Display a list of files in the working directory
 dir()
 ```
 
-    ## [1] "data.R"          "hw1_data.csv"    "pollutantmean.R" "specdata"       
-    ## [5] "y.R"
+    ## [1] "complete.R"      "corr.R"          "data.R"          "hw1_data.csv"   
+    ## [5] "pollutantmean.R" "specdata"        "y.R"
 
 Create a function
 
@@ -64,7 +64,7 @@ Execute a function
 myfunction()
 ```
 
-    ## [1] 0.03905466
+    ## [1] -0.07392159
 
 Display a list of objects in the current environment
 
@@ -1238,8 +1238,8 @@ getwd()
 dir()
 ```
 
-    ## [1] "data.R"          "hw1_data.csv"    "pollutantmean.R" "specdata"       
-    ## [5] "y.R"
+    ## [1] "complete.R"      "corr.R"          "data.R"          "hw1_data.csv"   
+    ## [5] "pollutantmean.R" "specdata"        "y.R"
 
 ``` r
 table <- read.csv("hw1_data.csv")
@@ -1465,34 +1465,36 @@ Comment out a block of code: `Cmd` + `Shift` + `C`
 
   - **Background Material**
       - Working Directory
-          - *getwd(), dir(), ls(), rm(list=ls()), source()*
+          - `getwd(), dir(), ls(), rm(list=ls()), source()`
   - **Week 1: Getting Started and R Nuts and Bolts**
       - Numbers
-          - *Inf, NaN*
+          - `Inf, NaN`
       - Mixing Objects
-          - *as.numeric(), as.logical(), as.character()*
+          - `as.numeric(), as.logical(), as.character()`
       - Matrices
-          - *m \<- 1:10, dim(m) \<- c(nrow, ncol)*
-          - *matrix(rep(10, 4), 2, 2)*
-          - *cbind(), rbind()*
+          - `m <- 1:10, dim(m) <- c(nrow, ncol)`
+          - `matrix(rep(10, 4), 2, 2)`
+          - `cbind(), rbind()`
       - Factors
-          - *x \<- factor(c(“yes”, “yes”, “no”), levels = c(“yes”,
-            “no”))*
+          - `x <- factor(c("yes", "yes", "no"), levels = c("yes",
+            "no"))`
       - Missing Values
-          - *is.na(), is.nan()*
-          - *is.na(NaN) = TRUE, is.nan(NA) = FALSE*
+          - `is.na(), is.nan()`
+          - `is.na(NaN) = TRUE, is.nan(NA) = FALSE`
       - Data Frames
-          - *nrow(), ncol()*
-          - *rownames(), colnames()*
+          - `nrow(), ncol()`
+          - `rownames(), colnames()`
       - Reading Data
-          - *read.table(), read.csv(), readLines()*
+          - `read.table(), read.csv(), readLines()`
+      - Writing Data
+          - `str()`
       - Reading Large Tables
-          - *dput(), dump(), dget()*  
+          - `dput(), dump(), dget()`  
       - Connections: Interfaces to the Outside World
-          - *str()*
+          - `str()`
       - Subsetting: Removing Missing Values
-          - *x\[\!is.na(x)\], complete.cases(x, y)*
+          - `x[!is.na(x)], complete.cases(x, y)`
   - **Quiz**
-      - *head(table, 2), tail(table, 2)*
-      - *table\[, “Ozone”\], table\[table$Ozone \> 5, \]*
-      - *max(vector, na.rm = TRUE)*
+      - `head(table, 2), tail(table, 2)`
+      - `table[, "Ozone"], table[table$Ozone > 5, ]`
+      - `max(vector, na.rm = TRUE)`
