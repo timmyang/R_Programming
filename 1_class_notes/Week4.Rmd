@@ -1,0 +1,147 @@
+---
+title: "Week 4"
+output: rmarkdown::github_document
+---
+
+# Table of Contents
+
+- **The str Function**
+
+- **Simulation**
+  - Generating Random Numbers
+  - Simulating a Linear Model
+  - Random Sampling
+  
+- **R Profiler**
+  - Part 1
+  - Part 2
+  
+- **Quiz**
+
+- **Programming Assignment**
+
+- **Key Takeaway Functions**
+
+# The str Function  
+
+`str()`: Compactly display the internal "structure" of an R object
+
+- A diagnostic function and an alternative to `summary`
+- It is especially well suited to compactly display the (abbreviated) contents of (possibly nested) lists
+- Roughly one line per basic object
+
+**What's in this object?**  
+
+```{r}
+str(str)
+```
+It is a function that takes any object  
+
+**Function**
+```{r}
+str(lm)
+str(ls)
+```
+
+**Vector**
+```{r}
+x <- rnorm(100, 2, 4)
+summary(x)
+str(x)
+```
+
+**Factor**
+```{r}
+f <- gl(40, 10)
+f
+
+str(f)
+summary(f) # displays the number of elements in each level
+```
+
+**Data Frame**
+```{r}
+library(datasets)
+head(airquality)
+summary(airquality)
+str(airquality)
+```
+
+**Matrix**
+```{r}
+m <- matrix(rnorm(100), 10, 10)
+str(m) # Matrix is a two-dimensional array
+m[, 1]
+```
+
+**List**
+```{r}
+s <- split(airquality, airquality$Month)
+str(s)
+```
+
+# Simulation  
+
+## Generating Random Numbers  
+
+Functions for *probability distributions* in R  
+
+- `rnorm`: generate "**r**andom **norm**al" variates with a given *mean* and *standard deviation*
+- `dnorm`: evaluate the "**norm**al probability **d**ensity" (with a given mean/SD) at a point (or vector of points)
+- `pnorm`: evaluate the "**cumulative** distribution function" for a **norm**al distribution
+- `rpois`: generate **r**andom **pois**son variates with a given rate
+
+*Probability distribution functions* usually have "four" functions associated with them.  
+The functions are prefixed with a:  
+
+- `d` for density
+- `r` for random number generation
+- `p` for cumulative distribution
+- `q` for quantile function
+
+Working with the *normal* distributions requires using these "four" functions
+```{r}
+# dnorm(x, mean = 0, sd = 1, log = FALSE)
+# pnorm(q, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
+# qnorm(p, mean = 0, sd = 1, lowertail = TRUE, log.p = FALSE)
+# rnorm(n, mean = 0, sd = 1)
+```
+
+If $\Phi$ is the *cumulative distribution function* for a standard normal distribution, then `pnorm(q)` = $$\Phi$$(q) and `qnorm(p)` = TeX("$\Phi^{-1}(p)$")
+
+<img src="https://latex.codecogs.com/gif.latex? \Phi^{-1}(p)  " />  
+
+
+
+## Simulating a Linear Model  
+
+## Random Sampling  
+
+
+
+# R Profiler  
+
+## Part 1  
+
+## Part 2  
+
+
+
+# Quiz  
+
+
+
+# Programming Assignment  
+
+
+
+# Key Takeaway Functions
+
+- **The str Function**
+  - *str()*
+  
+<https://www.stat.cmu.edu/~cshalizi/rmarkdown/#math-in-r-markdown>  
+<https://bookdown.org/yihui/rmarkdown/html-document.html#mathjax-equations>  
+
+  
+  
