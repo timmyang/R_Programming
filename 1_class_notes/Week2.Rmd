@@ -327,35 +327,35 @@ new_counter <- function(c) {
 }
 ```
 
-#### Get `new_counter()`'s environment
+Get `new_counter()`'s environment
 ```{r}
 ls(environment(new_counter))
 ```
 
-#### Create `counter_one()` and `counter_two()` functions
+Create `counter_one()` and `counter_two()` functions
 ```{r}
 counter_one <- new_counter()
 counter_two <- new_counter()
 ```
 
-#### Get `new_counter()`, `counter_one()` and `counter_two()`'s environment
+Get `new_counter()`, `counter_one()` and `counter_two()`'s environment
 ```{r}
 ls(environment(new_counter))
 ls(environment(counter_one))
 ls(environment(counter_two))
 ```
 
-#### Get `i` in `counter_one()`'s environment
+Get `i` in `counter_one()`'s environment
 ```{r}
 get("i", environment(counter_one))
 ```
 
-#### Get `d` in `counter_one()`'s environment
+Get `d` in `counter_one()`'s environment
 ```{r}
 get("d", environment(counter_one))
 ```
 
-#### Call `counter_one()` once
+Call `counter_one()` once
 ```{r}
 counter_one()
 
@@ -363,13 +363,13 @@ ls(environment(counter_one))
 get("i", environment(counter_one))
 ```
 
-#### Get `counter_two()`'s environment
+Get `counter_two()`'s environment
 ```{r}
 ls(environment(counter_two))
 get("i", environment(counter_two))
 ```
 
-#### Lexical Scoping in R vs. Dynamic Scoping    
+#### Lexical Scoping in R vs. Dynamic Scoping 
 ```{r}
 y <- 10
 

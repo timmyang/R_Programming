@@ -487,7 +487,7 @@ get("pow", environment(cube))
     ## function(x) {
     ##                 x^n
     ##         }
-    ## <environment: 0x7ff62a140f60>
+    ## <environment: 0x7fca1c142688>
 
 ``` r
 ls(environment(square))
@@ -508,8 +508,8 @@ get("pow", environment(square))
     ## function(x) {
     ##                 x^n
     ##         }
-    ## <bytecode: 0x7ff62568e100>
-    ## <environment: 0x7ff62a19d500>
+    ## <bytecode: 0x7fca1d054748>
+    ## <environment: 0x7fca1d426428>
 
 #### Additional materials on Lexical Scoping
 
@@ -533,7 +533,7 @@ new_counter <- function(c) {
 }
 ```
 
-#### Get `new_counter()`’s environment
+Get `new_counter()`’s environment
 
 ``` r
 ls(environment(new_counter))
@@ -541,14 +541,14 @@ ls(environment(new_counter))
 
     ## [1] "new_counter"
 
-#### Create `counter_one()` and `counter_two()` functions
+Create `counter_one()` and `counter_two()` functions
 
 ``` r
 counter_one <- new_counter()
 counter_two <- new_counter()
 ```
 
-#### Get `new_counter()`, `counter_one()` and `counter_two()`’s environment
+Get `new_counter()`, `counter_one()` and `counter_two()`’s environment
 
 ``` r
 ls(environment(new_counter))
@@ -568,7 +568,7 @@ ls(environment(counter_two))
 
     ## [1] "a" "c" "d" "i"
 
-#### Get `i` in `counter_one()`’s environment
+Get `i` in `counter_one()`’s environment
 
 ``` r
 get("i", environment(counter_one))
@@ -576,7 +576,7 @@ get("i", environment(counter_one))
 
     ## [1] 0
 
-#### Get `d` in `counter_one()`’s environment
+Get `d` in `counter_one()`’s environment
 
 ``` r
 get("d", environment(counter_one))
@@ -587,9 +587,9 @@ get("d", environment(counter_one))
     ##                 b <- 0
     ##                 i
     ##         }
-    ## <environment: 0x7ff626eee350>
+    ## <environment: 0x7fca1f2ce0f8>
 
-#### Call `counter_one()` once
+Call `counter_one()` once
 
 ``` r
 counter_one()
@@ -609,7 +609,7 @@ get("i", environment(counter_one))
 
     ## [1] 1
 
-#### Get `counter_two()`’s environment
+Get `counter_two()`’s environment
 
 ``` r
 ls(environment(counter_two))
@@ -736,37 +736,37 @@ x <- Sys.time() # already in *POSIXct* format
 x
 ```
 
-    ## [1] "2020-12-10 21:10:48 CST"
+    ## [1] "2020-12-10 21:18:07 CST"
 
 ``` r
 p <- as.POSIXct(x) # atomic vector (useful for a data frame)
 p
 ```
 
-    ## [1] "2020-12-10 21:10:48 CST"
+    ## [1] "2020-12-10 21:18:07 CST"
 
 ``` r
 unclass(p)
 ```
 
-    ## [1] 1607656248
+    ## [1] 1607656687
 
 ``` r
 p <- as.POSIXlt(x) # list
 p
 ```
 
-    ## [1] "2020-12-10 21:10:48 CST"
+    ## [1] "2020-12-10 21:18:07 CST"
 
 ``` r
 unclass(p)
 ```
 
     ## $sec
-    ## [1] 48.04455
+    ## [1] 7.087907
     ## 
     ## $min
-    ## [1] 10
+    ## [1] 18
     ## 
     ## $hour
     ## [1] 21
@@ -809,7 +809,7 @@ names(unclass(p))
 p$sec
 ```
 
-    ## [1] 48.04455
+    ## [1] 7.087907
 
 The`strptime` function in case your dates are written in a different
 format
