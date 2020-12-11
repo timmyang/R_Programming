@@ -9,30 +9,30 @@ function(directory, threshold = 0) {
         for(i in 1:332) {
                 if(i < 10) {
                         x <- data.frame(read.csv(paste("00", i, ".csv", sep = "")))
-                        s <- sum(complete.cases(x))
+                        good <- complete.cases(x)
+                        s <- sum(good)
                                 
                         if(s > threshold) {
-                                good <- complete.cases(x)
                                 c <- cor(x[good, ][, "sulfate"], x[good, ][, "nitrate"])
                                 v <- append(v, c)
                         }
                 }
                 else if(i < 100) {
                         x <- data.frame(read.csv(paste("0", i, ".csv", sep = "")))
-                        s <- sum(complete.cases(x))
+                        good <- complete.cases(x)
+                        s <- sum(good)
                         
                         if(s > threshold) {
-                                good <- complete.cases(x)
                                 c <- cor(x[good, ][, "sulfate"], x[good, ][, "nitrate"])
                                 v <- append(v, c)
                         }
                 }
                 else {
                         x <- data.frame(read.csv(paste(i, ".csv", sep = "")))
-                        s <- sum(complete.cases(x))
+                        good <- complete.cases(x)
+                        s <- sum(good)
                         
                         if(s > threshold) {
-                                good <- complete.cases(x)
                                 c <- cor(x[good, ][, "sulfate"], x[good, ][, "nitrate"])
                                 v <- append(v, c)
                         }

@@ -487,7 +487,7 @@ get("pow", environment(cube))
     ## function(x) {
     ##                 x^n
     ##         }
-    ## <environment: 0x7fb2b8cc78a0>
+    ## <environment: 0x7ff62a140f60>
 
 ``` r
 ls(environment(square))
@@ -508,8 +508,120 @@ get("pow", environment(square))
     ## function(x) {
     ##                 x^n
     ##         }
-    ## <bytecode: 0x7fb2b8550940>
-    ## <environment: 0x7fb2b8d1d630>
+    ## <bytecode: 0x7ff62568e100>
+    ## <environment: 0x7ff62a19d500>
+
+#### Additional materials on Lexical Scoping
+
+``` r
+rm(list = ls())
+ls()
+```
+
+    ## character(0)
+
+``` r
+new_counter <- function(c) {
+        i <- 0
+        a <- 0
+        d <- function() {
+                i <<- i + 1
+                b <- 0
+                i
+        }
+        d
+}
+```
+
+#### Get `new_counter()`’s environment
+
+``` r
+ls(environment(new_counter))
+```
+
+    ## [1] "new_counter"
+
+#### Create `counter_one()` and `counter_two()` functions
+
+``` r
+counter_one <- new_counter()
+counter_two <- new_counter()
+```
+
+#### Get `new_counter()`, `counter_one()` and `counter_two()`’s environment
+
+``` r
+ls(environment(new_counter))
+```
+
+    ## [1] "counter_one" "counter_two" "new_counter"
+
+``` r
+ls(environment(counter_one))
+```
+
+    ## [1] "a" "c" "d" "i"
+
+``` r
+ls(environment(counter_two))
+```
+
+    ## [1] "a" "c" "d" "i"
+
+#### Get `i` in `counter_one()`’s environment
+
+``` r
+get("i", environment(counter_one))
+```
+
+    ## [1] 0
+
+#### Get `d` in `counter_one()`’s environment
+
+``` r
+get("d", environment(counter_one))
+```
+
+    ## function() {
+    ##                 i <<- i + 1
+    ##                 b <- 0
+    ##                 i
+    ##         }
+    ## <environment: 0x7ff626eee350>
+
+#### Call `counter_one()` once
+
+``` r
+counter_one()
+```
+
+    ## [1] 1
+
+``` r
+ls(environment(counter_one))
+```
+
+    ## [1] "a" "c" "d" "i"
+
+``` r
+get("i", environment(counter_one))
+```
+
+    ## [1] 1
+
+#### Get `counter_two()`’s environment
+
+``` r
+ls(environment(counter_two))
+```
+
+    ## [1] "a" "c" "d" "i"
+
+``` r
+get("i", environment(counter_two))
+```
+
+    ## [1] 0
 
 #### Lexical Scoping in R vs. Dynamic Scoping
 
@@ -624,43 +736,43 @@ x <- Sys.time() # already in *POSIXct* format
 x
 ```
 
-    ## [1] "2020-12-08 22:16:44 CST"
+    ## [1] "2020-12-10 21:10:48 CST"
 
 ``` r
 p <- as.POSIXct(x) # atomic vector (useful for a data frame)
 p
 ```
 
-    ## [1] "2020-12-08 22:16:44 CST"
+    ## [1] "2020-12-10 21:10:48 CST"
 
 ``` r
 unclass(p)
 ```
 
-    ## [1] 1607487405
+    ## [1] 1607656248
 
 ``` r
 p <- as.POSIXlt(x) # list
 p
 ```
 
-    ## [1] "2020-12-08 22:16:44 CST"
+    ## [1] "2020-12-10 21:10:48 CST"
 
 ``` r
 unclass(p)
 ```
 
     ## $sec
-    ## [1] 44.83854
+    ## [1] 48.04455
     ## 
     ## $min
-    ## [1] 16
+    ## [1] 10
     ## 
     ## $hour
-    ## [1] 22
+    ## [1] 21
     ## 
     ## $mday
-    ## [1] 8
+    ## [1] 10
     ## 
     ## $mon
     ## [1] 11
@@ -669,10 +781,10 @@ unclass(p)
     ## [1] 120
     ## 
     ## $wday
-    ## [1] 2
+    ## [1] 4
     ## 
     ## $yday
-    ## [1] 342
+    ## [1] 344
     ## 
     ## $isdst
     ## [1] 0
@@ -697,7 +809,7 @@ names(unclass(p))
 p$sec
 ```
 
-    ## [1] 44.83854
+    ## [1] 48.04455
 
 The`strptime` function in case your dates are written in a different
 format
@@ -1048,30 +1160,30 @@ corr <- function(directory, threshold = 0) {
         for(i in 1:332) {
                 if(i < 10) {
                         x <- data.frame(read.csv(paste("00", i, ".csv", sep = "")))
-                        s <- sum(complete.cases(x))
+                        good <- complete.cases(x)
+                        s <- sum(good)
                                 
                         if(s > threshold) {
-                                good <- complete.cases(x)
                                 c <- cor(x[good, ][, "sulfate"], x[good, ][, "nitrate"])
                                 v <- append(v, c)
                         }
                 }
                 else if(i < 100) {
                         x <- data.frame(read.csv(paste("0", i, ".csv", sep = "")))
-                        s <- sum(complete.cases(x))
+                        good <- complete.cases(x)
+                        s <- sum(good)
                         
                         if(s > threshold) {
-                                good <- complete.cases(x)
                                 c <- cor(x[good, ][, "sulfate"], x[good, ][, "nitrate"])
                                 v <- append(v, c)
                         }
                 }
                 else {
                         x <- data.frame(read.csv(paste(i, ".csv", sep = "")))
-                        s <- sum(complete.cases(x))
+                        good <- complete.cases(x)
+                        s <- sum(good)
                         
                         if(s > threshold) {
-                                good <- complete.cases(x)
                                 c <- cor(x[good, ][, "sulfate"], x[good, ][, "nitrate"])
                                 v <- append(v, c)
                         }
@@ -1146,158 +1258,6 @@ length(cr)
 ```
 
     ## [1] 323
-
-## Programming Assignment Quiz
-
-``` r
-rm(list = ls())
-source("pollutantmean.R")
-source("complete.R")
-source("corr.R")
-```
-
-#### Question 1
-
-**What value is returned by the following call to pollutantmean()?**  
-**You should round your output to 3 digits.**
-
-``` r
-pollutantmean("specdata", "sulfate", 1:10)
-```
-
-    ## [1] 4.064128
-
-#### Question 2
-
-**What value is returned by the following call to pollutantmean()?**  
-**You should round your output to 3 digits.**
-
-``` r
-pollutantmean("specdata", "nitrate", 70:72)
-```
-
-    ## [1] 1.706047
-
-#### Question 3
-
-**What value is returned by the following call to pollutantmean()?**  
-**You should round your output to 3 digits.**
-
-``` r
-pollutantmean("specdata", "sulfate", 34)
-```
-
-    ## [1] 1.477143
-
-#### Question 4
-
-**What value is returned by the following call to pollutantmean()?**  
-**You should round your output to 3 digits.**
-
-``` r
-pollutantmean("specdata", "nitrate")
-```
-
-    ## [1] 1.702932
-
-#### Question 5
-
-**What value is printed at the end of the following code?**
-
-``` r
-cc <- complete("specdata", c(6, 10, 20, 34, 100, 200, 310))
-print(cc$nobs)
-```
-
-    ## [1] 228 148 124 165 104 460 232
-
-#### Question 6
-
-**What value is printed at the end of the following code?**
-
-``` r
-cc <- complete("specdata", 54)
-print(cc$nobs)
-```
-
-    ## [1] 219
-
-#### Question 7
-
-**What value is printed at the end of the following code?**
-
-``` r
-RNGversion("3.5.1")
-```
-
-    ## Warning in RNGkind("Mersenne-Twister", "Inversion", "Rounding"): non-uniform
-    ## 'Rounding' sampler used
-
-``` r
-set.seed(42)
-cc <- complete("specdata", 332:1)
-use <- sample(332, 10)
-print(cc[use, "nobs"])
-```
-
-    ##  [1] 711 135  74 445 178  73  49   0 687 237
-
-#### Question 8
-
-**What value is printed at the end of the following code?**
-
-``` r
-cr <- corr("specdata")
-cr <- sort(cr)
-RNGversion("3.5.1")
-```
-
-    ## Warning in RNGkind("Mersenne-Twister", "Inversion", "Rounding"): non-uniform
-    ## 'Rounding' sampler used
-
-``` r
-set.seed(868)
-out <- round(cr[sample(length(cr), 5)], 4)
-print(out)
-```
-
-    ## [1]  0.2688  0.1127 -0.0085  0.4586  0.0447
-
-#### Question 9
-
-**What value is printed at the end of the following code?**
-
-``` r
-cr <- corr("specdata", 129)
-cr <- sort(cr)
-n <- length(cr)
-RNGversion("3.5.1")
-```
-
-    ## Warning in RNGkind("Mersenne-Twister", "Inversion", "Rounding"): non-uniform
-    ## 'Rounding' sampler used
-
-``` r
-set.seed(197)
-out <- c(n, round(cr[sample(n, 5)], 4))
-print(out)
-```
-
-    ## [1] 243.0000   0.2540   0.0504  -0.1462  -0.1680   0.5969
-
-#### Question 10
-
-**What value is printed at the end of the following code?**
-
-``` r
-cr <- corr("specdata", 2000)
-n <- length(cr)
-cr <- corr("specdata", 1000)
-cr <- sort(cr)
-print(c(n, round(cr, 4)))
-```
-
-    ## [1]  0.0000 -0.0190  0.0419  0.1901
 
 # Key Takeaway Functions
 

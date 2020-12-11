@@ -479,9 +479,214 @@ debug(ls)
 
 (Answer): Execution of 'ls' will suspend at the beginning of the function and you will be in the browser  
 
-# Programming Assignment  
+```{r}
+undebug(ls)
+```
+
+# Assignment 2
+
+## Example: Caching the Mean of a Vector  
+
+In this example we introduce the `<<-` operator which can be used to assign a value to an object in an environment that is different from the current environment. Below are two functions that are used to create a special object that stores a numeric vector and cache's its mean.  
+
+The first function, `makeVector` creates a special "vector", which is really a list containing a function to  
+
+1. set the value of the vector  
+2. get the value of the vector  
+3. set the value of the mean  
+4. get the value of the mean  
+
+```{r}
+rm(list=ls())
+```
+
+```{r}
+makeVector <- function(x = numeric()) {
+        m <- NULL
+        set <- function(y) {
+                x <<- y
+                m <<- NULL
+        }
+        get <- function() x
+        setmean <- function(mean) m <<- mean
+        getmean <- function() m
+        list(set = set, get = get,
+             setmean = setmean,
+             getmean = getmean)
+}
+```
+
+```{r}
+a <- makeVector(c(1, 2, 3, 4))
+a
+```
+
+```{r}
+ls(environment(makeVector))
+
+a[["set"]]
+```
+
+#### set
+```{r}
+ls(environment(a[["set"]]))
+get("x", environment(a[["set"]]))
+get("m", environment(a[["set"]]))
+```
+
+#### get
+```{r}
+ls(environment(a[["get"]]))
+get("x", environment(a[["get"]]))
+get("m", environment(a[["get"]]))
+```
+
+#### setmean
+```{r}
+ls(environment(a[["setmean"]]))
+get("x", environment(a[["setmean"]]))
+get("m", environment(a[["setmean"]]))
+```
+
+#### getmean
+```{r}
+ls(environment(a[["getmean"]]))
+get("x", environment(a[["getmean"]]))
+get("m", environment(a[["getmean"]]))
+```
+
+The following function calculates the mean of the special "vector" created with the above function. However, it first checks to see if the mean has already been calculated. If so, it gets the mean from the cache and skips the computation. Otherwise, it calculates the mean of the data and sets the value of the mean in the cache via the `setmean` function.
+
+```{r}
+cachemean <- function(x, ...) {
+        m <- x$getmean()
+        if(!is.null(m)) {
+                message("getting cached data")
+                return(m)
+        }
+        data <- x$get()
+        m <- mean(data, ...)
+        x$setmean(m)
+        m
+}
+```
+
+```{r}
+cachemean(a)
+
+ls(environment(a[["set"]]))
+get("x", environment(a[["set"]]))
+get("m", environment(a[["set"]]))
+
+get("x", environment(a[["get"]]))
+get("m", environment(a[["get"]]))
+
+get("x", environment(a[["setmean"]]))
+get("m", environment(a[["setmean"]]))
+
+get("x", environment(a[["getmean"]]))
+get("m", environment(a[["getmean"]]))
+```
+
+```{r}
+cachemean(a)
+```
+
+## Assignment: Caching the Inverse of a Matrix  
+
+Matrix inversion is usually a costly computation and there may be some benefit to caching the inverse of a matrix rather than compute it repeatedly (there are also alternatives to matrix inversion that we will not discuss here). Your assignment is to write a pair of functions that cache the inverse of a matrix.
+
+Write the following functions:
+
+1. `makeCacheMatrix`: This function creates a special "matrix" object that can cache its inverse.
+2. `cacheSolve`: This function computes the inverse of the special "matrix" returned by `makeCacheMatrix` above. If the inverse has already been calculated (and the matrix has not changed), then the `cachesolve` should retrieve the inverse from the cache.
+
+Computing the inverse of a square matrix can be done with the `solve` function in R. For example, if X is a square invertible matrix, then `solve(X)` returns its inverse.
+
+For this assignment, assume that the matrix supplied is always invertible.
+
+In order to complete this assignment, you must do the following:
+
+1. Fork the GitHub repository containing the stub R files at https://github.com/rdpeng/ProgrammingAssignment2 to create a copy under your own account.
+2. Clone your forked GitHub repository to your computer so that you can edit the files locally on your own machine.
+3. Edit the R file contained in the git repository and place your solution in that file (please do not rename the file).
+4. Commit your completed R file into YOUR git repository and push your git branch to the GitHub repository under your account.
+5. Submit to Coursera the URL to your GitHub repository that contains the completed R code for the assignment.
+
+In addition to submitting the URL for your GitHub repository, you will need to submit the 40 character SHA-1 hash (as string of numbers from 0-9 and letters from a-f) that identifies the repository commit that contains the version of the files you want to submit. You can do this in GitHub by doing the following
+
+1. Going to your GitHub repository web page for this assignment
+2. Click on the “?? commits” link where ?? is the number of commits you have in the repository. For example, if you made a total of 10 commits to this repository, the link should say “10 commits”.
+3. You will see a list of commits that you have made to this repository. The most recent commit is at the very top. If this represents the version of the files you want to submit, then just click the “copy to clipboard” button on the right hand side that should appear when you hover over the SHA-1 hash. Paste this SHA-1 hash into the course web site when you submit your assignment. If you don't want to use the most recent commit, then go down and find the commit you want and copy the SHA-1 hash.
+
+A valid submission will look something like (this is just an example!)
+```{r}
+# https://github.com/rdpeng/ProgrammingAssignment2
+```
+
+```{r}
+## Put comments here that give an overall description of what your
+## functions do  
+
+# The makeCacheMatrix() function takes a square invertible matrix as its  
+# argument and creates a special list of four functions: set(), get(),  
+# setsolve(), getsolve().   
+
+# The cacheSolve() function takes a special list created by the makeCacheMatrix()  
+# function as its argument and returns the inverse of a square matrix from the  
+# special list.  
 
 
+## Write a short comment describing this function
+# The function below creates two objects, namely `x` and `inv` in the same  
+# (enclosing) environment of the four functions: set(), get(), setsolve() and  
+# getsolve(). By using the `<<-` operator, set() and setsolve() functions modify  
+# the values of `x` and `inv` in the enclosing environment. The get() and  
+# getsolve() simply retrieve the current values of `x` and `inv` in the enclosing  
+# environment.
+
+makeCacheMatrix <- function(x = matrix()) {
+        inv <- NULL
+        set <- function(y) {
+                x <<- y
+                inv <<- NULL
+        }
+        get <- function() x
+        setsolve <- function(sol) inv <<- sol
+        getsolve <- function() inv
+        list(set = set, get = get, setsolve = setsolve, getsolve = getsolve)
+}
+
+## Write a short comment describing this function
+# The function below checks if the value of `inv` have already been calculated  
+# (exists) and, if exists, returns that `inv` value. If does not exist, it  
+# retrieves the value of `x` in the enclosing environment, calculates the inverse  
+# of it, modifies the value of `inv` in the enclosing environment, and returns  
+# the value of the new `inv`. 
+
+cacheSolve <- function(x, ...) {
+        ## Return a matrix that is the inverse of 'x'
+        inv <- x$getsolve()
+        if(!is.null(inv)) {
+                message("getting cached data")
+                return(inv)
+        }
+        data <- x$get()
+        inv <- solve(data, ...)
+        x$setsolve(inv)
+        inv
+}
+```
+
+#### Let's try if the functions work
+```{r}
+m <- matrix(c(4, 2, 7, 6), nrow = 2, ncol = 2)
+m
+
+a <- makeCacheMatrix(m)
+cacheSolve(a)
+cacheSolve(a)
+```
 
 # Key Takeaway Functions
 

@@ -58,7 +58,7 @@ lapply
     ##         X <- as.list(X)
     ##     .Internal(lapply(X, FUN))
     ## }
-    ## <bytecode: 0x7fe5e58e25c0>
+    ## <bytecode: 0x7fc6c0129fc0>
     ## <environment: namespace:base>
 
 ``` r
@@ -70,7 +70,7 @@ lapply(x, mean)
     ## [1] 3
     ## 
     ## $b
-    ## [1] 0.3011265
+    ## [1] 0.05602414
 
 `lapply` always returns a list.
 
@@ -80,16 +80,16 @@ lapply(x, runif, min = 0, max = 10)
 ```
 
     ## [[1]]
-    ## [1] 3.4517
+    ## [1] 8.911255
     ## 
     ## [[2]]
-    ## [1] 8.263581 2.960884
+    ## [1] 8.325630 8.735988
     ## 
     ## [[3]]
-    ## [1] 8.1325622 3.0056913 0.5013486
+    ## [1] 2.512375 8.121773 6.233707
     ## 
     ## [[4]]
-    ## [1] 7.065795 3.840549 4.521816 8.888265
+    ## [1] 5.4934759 5.3548987 1.1838910 0.2245592
 
 `lapply` makes heavy use of *anonymous* functions, functions that have
 no names.
@@ -143,20 +143,20 @@ lapply(x, mean)
     ## [1] 2.5
     ## 
     ## $b
-    ## [1] 0.5608414
+    ## [1] -0.3575739
     ## 
     ## $c
-    ## [1] 0.8433872
+    ## [1] 1.124065
     ## 
     ## $d
-    ## [1] 5.041969
+    ## [1] 4.949908
 
 ``` r
 sapply(x, mean)
 ```
 
-    ##         a         b         c         d 
-    ## 2.5000000 0.5608414 0.8433872 5.0419692
+    ##          a          b          c          d 
+    ##  2.5000000 -0.3575739  1.1240653  4.9499080
 
 ## apply
 
@@ -191,17 +191,17 @@ x <- matrix(rnorm(200), 20, 10) # dimension 1 has 20 rows, and dimension 2 has 1
 apply(x, 2, mean) 
 ```
 
-    ##  [1] -0.16438455  0.37808962 -0.05267033  0.01117303 -0.32771872  0.11497619
-    ##  [7]  0.11022350 -0.15340987 -0.28433623  0.13911693
+    ##  [1]  0.34590051 -0.09362952  0.03211629 -0.10084389 -0.18665206  0.08900493
+    ##  [7]  0.10811361 -0.14366568 -0.02621930  0.03353281
 
 ``` r
 apply(x, 1, sum)
 ```
 
-    ##  [1]  0.97391511 -2.96395905  3.99474278  3.91846868  0.07285154 -3.27230002
-    ##  [7]  4.16625585  1.68571299 -6.72391688  0.05971183 -4.63003922 -1.19192337
-    ## [13]  2.38185848 -3.20067086  0.49541840 -3.20685756  5.94300672  1.12786347
-    ## [19] -1.43914193 -2.76980547
+    ##  [1] -4.2034326 -0.2683876 -1.0808552  1.8380831 -1.9369550 -3.2164537
+    ##  [7]  3.0206563  6.0165782 -6.9310193 -2.5282357 -2.5616220  0.5535271
+    ## [13]  4.4079565 -3.1086748 -2.6245371  2.4509044  1.2759098  4.2289101
+    ## [19] -2.9862235  8.8070246
 
   - `rowSums` = `apply(x, 1, sum)`
   - `rowMeans` = `apply(x, 1, mean)`
@@ -215,39 +215,39 @@ x <- matrix(rnorm(200), 20, 10)
 apply(x, 1, quantile, probs = c(0.25, 0.75))
 ```
 
-    ##           [,1]        [,2]        [,3]       [,4]      [,5]       [,6]
-    ## 25% -0.7323748 -0.07976329 -0.09174478 -0.7775308 -1.015726 -0.2349629
-    ## 75%  0.9528100  1.10140860  0.25987116  1.3754715  0.183774  1.2187823
-    ##           [,7]       [,8]       [,9]      [,10]     [,11]      [,12]      [,13]
-    ## 25% -0.8497789 -1.0545544 -0.2845106 -0.3797796 0.1006405 -0.4492895 -0.3545258
-    ## 75%  0.5107030  0.3127752  0.3495831  0.1594865 0.6981951  0.7067883  0.9890217
-    ##          [,14]      [,15]      [,16]      [,17]      [,18]       [,19]
-    ## 25% -0.4872231 -0.5753697 -1.1907100 -0.1962964 -0.4116770 -0.69450803
-    ## 75%  1.2249679  0.2720520  0.7648225  0.3534880  0.4372171 -0.02881722
-    ##          [,20]
-    ## 25% -0.5197884
-    ## 75%  0.5352937
+    ##           [,1]       [,2]       [,3]       [,4]       [,5]       [,6]
+    ## 25% -0.9857317 -0.1915709 -0.8668356 -0.1933919 -0.4813287 -0.3916064
+    ## 75%  0.1269744  1.3681739  0.4260562  0.6560213  0.5337390  0.4758396
+    ##           [,7]        [,8]       [,9]       [,10]      [,11]      [,12]
+    ## 25% -0.9384305 -0.01703926 -0.4946806 -0.03345484 -0.2637403 0.03599347
+    ## 75%  0.5764936  0.91423994  0.5728130  0.81205394  1.3943720 1.18715047
+    ##          [,13]      [,14]      [,15]      [,16]      [,17]      [,18]
+    ## 25% -0.5507081 -0.4178068 -0.4315652 -1.2605525 -0.5852412 0.03877436
+    ## 75%  0.4410369  0.6194165  0.8549145  0.1258552  0.5101321 1.10981634
+    ##          [,19]      [,20]
+    ## 25% -0.6950835 -0.8901123
+    ## 75%  0.3407075  0.1458967
 
 ``` r
 a <- array(rnorm(2 * 2 * 10), c(2, 2, 10))
 apply(a, c(1, 2), mean) # collapse (average over) the 3rd dimension
 ```
 
-    ##            [,1]       [,2]
-    ## [1,] -1.0093702 -0.1031629
-    ## [2,] -0.4681582 -0.2695408
+    ##            [,1]         [,2]
+    ## [1,] -0.3279064 -0.002044138
+    ## [2,]  0.3578013  0.079720762
 
 ``` r
 apply(a, 1, mean)
 ```
 
-    ## [1] -0.5562666 -0.3688495
+    ## [1] -0.1649753  0.2187610
 
 ``` r
 apply(a, 2, mean)
 ```
 
-    ## [1] -0.7387642 -0.1863519
+    ## [1] 0.01494745 0.03883831
 
 ## mapply
 
@@ -328,12 +328,11 @@ x <- c(rnorm(10), runif(10), rnorm(10, 1))
 x
 ```
 
-    ##  [1] -0.215455399 -0.182984996 -1.220687839 -0.935784554 -0.744703207
-    ##  [6]  1.414956045  1.491455204  0.387593115 -0.388293809  2.548397327
-    ## [11]  0.199515489  0.234860697  0.096545602  0.438427434  0.334492099
-    ## [16]  0.269326641  0.835969883  0.816457918  0.258521632  0.822374850
-    ## [21]  0.742708728  0.927488603  0.982560099  0.309025090  0.737989138
-    ## [26]  0.787624276  0.002577588  0.909709179 -0.022613808  1.476181023
+    ##  [1]  1.1954855  0.8307828 -0.6760126  0.6366190  0.7892151 -0.2084288
+    ##  [7]  0.5982182 -1.0096021 -1.3265750 -0.1895944  0.8480577  0.8152078
+    ## [13]  0.1607084  0.5716336  0.3917509  0.7475623  0.8576945  0.5068158
+    ## [19]  0.6533426  0.5645361  1.8171465  2.4193607  2.2775630  1.2673470
+    ## [25]  1.0985353  1.5889844  1.4683473  0.3601617 -0.1218796  0.4798199
 
 ``` r
 f <- gl(3, 10)
@@ -347,21 +346,21 @@ f
 tapply(x, f, mean)
 ```
 
-    ##         1         2         3 
-    ## 0.2154492 0.4306492 0.6853250
+    ##          1          2          3 
+    ## 0.06401077 0.61173097 1.26553863
 
 ``` r
 tapply(x, f, mean, simplify = FALSE)
 ```
 
     ## $`1`
-    ## [1] 0.2154492
+    ## [1] 0.06401077
     ## 
     ## $`2`
-    ## [1] 0.4306492
+    ## [1] 0.611731
     ## 
     ## $`3`
-    ## [1] 0.685325
+    ## [1] 1.265539
 
 ## split
 
@@ -389,29 +388,29 @@ split(x, f)
 ```
 
     ## $`1`
-    ##  [1]  0.7156623  0.7298430 -0.1093122 -0.1105401  1.4955388  1.0210782
-    ##  [7]  1.7287491  1.5143240  0.5985227 -1.5544281
+    ##  [1] -0.70885349 -0.18619912  0.02933684  0.03907840  0.94017929  1.88970299
+    ##  [7] -1.69061944  0.40834323 -1.27129523 -0.01475486
     ## 
     ## $`2`
-    ##  [1] 0.02286176 0.82357900 0.96293764 0.62920644 0.35938181 0.99851470
-    ##  [7] 0.22125489 0.16922096 0.19512905 0.17311456
+    ##  [1] 0.03123093 0.98491853 0.57030286 0.43402578 0.77795734 0.51248433
+    ##  [7] 0.23135866 0.68184948 0.69118480 0.78804775
     ## 
     ## $`3`
-    ##  [1]  0.41757682  0.51995701  1.87492082 -0.30492047  0.84110902  2.10127114
-    ##  [7] -0.07745707  0.24787376 -0.53509605 -0.22554601
+    ##  [1] 0.456928914 1.339301828 3.430905923 0.797865473 0.492455158 0.711398074
+    ##  [7] 0.544654520 2.417332702 0.007224835 1.145899675
 
 ``` r
 lapply(split(x, f), mean) # = tapply(x, f, mean)
 ```
 
     ## $`1`
-    ## [1] 0.6029438
+    ## [1] -0.05650814
     ## 
     ## $`2`
-    ## [1] 0.4555201
+    ## [1] 0.570336
     ## 
     ## $`3`
-    ## [1] 0.4859689
+    ## [1] 1.134397
 
 ``` r
 library(datasets)
@@ -505,16 +504,16 @@ str(split(x, list(f1, f2))) # drop = FALSE
 ```
 
     ## List of 10
-    ##  $ 1.1: num [1:2] 0.388 1.842
+    ##  $ 1.1: num [1:2] -1.16 1.28
     ##  $ 2.1: num(0) 
-    ##  $ 1.2: num [1:2] 0.615 -0.677
+    ##  $ 1.2: num [1:2] -0.263 2.019
     ##  $ 2.2: num(0) 
-    ##  $ 1.3: num 2.48
-    ##  $ 2.3: num -0.904
+    ##  $ 1.3: num 0.422
+    ##  $ 2.3: num -0.0178
     ##  $ 1.4: num(0) 
-    ##  $ 2.4: num [1:2] 0.333 0.675
+    ##  $ 2.4: num [1:2] 0.754 -0.219
     ##  $ 1.5: num(0) 
-    ##  $ 2.5: num [1:2] -0.684 2.747
+    ##  $ 2.5: num [1:2] 1.347 -0.412
 
 # Debugging Tools
 
@@ -903,7 +902,403 @@ debug(ls)
 (Answer): Execution of ‘ls’ will suspend at the beginning of the
 function and you will be in the browser
 
-# Programming Assignment
+``` r
+undebug(ls)
+```
+
+# Assignment 2
+
+## Example: Caching the Mean of a Vector
+
+In this example we introduce the `<<-` operator which can be used to
+assign a value to an object in an environment that is different from the
+current environment. Below are two functions that are used to create a
+special object that stores a numeric vector and cache’s its mean.
+
+The first function, `makeVector` creates a special “vector”, which is
+really a list containing a function to
+
+1.  set the value of the vector  
+2.  get the value of the vector  
+3.  set the value of the mean  
+4.  get the value of the mean
+
+<!-- end list -->
+
+``` r
+rm(list=ls())
+```
+
+``` r
+makeVector <- function(x = numeric()) {
+        m <- NULL
+        set <- function(y) {
+                x <<- y
+                m <<- NULL
+        }
+        get <- function() x
+        setmean <- function(mean) m <<- mean
+        getmean <- function() m
+        list(set = set, get = get,
+             setmean = setmean,
+             getmean = getmean)
+}
+```
+
+``` r
+a <- makeVector(c(1, 2, 3, 4))
+a
+```
+
+    ## $set
+    ## function(y) {
+    ##                 x <<- y
+    ##                 m <<- NULL
+    ##         }
+    ## <environment: 0x7fc6c55e0d80>
+    ## 
+    ## $get
+    ## function() x
+    ## <environment: 0x7fc6c55e0d80>
+    ## 
+    ## $setmean
+    ## function(mean) m <<- mean
+    ## <environment: 0x7fc6c55e0d80>
+    ## 
+    ## $getmean
+    ## function() m
+    ## <environment: 0x7fc6c55e0d80>
+
+``` r
+ls(environment(makeVector))
+```
+
+    ## [1] "a"          "makeVector"
+
+``` r
+a[["set"]]
+```
+
+    ## function(y) {
+    ##                 x <<- y
+    ##                 m <<- NULL
+    ##         }
+    ## <environment: 0x7fc6c55e0d80>
+
+#### set
+
+``` r
+ls(environment(a[["set"]]))
+```
+
+    ## [1] "get"     "getmean" "m"       "set"     "setmean" "x"
+
+``` r
+get("x", environment(a[["set"]]))
+```
+
+    ## [1] 1 2 3 4
+
+``` r
+get("m", environment(a[["set"]]))
+```
+
+    ## NULL
+
+#### get
+
+``` r
+ls(environment(a[["get"]]))
+```
+
+    ## [1] "get"     "getmean" "m"       "set"     "setmean" "x"
+
+``` r
+get("x", environment(a[["get"]]))
+```
+
+    ## [1] 1 2 3 4
+
+``` r
+get("m", environment(a[["get"]]))
+```
+
+    ## NULL
+
+#### setmean
+
+``` r
+ls(environment(a[["setmean"]]))
+```
+
+    ## [1] "get"     "getmean" "m"       "set"     "setmean" "x"
+
+``` r
+get("x", environment(a[["setmean"]]))
+```
+
+    ## [1] 1 2 3 4
+
+``` r
+get("m", environment(a[["setmean"]]))
+```
+
+    ## NULL
+
+#### getmean
+
+``` r
+ls(environment(a[["getmean"]]))
+```
+
+    ## [1] "get"     "getmean" "m"       "set"     "setmean" "x"
+
+``` r
+get("x", environment(a[["getmean"]]))
+```
+
+    ## [1] 1 2 3 4
+
+``` r
+get("m", environment(a[["getmean"]]))
+```
+
+    ## NULL
+
+The following function calculates the mean of the special “vector”
+created with the above function. However, it first checks to see if the
+mean has already been calculated. If so, it gets the mean from the cache
+and skips the computation. Otherwise, it calculates the mean of the data
+and sets the value of the mean in the cache via the `setmean` function.
+
+``` r
+cachemean <- function(x, ...) {
+        m <- x$getmean()
+        if(!is.null(m)) {
+                message("getting cached data")
+                return(m)
+        }
+        data <- x$get()
+        m <- mean(data, ...)
+        x$setmean(m)
+        m
+}
+```
+
+``` r
+cachemean(a)
+```
+
+    ## [1] 2.5
+
+``` r
+ls(environment(a[["set"]]))
+```
+
+    ## [1] "get"     "getmean" "m"       "set"     "setmean" "x"
+
+``` r
+get("x", environment(a[["set"]]))
+```
+
+    ## [1] 1 2 3 4
+
+``` r
+get("m", environment(a[["set"]]))
+```
+
+    ## [1] 2.5
+
+``` r
+get("x", environment(a[["get"]]))
+```
+
+    ## [1] 1 2 3 4
+
+``` r
+get("m", environment(a[["get"]]))
+```
+
+    ## [1] 2.5
+
+``` r
+get("x", environment(a[["setmean"]]))
+```
+
+    ## [1] 1 2 3 4
+
+``` r
+get("m", environment(a[["setmean"]]))
+```
+
+    ## [1] 2.5
+
+``` r
+get("x", environment(a[["getmean"]]))
+```
+
+    ## [1] 1 2 3 4
+
+``` r
+get("m", environment(a[["getmean"]]))
+```
+
+    ## [1] 2.5
+
+``` r
+cachemean(a)
+```
+
+    ## getting cached data
+
+    ## [1] 2.5
+
+## Assignment: Caching the Inverse of a Matrix
+
+Matrix inversion is usually a costly computation and there may be some
+benefit to caching the inverse of a matrix rather than compute it
+repeatedly (there are also alternatives to matrix inversion that we will
+not discuss here). Your assignment is to write a pair of functions that
+cache the inverse of a matrix.
+
+Write the following functions:
+
+1.  `makeCacheMatrix`: This function creates a special “matrix” object
+    that can cache its inverse.
+2.  `cacheSolve`: This function computes the inverse of the special
+    “matrix” returned by `makeCacheMatrix` above. If the inverse has
+    already been calculated (and the matrix has not changed), then the
+    `cachesolve` should retrieve the inverse from the cache.
+
+Computing the inverse of a square matrix can be done with the `solve`
+function in R. For example, if X is a square invertible matrix, then
+`solve(X)` returns its inverse.
+
+For this assignment, assume that the matrix supplied is always
+invertible.
+
+In order to complete this assignment, you must do the following:
+
+1.  Fork the GitHub repository containing the stub R files at
+    <https://github.com/rdpeng/ProgrammingAssignment2> to create a copy
+    under your own account.
+2.  Clone your forked GitHub repository to your computer so that you can
+    edit the files locally on your own machine.
+3.  Edit the R file contained in the git repository and place your
+    solution in that file (please do not rename the file).
+4.  Commit your completed R file into YOUR git repository and push your
+    git branch to the GitHub repository under your account.
+5.  Submit to Coursera the URL to your GitHub repository that contains
+    the completed R code for the assignment.
+
+In addition to submitting the URL for your GitHub repository, you will
+need to submit the 40 character SHA-1 hash (as string of numbers from
+0-9 and letters from a-f) that identifies the repository commit that
+contains the version of the files you want to submit. You can do this in
+GitHub by doing the following
+
+1.  Going to your GitHub repository web page for this assignment
+2.  Click on the “?? commits” link where ?? is the number of commits you
+    have in the repository. For example, if you made a total of 10
+    commits to this repository, the link should say “10 commits”.
+3.  You will see a list of commits that you have made to this
+    repository. The most recent commit is at the very top. If this
+    represents the version of the files you want to submit, then just
+    click the “copy to clipboard” button on the right hand side that
+    should appear when you hover over the SHA-1 hash. Paste this SHA-1
+    hash into the course web site when you submit your assignment. If
+    you don’t want to use the most recent commit, then go down and find
+    the commit you want and copy the SHA-1 hash.
+
+A valid submission will look something like (this is just an example\!)
+
+``` r
+# https://github.com/rdpeng/ProgrammingAssignment2
+```
+
+``` r
+## Put comments here that give an overall description of what your
+## functions do  
+
+# The makeCacheMatrix() function takes a square invertible matrix as its  
+# argument and creates a special list of four functions: set(), get(),  
+# setsolve(), getsolve().   
+
+# The cacheSolve() function takes a special list created by the makeCacheMatrix()  
+# function as its argument and returns the inverse of a square matrix from the  
+# special list.  
+
+
+## Write a short comment describing this function
+# The function below creates two objects, namely `x` and `inv` in the same  
+# (enclosing) environment of the four functions: set(), get(), setsolve() and  
+# getsolve(). By using the `<<-` operator, set() and setsolve() functions modify  
+# the values of `x` and `inv` in the enclosing environment. The get() and  
+# getsolve() simply retrieve the current values of `x` and `inv` in the enclosing  
+# environment.
+
+makeCacheMatrix <- function(x = matrix()) {
+        inv <- NULL
+        set <- function(y) {
+                x <<- y
+                inv <<- NULL
+        }
+        get <- function() x
+        setsolve <- function(sol) inv <<- sol
+        getsolve <- function() inv
+        list(set = set, get = get, setsolve = setsolve, getsolve = getsolve)
+}
+
+## Write a short comment describing this function
+# The function below checks if the value of `inv` have already been calculated  
+# (exists) and, if exists, returns that `inv` value. If does not exist, it  
+# retrieves the value of `x` in the enclosing environment, calculates the inverse  
+# of it, modifies the value of `inv` in the enclosing environment, and returns  
+# the value of the new `inv`. 
+
+cacheSolve <- function(x, ...) {
+        ## Return a matrix that is the inverse of 'x'
+        inv <- x$getsolve()
+        if(!is.null(inv)) {
+                message("getting cached data")
+                return(inv)
+        }
+        data <- x$get()
+        inv <- solve(data, ...)
+        x$setsolve(inv)
+        inv
+}
+```
+
+#### Let’s try if the functions work
+
+``` r
+m <- matrix(c(4, 2, 7, 6), nrow = 2, ncol = 2)
+m
+```
+
+    ##      [,1] [,2]
+    ## [1,]    4    7
+    ## [2,]    2    6
+
+``` r
+a <- makeCacheMatrix(m)
+cacheSolve(a)
+```
+
+    ##      [,1] [,2]
+    ## [1,]  0.6 -0.7
+    ## [2,] -0.2  0.4
+
+``` r
+cacheSolve(a)
+```
+
+    ## getting cached data
+
+    ##      [,1] [,2]
+    ## [1,]  0.6 -0.7
+    ## [2,] -0.2  0.4
 
 # Key Takeaway Functions
 

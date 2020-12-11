@@ -308,6 +308,67 @@ get("n", environment(square))
 get("pow", environment(square))
 ```
 
+#### Additional materials on Lexical Scoping
+```{r}
+rm(list = ls())
+ls()
+```
+
+```{r}
+new_counter <- function(c) {
+        i <- 0
+        a <- 0
+        d <- function() {
+                i <<- i + 1
+                b <- 0
+                i
+        }
+        d
+}
+```
+
+#### Get `new_counter()`'s environment
+```{r}
+ls(environment(new_counter))
+```
+
+#### Create `counter_one()` and `counter_two()` functions
+```{r}
+counter_one <- new_counter()
+counter_two <- new_counter()
+```
+
+#### Get `new_counter()`, `counter_one()` and `counter_two()`'s environment
+```{r}
+ls(environment(new_counter))
+ls(environment(counter_one))
+ls(environment(counter_two))
+```
+
+#### Get `i` in `counter_one()`'s environment
+```{r}
+get("i", environment(counter_one))
+```
+
+#### Get `d` in `counter_one()`'s environment
+```{r}
+get("d", environment(counter_one))
+```
+
+#### Call `counter_one()` once
+```{r}
+counter_one()
+
+ls(environment(counter_one))
+get("i", environment(counter_one))
+```
+
+#### Get `counter_two()`'s environment
+```{r}
+ls(environment(counter_two))
+get("i", environment(counter_two))
+```
+
 #### Lexical Scoping in R vs. Dynamic Scoping    
 ```{r}
 y <- 10
@@ -653,30 +714,30 @@ corr <- function(directory, threshold = 0) {
         for(i in 1:332) {
                 if(i < 10) {
                         x <- data.frame(read.csv(paste("00", i, ".csv", sep = "")))
-                        s <- sum(complete.cases(x))
+                        good <- complete.cases(x)
+                        s <- sum(good)
                                 
                         if(s > threshold) {
-                                good <- complete.cases(x)
                                 c <- cor(x[good, ][, "sulfate"], x[good, ][, "nitrate"])
                                 v <- append(v, c)
                         }
                 }
                 else if(i < 100) {
                         x <- data.frame(read.csv(paste("0", i, ".csv", sep = "")))
-                        s <- sum(complete.cases(x))
+                        good <- complete.cases(x)
+                        s <- sum(good)
                         
                         if(s > threshold) {
-                                good <- complete.cases(x)
                                 c <- cor(x[good, ][, "sulfate"], x[good, ][, "nitrate"])
                                 v <- append(v, c)
                         }
                 }
                 else {
                         x <- data.frame(read.csv(paste(i, ".csv", sep = "")))
-                        s <- sum(complete.cases(x))
+                        good <- complete.cases(x)
+                        s <- sum(good)
                         
                         if(s > threshold) {
-                                good <- complete.cases(x)
                                 c <- cor(x[good, ][, "sulfate"], x[good, ][, "nitrate"])
                                 v <- append(v, c)
                         }
@@ -712,101 +773,6 @@ length(cr)
 cr <- corr("specdata")
 summary(cr)
 length(cr)
-```
-
-## Programming Assignment Quiz 
-
-```{r}
-rm(list = ls())
-source("pollutantmean.R")
-source("complete.R")
-source("corr.R")
-```
-
-
-#### Question 1  
-**What value is returned by the following call to pollutantmean()?**  
-**You should round your output to 3 digits.**  
-```{r}
-pollutantmean("specdata", "sulfate", 1:10)
-```
-
-#### Question 2  
-**What value is returned by the following call to pollutantmean()?**  
-**You should round your output to 3 digits.**  
-```{r}
-pollutantmean("specdata", "nitrate", 70:72)
-```
-
-#### Question 3  
-**What value is returned by the following call to pollutantmean()?**  
-**You should round your output to 3 digits.**  
-```{r}
-pollutantmean("specdata", "sulfate", 34)
-```
-
-#### Question 4  
-**What value is returned by the following call to pollutantmean()?**  
-**You should round your output to 3 digits.**  
-```{r}
-pollutantmean("specdata", "nitrate")
-```
-
-#### Question 5  
-**What value is printed at the end of the following code?**  
-```{r}
-cc <- complete("specdata", c(6, 10, 20, 34, 100, 200, 310))
-print(cc$nobs)
-```
-
-#### Question 6   
-**What value is printed at the end of the following code?**  
-```{r}
-cc <- complete("specdata", 54)
-print(cc$nobs)
-```
-
-#### Question 7  
-**What value is printed at the end of the following code?**  
-```{r}
-RNGversion("3.5.1")
-set.seed(42)
-cc <- complete("specdata", 332:1)
-use <- sample(332, 10)
-print(cc[use, "nobs"])
-```
-
-#### Question 8  
-**What value is printed at the end of the following code?**  
-```{r}
-cr <- corr("specdata")
-cr <- sort(cr)
-RNGversion("3.5.1")
-set.seed(868)
-out <- round(cr[sample(length(cr), 5)], 4)
-print(out)
-```
-
-#### Question 9  
-**What value is printed at the end of the following code?**  
-```{r}
-cr <- corr("specdata", 129)
-cr <- sort(cr)
-n <- length(cr)
-RNGversion("3.5.1")
-set.seed(197)
-out <- c(n, round(cr[sample(n, 5)], 4))
-print(out)
-```
-
-#### Question 10  
-**What value is printed at the end of the following code?**  
-```{r}
-cr <- corr("specdata", 2000)
-n <- length(cr)
-cr <- corr("specdata", 1000)
-cr <- sort(cr)
-print(c(n, round(cr, 4)))
 ```
 
 # Key Takeaway Functions

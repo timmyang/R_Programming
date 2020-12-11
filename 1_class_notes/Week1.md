@@ -64,7 +64,7 @@ Execute a function
 myfunction()
 ```
 
-    ## [1] -0.07392159
+    ## [1] -0.1291341
 
 Display a list of objects in the current environment
 
