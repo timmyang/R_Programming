@@ -66,13 +66,13 @@ summary(x)
 ```
 
     ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    ## -8.6925 -1.0818  0.8046  1.4144  4.3533  8.9992
+    ##  -7.230   0.109   1.394   1.603   3.558  11.120
 
 ``` r
 str(x)
 ```
 
-    ##  num [1:100] 2.735 1.355 5.638 -3.053 0.614 ...
+    ##  num [1:100] 1.9 2.8 -4.97 5.33 4.69 ...
 
 **Factor**
 
@@ -169,14 +169,14 @@ m <- matrix(rnorm(100), 10, 10)
 str(m) # Matrix is a two-dimensional array
 ```
 
-    ##  num [1:10, 1:10] -0.924 -0.149 -0.649 0.192 -0.592 ...
+    ##  num [1:10, 1:10] -1.475 1.523 -0.764 -0.289 0.774 ...
 
 ``` r
 m[, 1]
 ```
 
-    ##  [1] -0.9235530 -0.1491314 -0.6494502  0.1924954 -0.5923030 -1.9518314
-    ##  [7]  1.3119995 -0.8861392  0.2112087 -1.0905654
+    ##  [1] -1.4751206  1.5230796 -0.7640826 -0.2893097  0.7740063  0.9180730
+    ##  [7] -1.0550403  2.1586825  0.4407788  0.8478281
 
 **List**
 
@@ -261,7 +261,7 @@ is the *cumulative distribution function* for a standard normal
 distribution, then `pnorm(q)` =
 <img src="https://render.githubusercontent.com/render/math?math=$\Phi(q)$">
 and `qnorm(p)` =
-<img src="https://render.githubusercontent.com/render/math?math=$\Phi^{-1}(p)$">
+<img src="https://render.githubusercontent.com/render/math?math=$Phi^{-1}(p)$">
 
 ## Simulating a Linear Model
 
@@ -283,7 +283,8 @@ and `qnorm(p)` =
       - *str()*
   - **Simulation**
       - Generating Random Numbers
-          - **<img src="https://render.githubusercontent.com/render/math?math=">**
+          - *`<img
+            src="https://render.githubusercontent.com/render/math?math=">`*
 
 <https://www.stat.cmu.edu/~cshalizi/rmarkdown/#math-in-r-markdown>  
 <https://bookdown.org/yihui/rmarkdown/html-document.html#mathjax-equations>  
