@@ -66,13 +66,13 @@ summary(x)
 ```
 
     ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    ## -6.6101 -0.7661  1.5237  1.9448  4.8621 11.1556
+    ## -8.8832 -0.4693  2.1087  2.0445  4.8913 13.2244
 
 ``` r
 str(x)
 ```
 
-    ##  num [1:100] 7.46 -3.48 6.13 2.83 4.86 ...
+    ##  num [1:100] 7.64 1.22 4.07 2.56 6.3 ...
 
 **Factor**
 
@@ -169,14 +169,14 @@ m <- matrix(rnorm(100), 10, 10)
 str(m) # Matrix is a two-dimensional array
 ```
 
-    ##  num [1:10, 1:10] 0.272 -2.57 0.15 -0.403 -0.768 ...
+    ##  num [1:10, 1:10] 1.698 -1.162 0.369 0.386 -0.713 ...
 
 ``` r
 m[, 1]
 ```
 
-    ##  [1]  0.2716116 -2.5703276  0.1499128 -0.4027731 -0.7684182  0.2476893
-    ##  [7]  0.6478989  0.7596682 -0.1813079  0.6300756
+    ##  [1]  1.6982023 -1.1622004  0.3694455  0.3858006 -0.7130963  2.0956101
+    ##  [7]  0.4821235 -0.2184364 -0.4455661 -1.0123357
 
 **List**
 
@@ -256,10 +256,12 @@ functions
 ```
 
 If \(\Phi\) is the *cumulative distribution function* for a standard
-normal distribution, then `pnorm(q)` = \[\Phi\](q) and `qnorm(p)` =
+normal distribution, then `pnorm(q)` = \[\Phi(q)\] and `qnorm(p)` =
 TeX(“\(\Phi^{-1}(p)\)”)
 
-<img src="https://latex.codecogs.com/gif.latex? \Phi^{-1}(p)  " />
+<img src="https://render.githubusercontent.com/render/math?math=\Phi^{-1}(p) = -1">
+
+<img src="https://render.githubusercontent.com/render/math?math=$e^{i \pi} = -1$ ">
 
 ## Simulating a Linear Model
 
@@ -281,4 +283,5 @@ TeX(“\(\Phi^{-1}(p)\)”)
       - *str()*
 
 <https://www.stat.cmu.edu/~cshalizi/rmarkdown/#math-in-r-markdown>  
-<https://bookdown.org/yihui/rmarkdown/html-document.html#mathjax-equations>
+<https://bookdown.org/yihui/rmarkdown/html-document.html#mathjax-equations>  
+<https://gist.github.com/a-rodin/fef3f543412d6e1ec5b6cf55bf197d7b>
