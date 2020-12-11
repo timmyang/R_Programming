@@ -1,9 +1,6 @@
 ---
 title: "Week 4"
-output: 
-        rmarkdown::github_document:
-        mathjax: local
-        self_contained: false
+output: rmarkdown::github_document
 ---
 
 # Table of Contents
@@ -110,13 +107,7 @@ Working with the *normal* distributions requires using these "four" functions
 # rnorm(n, mean = 0, sd = 1)
 ```
 
-If $\Phi$ is the *cumulative distribution function* for a standard normal distribution, then `pnorm(q)` = $$\Phi(q)$$ and `qnorm(p)` = TeX("$\Phi^{-1}(p)$")
-
-
-<img src="https://render.githubusercontent.com/render/math?math=\Phi^{-1}(p) = -1">  
-
-<img src="https://render.githubusercontent.com/render/math?math=$e^{i \pi} = -1$ ">  
- 
+If <img src="https://render.githubusercontent.com/render/math?math=$\Phi$"> is the *cumulative distribution function* for a standard normal distribution, then `pnorm(q)` = <img src="https://render.githubusercontent.com/render/math?math=$\Phi(q)$"> and `qnorm(p)` = <img src="https://render.githubusercontent.com/render/math?math=$\Phi^{-1}(p)$">  
 
 ## Simulating a Linear Model  
 
@@ -144,6 +135,10 @@ If $\Phi$ is the *cumulative distribution function* for a standard normal distri
 
 - **The str Function**
   - *str()*
+
+- **Simulation**
+  - Generating Random Numbers
+    - **<img src="https://render.githubusercontent.com/render/math?math=">**
   
 <https://www.stat.cmu.edu/~cshalizi/rmarkdown/#math-in-r-markdown>  
 <https://bookdown.org/yihui/rmarkdown/html-document.html#mathjax-equations>  

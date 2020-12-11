@@ -66,13 +66,13 @@ summary(x)
 ```
 
     ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    ## -8.8832 -0.4693  2.1087  2.0445  4.8913 13.2244
+    ## -8.6925 -1.0818  0.8046  1.4144  4.3533  8.9992
 
 ``` r
 str(x)
 ```
 
-    ##  num [1:100] 7.64 1.22 4.07 2.56 6.3 ...
+    ##  num [1:100] 2.735 1.355 5.638 -3.053 0.614 ...
 
 **Factor**
 
@@ -169,14 +169,14 @@ m <- matrix(rnorm(100), 10, 10)
 str(m) # Matrix is a two-dimensional array
 ```
 
-    ##  num [1:10, 1:10] 1.698 -1.162 0.369 0.386 -0.713 ...
+    ##  num [1:10, 1:10] -0.924 -0.149 -0.649 0.192 -0.592 ...
 
 ``` r
 m[, 1]
 ```
 
-    ##  [1]  1.6982023 -1.1622004  0.3694455  0.3858006 -0.7130963  2.0956101
-    ##  [7]  0.4821235 -0.2184364 -0.4455661 -1.0123357
+    ##  [1] -0.9235530 -0.1491314 -0.6494502  0.1924954 -0.5923030 -1.9518314
+    ##  [7]  1.3119995 -0.8861392  0.2112087 -1.0905654
 
 **List**
 
@@ -255,13 +255,13 @@ functions
 # rnorm(n, mean = 0, sd = 1)
 ```
 
-If \(\Phi\) is the *cumulative distribution function* for a standard
-normal distribution, then `pnorm(q)` = \[\Phi(q)\] and `qnorm(p)` =
-TeX(“\(\Phi^{-1}(p)\)”)
-
-<img src="https://render.githubusercontent.com/render/math?math=\Phi^{-1}(p) = -1">
-
-<img src="https://render.githubusercontent.com/render/math?math=$e^{i \pi} = -1$ ">
+If
+<img src="https://render.githubusercontent.com/render/math?math=$\Phi$">
+is the *cumulative distribution function* for a standard normal
+distribution, then `pnorm(q)` =
+<img src="https://render.githubusercontent.com/render/math?math=$\Phi(q)$">
+and `qnorm(p)` =
+<img src="https://render.githubusercontent.com/render/math?math=$\Phi^{-1}(p)$">
 
 ## Simulating a Linear Model
 
@@ -281,6 +281,9 @@ TeX(“\(\Phi^{-1}(p)\)”)
 
   - **The str Function**
       - *str()*
+  - **Simulation**
+      - Generating Random Numbers
+          - **<img src="https://render.githubusercontent.com/render/math?math=">**
 
 <https://www.stat.cmu.edu/~cshalizi/rmarkdown/#math-in-r-markdown>  
 <https://bookdown.org/yihui/rmarkdown/html-document.html#mathjax-equations>  
