@@ -103,13 +103,65 @@ Working with the *normal* distributions requires using these "four" functions
 ```{r}
 # dnorm(x, mean = 0, sd = 1, log = FALSE)
 # pnorm(q, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
-# qnorm(p, mean = 0, sd = 1, lowertail = TRUE, log.p = FALSE)
+# qnorm(p, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
 # rnorm(n, mean = 0, sd = 1)
 ```
 
-If <img src="https://render.githubusercontent.com/render/math?math=$\Phi$"> is the *cumulative distribution function* for a standard normal distribution, then `pnorm(q)` = <img src="https://render.githubusercontent.com/render/math?math=$\Phi(q)$"> and `qnorm(p)` = <img src="https://render.githubusercontent.com/render/math?math=$Phi^{-1}(p)$">  
+If <img src="https://render.githubusercontent.com/render/math?math=$\Phi$"> is the *cumulative distribution function* for a standard normal distribution, then `pnorm(q)` = <img src="https://render.githubusercontent.com/render/math?math=$\Phi(q)$"> and `qnorm(p)` = <img src="https://render.githubusercontent.com/render/math?math=$\Phi^{-1}(p)$">  
 
-## Simulating a Linear Model  
+```{r}
+x <- rnorm(10)
+x
+
+x <- rnorm(10, 20, 2)
+x
+
+summary(x)
+```
+Setting the random number seed with `set.seed` ensures "reproducibility"  
+Always set the random number seed when conducting a simulation!  
+
+#### Normal Random Variables
+```{r}
+set.seed(1)
+rnorm(5)
+
+set.seed(1)
+rnorm(5)
+rnorm(5)
+
+set.seed(1)
+rnorm(5)
+rnorm(5)
+rnorm(5)
+```
+
+#### Poisson Random Variables
+```{r}
+rpois(10, 1)
+rpois(10, 2)
+rpois(10, 29)
+```
+
+```{r}
+# Cumulative distribution
+ppois(2, 2) # Pr(x <= 2)
+ppois(4, 2) # Pr(x <= 4)
+ppois(6, 2) # Pr(x <= 6)
+```
+
+## Simulating a Linear Model 
+
+Suppose we want to simulate from the following linear model  
+
+<img src="https://render.githubusercontent.com/render/math?math=$y = \beta_0 + \beta_1 x + \epsilon$">
+
+where <img src="https://render.githubusercontent.com/render/math?math=$\epsilon \sim \mathcal{N}(0, 2^{2})$">.  Assume <img src="https://render.githubusercontent.com/render/math?math=$x \sim \mathcal{N}(0, 1^{2}), \: \beta_0 = 0.5 \: and \: \beta_1 = 2$">.
+
+```{r}
+
+```
+
 
 ## Random Sampling  
 
@@ -135,10 +187,13 @@ If <img src="https://render.githubusercontent.com/render/math?math=$\Phi$"> is t
 
 - **The str Function**
   - *str()*
+  - *gl(levels, repeat)*
 
 - **Simulation**
   - Generating Random Numbers
     - *`<img src="https://render.githubusercontent.com/render/math?math=">`*
+    - *rnorm(n, mean = 0, sd = 1)*
+    
   
 <https://www.stat.cmu.edu/~cshalizi/rmarkdown/#math-in-r-markdown>  
 <https://bookdown.org/yihui/rmarkdown/html-document.html#mathjax-equations>  

@@ -66,13 +66,13 @@ summary(x)
 ```
 
     ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    ##  -7.230   0.109   1.394   1.603   3.558  11.120
+    ## -7.5206 -0.7442  2.2011  2.1145  4.8451 11.2326
 
 ``` r
 str(x)
 ```
 
-    ##  num [1:100] 1.9 2.8 -4.97 5.33 4.69 ...
+    ##  num [1:100] -0.73 3.15 1.1 5.08 -1.4 ...
 
 **Factor**
 
@@ -169,14 +169,14 @@ m <- matrix(rnorm(100), 10, 10)
 str(m) # Matrix is a two-dimensional array
 ```
 
-    ##  num [1:10, 1:10] -1.475 1.523 -0.764 -0.289 0.774 ...
+    ##  num [1:10, 1:10] 0.304 -0.678 -0.429 -0.194 -0.561 ...
 
 ``` r
 m[, 1]
 ```
 
-    ##  [1] -1.4751206  1.5230796 -0.7640826 -0.2893097  0.7740063  0.9180730
-    ##  [7] -1.0550403  2.1586825  0.4407788  0.8478281
+    ##  [1]  0.30379414 -0.67810004 -0.42861864 -0.19448812 -0.56050250  1.91011857
+    ##  [7] -2.13618793  1.58857235  1.95038346 -0.03631353
 
 **List**
 
@@ -251,7 +251,7 @@ functions
 ``` r
 # dnorm(x, mean = 0, sd = 1, log = FALSE)
 # pnorm(q, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
-# qnorm(p, mean = 0, sd = 1, lowertail = TRUE, log.p = FALSE)
+# qnorm(p, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
 # rnorm(n, mean = 0, sd = 1)
 ```
 
@@ -261,9 +261,125 @@ is the *cumulative distribution function* for a standard normal
 distribution, then `pnorm(q)` =
 <img src="https://render.githubusercontent.com/render/math?math=$\Phi(q)$">
 and `qnorm(p)` =
-<img src="https://render.githubusercontent.com/render/math?math=$Phi^{-1}(p)$">
+<img src="https://render.githubusercontent.com/render/math?math=$\Phi^{-1}(p)$">
+
+``` r
+x <- rnorm(10)
+x
+```
+
+    ##  [1]  0.1879071  0.2441342 -1.3725912 -1.0565539  0.3593230 -0.6439562
+    ##  [7] -1.2477768 -0.8446081  0.5138130 -0.6279727
+
+``` r
+x <- rnorm(10, 20, 2)
+x
+```
+
+    ##  [1] 21.20581 21.72030 19.45437 21.67870 20.68072 21.97248 19.94662 20.82136
+    ##  [9] 16.90107 17.81297
+
+``` r
+summary(x)
+```
+
+    ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    ##   16.90   19.58   20.75   20.22   21.56   21.97
+
+Setting the random number seed with `set.seed` ensures
+“reproducibility”  
+Always set the random number seed when conducting a simulation\!
+
+#### Normal Random Variables
+
+``` r
+set.seed(1)
+rnorm(5)
+```
+
+    ## [1] -0.6264538  0.1836433 -0.8356286  1.5952808  0.3295078
+
+``` r
+set.seed(1)
+rnorm(5)
+```
+
+    ## [1] -0.6264538  0.1836433 -0.8356286  1.5952808  0.3295078
+
+``` r
+rnorm(5)
+```
+
+    ## [1] -0.8204684  0.4874291  0.7383247  0.5757814 -0.3053884
+
+``` r
+set.seed(1)
+rnorm(5)
+```
+
+    ## [1] -0.6264538  0.1836433 -0.8356286  1.5952808  0.3295078
+
+``` r
+rnorm(5)
+```
+
+    ## [1] -0.8204684  0.4874291  0.7383247  0.5757814 -0.3053884
+
+``` r
+rnorm(5)
+```
+
+    ## [1]  1.5117812  0.3898432 -0.6212406 -2.2146999  1.1249309
+
+#### Poisson Random Variables
+
+``` r
+rpois(10, 1)
+```
+
+    ##  [1] 1 1 1 0 2 1 2 0 1 1
+
+``` r
+rpois(10, 2)
+```
+
+    ##  [1] 3 2 3 2 2 3 0 2 3 3
+
+``` r
+rpois(10, 29)
+```
+
+    ##  [1] 28 28 21 29 27 26 31 28 21 34
+
+``` r
+# Cumulative distribution
+ppois(2, 2) # Pr(x <= 2)
+```
+
+    ## [1] 0.6766764
+
+``` r
+ppois(4, 2) # Pr(x <= 4)
+```
+
+    ## [1] 0.947347
+
+``` r
+ppois(6, 2) # Pr(x <= 6)
+```
+
+    ## [1] 0.9954662
 
 ## Simulating a Linear Model
+
+Suppose we want to simulate from the following linear model
+
+<img src="https://render.githubusercontent.com/render/math?math=$y = \beta_0 + \beta_1 x + \epsilon$">
+
+where
+<img src="https://render.githubusercontent.com/render/math?math=$\epsilon \sim \mathcal{N}(0, 2^{2})$">.
+Assume
+<img src="https://render.githubusercontent.com/render/math?math=$x \sim \mathcal{N}(0, 1^{2}), \: \beta_0 = 0.5 \: and \: \beta_1 = 2$">.
 
 ## Random Sampling
 
@@ -281,10 +397,12 @@ and `qnorm(p)` =
 
   - **The str Function**
       - *str()*
+      - *gl(levels, repeat)*
   - **Simulation**
       - Generating Random Numbers
           - *`<img
             src="https://render.githubusercontent.com/render/math?math=">`*
+          - *rnorm(n, mean = 0, sd = 1)*
 
 <https://www.stat.cmu.edu/~cshalizi/rmarkdown/#math-in-r-markdown>  
 <https://bookdown.org/yihui/rmarkdown/html-document.html#mathjax-equations>  
