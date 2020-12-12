@@ -3,4 +3,4 @@
 
 **2_swirl_notes:** contains personal notes taken from "Statistics with Interactive R Learning (Swirl)" exercises.
 
-**data:** contains data used throughout the course.
+**3_data:** contains data used throughout the course.
