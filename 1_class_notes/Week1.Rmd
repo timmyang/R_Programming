@@ -716,6 +716,10 @@ Time
 - **`POSIXct`** (default)   
 - **`POSIXlt`**
 
+**`proc_time`**
+
+- user time
+- elapsed time
 
 #### length
 

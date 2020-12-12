@@ -154,33 +154,315 @@ ppois(6, 2) # Pr(x <= 6)
 
 Suppose we want to simulate from the following linear model  
 
-<img src="https://render.githubusercontent.com/render/math?math=$y = \beta_0 \MVPlus \beta_1 x &plus \epsilon$">
+<img src="https://render.githubusercontent.com/render/math?math=$y = \beta_0 + \beta_1 x + \epsilon$">
 
 where <img src="https://render.githubusercontent.com/render/math?math=$\epsilon \sim \mathcal{N}(0, 2^{2})$">.  Assume <img src="https://render.githubusercontent.com/render/math?math=$x \sim \mathcal{N}(0, 1^{2}), \: \beta_0 = 0.5 \: and \: \beta_1 = 2$">.
+
+```{r}
+set.seed(20)
+x <- rnorm(100)
+e <- rnorm(n = 100, mean = 0, sd = 2)
+
+y <- 0.5 + 2 * x + e
+summary(y)
+
+plot(x, y)
+abline(lm(y ~ x), col = "blue")
+
+model <- lm(y ~ x)
+summary(model)
+```
+
+What if `x` is binary?
+
+```{r}
+set.seed(10)
+x <- rbinom(n = 100, size = 1, prob = 0.5)
+e <- rnorm(n = 100, mean = 0, sd = 2)
+
+y <- 0.5 + 2 * x + e
+summary(y)
+plot(x, y)
+```
+
+Suppose we want to simulate from a *Poisson* model where  
+
+<img src="https://render.githubusercontent.com/render/math?math=$Y \sim Poisson(\mu)$">  
+<img src="https://render.githubusercontent.com/render/math?math=$log \: \mu = \beta_0 + \beta_1 x$">  
+and <img src="https://render.githubusercontent.com/render/math?math=$\beta_0 = 0.5 \: and \: \beta_1 = 0.3$">.  
+We need to use the `rpois` function for this
+
+```{r}
+set.seed(1)
+x <- rnorm(100)
+log.mu <- 0.5 + 0.3 * x
+
+y <- rpois(100, exp(log.mu))
+summary(y)
+plot(x, y)
+```
+
+## Random Sampling  
+
+The `sample()` function draws randomly from a specified set of (scalar) objects allowing you to sample from arbitrary distributions.
+```{r}
+set.seed(1)
+
+sample(1:10, 4)
+sample(1:10, 4)
+
+sample(letters, 5)
+
+sample(1:10) # permutation
+sample(1:10)
+
+sample(1:10, replace = TRUE) # Sample with replacement
+```
+
+# R Profiler  
+
+- "Profiling" is a systematic way to "examine how much time" is spent in different parts of a program
+- Useful when trying to "optimize" your code
+
+## Part 1  
+
+#### system.time()  
+
+- Takes an arbitrary R expression as input (can be wrapped in curly braces) and returns the amount of time taken to evaluate the expression
+- Computes the time (*in seconds*) needed to execute an expression
+- Returns an object of class `proc_time`
+  - **user time:** time charged to the CPU(s) for this expression (for the computer)
+  - **elapsed time:** "wall clock" time (for myself)
+
+```{r}
+# Elapsed time > user time
+system.time(readLines("http://www.jhsph.edu"))
+# The chunk of the time is just spent waiting for the network, or for the data 
+# to go over the network and to come back to your computer
+```
+
+```{r}
+# Elapsed time < user time
+hilbert <- function(n) {
+        i <- 1:n
+        1 / outer(i - 1, i, "+")
+}
+
+x <- hilbert(1000)
+system.time(svd(x))
+```
+
+Timing longer expressions:
+```{r}
+system.time({
+        n <- 1000
+        r <- numeric(n)
+        for (i in 1:n) {
+                x <- rnorm(n)
+                r[i] <- mean(x)
+        }
+})
+```
+
+## Part 2  
+
+#### Rprof()  
+
+- The `Rprof()` function starts the profiler in R
+  - R must be complied with profiler support (but this is usually the case)
+- The `summaryRprof()` function summarizes the output from `Rprof()` (otherwise it's not readable)
+- DO NOT use `system.time()` and `Rprof()` together or you will be sad
+- `Rprof()` keeps track of the "function call stack" at regularly sampled intervals and tabulates how much time is spent in each function
+- Default sampling interval is 0.02 seconds
+- NOTE: If your code runs very quickly, the profiler is not useful, but then you probably don't need it in that case
+
+```{r}
+# lm(y ~ x)
+
+sample.interval=10000
+```
+
+- The `summaryRprof()` function tabulates the R profiler output and calculates how much time is spent in which function
+- There are two methods for normalizing the data
+- `by.total` divides the time spent in each function by the total run time
+- `by.self` does the same but first subtracts out time spent in functions above in the call stack
+
+#### by.total
 
 ```{r}
 
 ```
 
+#### by.self  
+Tells you how much time is being spent in a given function, but after subtracting out all of the other time spent in lower level functions that it calls.
 
-## Random Sampling  
+```{r}
 
+```
 
+#### summaryRprof() output  
+Summarizes the output of `Rprof()` and gives "percent of time" spent in each function (with two types of normalization)
+```{r}
+# $sample.interval
+## [1] 0.02
 
-# R Profiler  
-
-## Part 1  
-
-## Part 2  
-
-
+# $sampling.time        # the total amount of time that the expression took to run
+## [1] 7.41             # = elapse time
+```
 
 # Quiz  
 
+## Question 1  
+**What is produced at the end of this snippet of R code?**  
+```{r}
+set.seed(1)
+rpois(n = 5, lambda = 2)
+```
+
+
+## Question 2  
+**What R function can be used to generate standard Normal random variables?**
+(Answer): `rnorm`  
+
+## Question 3  
+**When simulating data, why is using the `set.seed()` function important?**  
+**Select all that apply.**  
+(Answer):   
+It ensure that the sequence of random numbers starts in a specific place and its therefore reproducible.  
+
+## Question 4  
+**Which function can be used to evaluate the inverse cumulative distribution function for the Poisson distribution?**  
+(Answer): `qpois`  
+
+## Question 5  
+**What does the following code do?**   
+```{r}
+set.seed(10)
+x <- rep(0:1, each = 5)
+e <- rnorm(10, 0, 20)
+y <- 0.5 + 2 * x + e
+```
+
+(Answer): Generate data from a Normal linear model
+
+## Question 6  
+**What R function can be used to generate Binomial random variables?**  
+(Answer): `rbinom()`  
+
+## Question 7  
+**What aspect of the R runtime does the profiler keep track of when an R expression is evaulated?**  
+(Answer): The function call stack  
+
+## Question 8  
+**Consider the following R code**  
+```{r}
+library(datasets)
+Rprof()
+# fit <- lm(y ~ x1 + x2)
+Rprof(NULL)
+```
+**(Assume that y, x1, and x2 are present in the workspace).**  
+**Without running the code, what percentage of the run time is spent in the `lm()` function, based on the `by.total` method of normalization shown in `summaryRprof()`?**  
+(Answer): 100%
+
+## Question 9  
+**When using `system.time()`, what is the user time?**  
+(Answer): It is the time spent by the CPU evaluating an expression  
+
+## Question 10  
+**If a computer has more than one available processor and R is able to take advantage of that, then which of the following is true when using `system.time()`?**  
+(Answer): Elapsed time may be smaller than user time  
 
 
 # Programming Assignment  
 
+```{r}
+getwd()
+setwd("/Users/hyeonwooyang/Desktop/Desktop/5_Coursera/1_R_Programming/git_project/data")
+```
+
+```{r, setup, echo = FALSE}
+knitr::opts_knit$set(root.dir = '/Users/hyeonwooyang/Desktop/Desktop/5_Coursera/1_R_Programming/git_project/data')
+```
+
+## 1. Plot the 30-day mortality rates for heart attack
+
+```{r}
+outcome <- read.csv("outcome-of-care-measures.csv", colClasses = "character")
+head(outcome)
+```
+
+```{r}
+outcome[, 11] <- as.numeric(outcome[, 11])
+hist(outcome[, 11])
+```
+
+## 2. Finding the best hospital in a state  
+
+```{r}
+best <- function(state, outcome) {
+        ## Read outcome data
+        
+        ## Check that state and outcome are valid
+        
+        ## Return hospital name in that state with lowest 30-day death
+        ## rate
+}
+```
+
+
+<!-- ## Question 1 -->
+<!-- ```{r} -->
+<!-- best("SC", "heart attack") -->
+<!-- ``` -->
+
+<!-- ## Question 2 -->
+<!-- ```{r} -->
+<!-- best("NY", "pneumonia") -->
+<!-- ``` -->
+
+<!-- ## Question 3 -->
+<!-- ```{r} -->
+<!-- best("AK", "pneumonia") -->
+<!-- ``` -->
+
+<!-- ## Question 4 -->
+<!-- ```{r} -->
+<!-- rankhospital("NC", "heart attack", "worst") -->
+<!-- ``` -->
+
+<!-- ## Question 5 -->
+<!-- ```{r} -->
+<!-- rankhospital("WA", "heart attack", 7) -->
+<!-- ``` -->
+
+<!-- ## Question 6 -->
+<!-- ```{r} -->
+<!-- rankhospital("TX", "pneumonia", 10) -->
+<!-- ``` -->
+
+<!-- ## Question 7 -->
+<!-- ```{r} -->
+<!-- rankhospital("NY", "heart attack", 7) -->
+<!-- ``` -->
+
+<!-- ## Question 8 -->
+<!-- ```{r} -->
+<!-- r <- rankall("heart attack", 4) -->
+<!-- as.character(subset(r, state == "HI")$hospital) -->
+<!-- ``` -->
+
+<!-- ## Question 9 -->
+<!-- ```{r} -->
+<!-- r <- rankall("pneumonia", "worst") -->
+<!-- as.character(subset(r, state == "NJ")$hospital) -->
+<!-- ``` -->
+
+<!-- ## Question 10 -->
+<!-- ```{r} -->
+<!-- r <- rankall("heart failure", 10) -->
+<!-- as.character(subset(r, state == "NV")$hospital) -->
+<!-- ``` -->
 
 
 # Key Takeaway Functions
@@ -193,7 +475,26 @@ where <img src="https://render.githubusercontent.com/render/math?math=$\epsilon 
   - Generating Random Numbers
     - *`<img src="https://render.githubusercontent.com/render/math?math=">`*
     - *rnorm(n, mean = 0, sd = 1)*
+    - *rnorm(), dnorm(), pnorm(), rpois()*
+    - *set.seed()*
+   
+  - Simulating a Linear Model
+    - *rbinorm()*
+    - *plot(x, y); abline(lm(y ~ x), col = "blue")*
+    - *summary(lm(y ~ x))*
+  
+  - Random Sampling
+    - *sample()*
     
+- **R Profiler**
+  - *system.time()*
+  - *Rprof(), summaryRprof(), by.total, by.self*
+  - *sample.internal*
+
+- **Programming Assignment**
+  - *hist()*
+  
+`ctrl` + `shift` + `c`
   
 <https://www.stat.cmu.edu/~cshalizi/rmarkdown/#math-in-r-markdown>  
 <https://bookdown.org/yihui/rmarkdown/html-document.html#mathjax-equations>  

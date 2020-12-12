@@ -46,8 +46,11 @@ Display a list of files in the working directory
 dir()
 ```
 
-    ## [1] "complete.R"      "corr.R"          "data.R"          "hw1_data.csv"   
-    ## [5] "pollutantmean.R" "specdata"        "y.R"
+    ##  [1] "complete.R"                     "corr.R"                        
+    ##  [3] "data.R"                         "Hospital_Revised_Flatfiles.pdf"
+    ##  [5] "hospital-data.csv"              "hw1_data.csv"                  
+    ##  [7] "outcome-of-care-measures.csv"   "pollutantmean.R"               
+    ##  [9] "specdata"                       "y.R"
 
 Create a function
 
@@ -64,7 +67,7 @@ Execute a function
 myfunction()
 ```
 
-    ## [1] -0.1291341
+    ## [1] -0.02214976
 
 Display a list of objects in the current environment
 
@@ -1238,8 +1241,11 @@ getwd()
 dir()
 ```
 
-    ## [1] "complete.R"      "corr.R"          "data.R"          "hw1_data.csv"   
-    ## [5] "pollutantmean.R" "specdata"        "y.R"
+    ##  [1] "complete.R"                     "corr.R"                        
+    ##  [3] "data.R"                         "Hospital_Revised_Flatfiles.pdf"
+    ##  [5] "hospital-data.csv"              "hw1_data.csv"                  
+    ##  [7] "outcome-of-care-measures.csv"   "pollutantmean.R"               
+    ##  [9] "specdata"                       "y.R"
 
 ``` r
 table <- read.csv("hw1_data.csv")
@@ -1415,6 +1421,11 @@ Time
 
   - **`POSIXct`** (default)  
   - **`POSIXlt`**
+
+**`proc_time`**
+
+  - user time
+  - elapsed time
 
 #### length
 
