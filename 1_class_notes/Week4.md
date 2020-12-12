@@ -66,13 +66,13 @@ summary(x)
 ```
 
     ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    ##  -7.054  -1.148   2.036   2.118   4.765  12.495
+    ## -7.9158 -0.7029  2.3519  2.1731  4.7589 15.2407
 
 ``` r
 str(x)
 ```
 
-    ##  num [1:100] 4.1 6.93 1.9 2.89 3.86 ...
+    ##  num [1:100] 8.508 -0.666 3.594 3.228 7.596 ...
 
 **Factor**
 
@@ -169,14 +169,14 @@ m <- matrix(rnorm(100), 10, 10)
 str(m) # Matrix is a two-dimensional array
 ```
 
-    ##  num [1:10, 1:10] -0.871 -1.037 -0.151 0.527 0.625 ...
+    ##  num [1:10, 1:10] 1.057 -0.937 -1.346 -2.396 0.316 ...
 
 ``` r
 m[, 1]
 ```
 
-    ##  [1] -0.8713774 -1.0366181 -0.1508138  0.5272439  0.6254691  0.6864380
-    ##  [7] -0.2371406  0.5589234 -1.8616070 -1.8377401
+    ##  [1]  1.0573002 -0.9371786 -1.3463695 -2.3963415  0.3157868  0.1751884
+    ##  [7]  0.4192954 -1.3353395  0.8060576 -1.6885665
 
 **List**
 
@@ -268,23 +268,23 @@ x <- rnorm(10)
 x
 ```
 
-    ##  [1] -0.4422299  0.9326308 -1.6422241 -0.2196654  1.3904697 -0.7776139
-    ##  [7] -0.1838047 -0.9243573  0.5113920 -1.9037659
+    ##  [1]  2.2180591  0.7785144 -1.4925049 -0.3314506 -1.2809992  1.1567769
+    ##  [7] -0.4416735  0.8212711 -1.1167337 -0.8495202
 
 ``` r
 x <- rnorm(10, 20, 2)
 x
 ```
 
-    ##  [1] 21.68039 21.00710 15.38532 21.01699 19.67482 19.37090 20.18408 15.77619
-    ##  [9] 18.68211 19.59752
+    ##  [1] 20.89326 21.71576 20.68173 20.13627 23.66530 19.35602 18.67495 20.54950
+    ##  [9] 17.25669 18.32521
 
 ``` r
 summary(x)
 ```
 
     ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    ##   15.39   18.85   19.64   19.24   20.80   21.68
+    ##   17.26   18.85   20.34   20.13   20.84   23.67
 
 Setting the random number seed with `set.seed` ensures
 “reproducibility”  
@@ -374,7 +374,7 @@ ppois(6, 2) # Pr(x <= 6)
 
 Suppose we want to simulate from the following linear model
 
-<img src="https://render.githubusercontent.com/render/math?math=$y = \beta_0 \p \beta_1 x \plus \epsilon$">
+<img src="https://render.githubusercontent.com/render/math?math=$y = \beta_0 \MVPlus \beta_1 x &plus \epsilon$">
 
 where
 <img src="https://render.githubusercontent.com/render/math?math=$\epsilon \sim \mathcal{N}(0, 2^{2})$">.
@@ -406,4 +406,5 @@ Assume
 
 <https://www.stat.cmu.edu/~cshalizi/rmarkdown/#math-in-r-markdown>  
 <https://bookdown.org/yihui/rmarkdown/html-document.html#mathjax-equations>  
-<https://gist.github.com/a-rodin/fef3f543412d6e1ec5b6cf55bf197d7b>
+<https://gist.github.com/a-rodin/fef3f543412d6e1ec5b6cf55bf197d7b>  
+<https://rpruim.github.io/s341/S19/from-class/MathinRmd.html>

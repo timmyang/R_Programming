@@ -154,7 +154,7 @@ ppois(6, 2) # Pr(x <= 6)
 
 Suppose we want to simulate from the following linear model  
 
-<img src="https://render.githubusercontent.com/render/math?math=$y = \beta_0 \p \beta_1 x \plus \epsilon$">
+<img src="https://render.githubusercontent.com/render/math?math=$y = \beta_0 \MVPlus \beta_1 x &plus \epsilon$">
 
 where <img src="https://render.githubusercontent.com/render/math?math=$\epsilon \sim \mathcal{N}(0, 2^{2})$">.  Assume <img src="https://render.githubusercontent.com/render/math?math=$x \sim \mathcal{N}(0, 1^{2}), \: \beta_0 = 0.5 \: and \: \beta_1 = 2$">.
 
@@ -198,6 +198,9 @@ where <img src="https://render.githubusercontent.com/render/math?math=$\epsilon 
 <https://www.stat.cmu.edu/~cshalizi/rmarkdown/#math-in-r-markdown>  
 <https://bookdown.org/yihui/rmarkdown/html-document.html#mathjax-equations>  
 <https://gist.github.com/a-rodin/fef3f543412d6e1ec5b6cf55bf197d7b>  
+<https://rpruim.github.io/s341/S19/from-class/MathinRmd.html>  
+
+
 
   
   
