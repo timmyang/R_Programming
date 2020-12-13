@@ -710,6 +710,7 @@ as.character(subset(r, state == "NV")$hospital)
     - *`<img src="https://render.githubusercontent.com/render/math?math=">`*
     - *rnorm(n, mean = 0, sd = 1)*
     - *rnorm(), dnorm(), pnorm(), rpois()*
+    - *binorm(n, size, prob)*  
     - *set.seed()*
    
   - Simulating a Linear Model

@@ -1,4 +1,4 @@
-R Notebook
+Practical R Exercises in Swirl
 ================
 
 Install swirl
@@ -33,7 +33,8 @@ clear your workspace
 rm(list=ls())
 ```
 
-Start swirl `swirl()`
+Start swirl  
+`swirl()`
 
 What shall I call you?
 
