@@ -487,7 +487,7 @@ get("pow", environment(cube))
     ## function(x) {
     ##                 x^n
     ##         }
-    ## <environment: 0x7faa40fe83a8>
+    ## <environment: 0x7ffe7c8c9570>
 
 ``` r
 ls(environment(square))
@@ -508,8 +508,8 @@ get("pow", environment(square))
     ## function(x) {
     ##                 x^n
     ##         }
-    ## <bytecode: 0x7faa4203b0a8>
-    ## <environment: 0x7faa42845a90>
+    ## <bytecode: 0x7ffe7aa0d270>
+    ## <environment: 0x7ffe7a9f5858>
 
 #### Additional materials on Lexical Scoping
 
@@ -587,7 +587,7 @@ get("d", environment(counter_one))
     ##                 b <- 0
     ##                 i
     ##         }
-    ## <environment: 0x7faa3d6c8920>
+    ## <environment: 0x7ffe7bbce6e8>
 
 Call `counter_one()` once
 
@@ -736,43 +736,43 @@ x <- Sys.time() # already in *POSIXct* format
 x
 ```
 
-    ## [1] "2020-12-11 23:38:38 CST"
+    ## [1] "2020-12-12 21:01:50 CST"
 
 ``` r
 p <- as.POSIXct(x) # atomic vector (useful for a data frame)
 p
 ```
 
-    ## [1] "2020-12-11 23:38:38 CST"
+    ## [1] "2020-12-12 21:01:50 CST"
 
 ``` r
 unclass(p)
 ```
 
-    ## [1] 1607751518
+    ## [1] 1607828510
 
 ``` r
 p <- as.POSIXlt(x) # list
 p
 ```
 
-    ## [1] "2020-12-11 23:38:38 CST"
+    ## [1] "2020-12-12 21:01:50 CST"
 
 ``` r
 unclass(p)
 ```
 
     ## $sec
-    ## [1] 38.21991
+    ## [1] 50.24362
     ## 
     ## $min
-    ## [1] 38
+    ## [1] 1
     ## 
     ## $hour
-    ## [1] 23
+    ## [1] 21
     ## 
     ## $mday
-    ## [1] 11
+    ## [1] 12
     ## 
     ## $mon
     ## [1] 11
@@ -781,10 +781,10 @@ unclass(p)
     ## [1] 120
     ## 
     ## $wday
-    ## [1] 5
+    ## [1] 6
     ## 
     ## $yday
-    ## [1] 345
+    ## [1] 346
     ## 
     ## $isdst
     ## [1] 0
@@ -809,7 +809,7 @@ names(unclass(p))
 p$sec
 ```
 
-    ## [1] 38.21991
+    ## [1] 50.24362
 
 The`strptime` function in case your dates are written in a different
 format

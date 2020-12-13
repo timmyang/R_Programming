@@ -766,7 +766,7 @@ Time
   - factors (is an atomic vector with "labels (= levels)")  
 
 # Key Takeaway Functions
-Comment out a block of code: `Cmd` + `Shift` + `C`  
+Comment out a block of code: `Cmd` + `Shift` + `C`, `Ctrl` + `Shift` + `C`    
 
 - **Background Material**
   - Working Directory

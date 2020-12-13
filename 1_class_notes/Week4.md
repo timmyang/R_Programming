@@ -66,13 +66,13 @@ summary(x)
 ```
 
     ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    ##  -8.741  -1.079   1.620   1.518   4.131  10.766
+    ## -9.3139 -0.9706  1.2752  1.1923  3.5803 10.3877
 
 ``` r
 str(x)
 ```
 
-    ##  num [1:100] -2.552 4.793 3.651 2.921 0.939 ...
+    ##  num [1:100] 3.8361 -0.8588 2.9094 -0.0726 -3.1979 ...
 
 **Factor**
 
@@ -169,14 +169,14 @@ m <- matrix(rnorm(100), 10, 10)
 str(m) # Matrix is a two-dimensional array
 ```
 
-    ##  num [1:10, 1:10] -1.077 -0.27 -0.571 -0.639 1.521 ...
+    ##  num [1:10, 1:10] 0.0472 0.2099 0.0193 0.2592 0.684 ...
 
 ``` r
 m[, 1]
 ```
 
-    ##  [1] -1.0769521 -0.2700859 -0.5711953 -0.6392560  1.5211013  1.0550790
-    ##  [7] -0.8966453 -1.1007018  1.3460372 -0.4613924
+    ##  [1]  0.04723805  0.20990756  0.01925892  0.25918560  0.68395853  0.67006763
+    ##  [7] -0.70246228  0.08717999 -0.82993447  1.30476877
 
 **List**
 
@@ -268,23 +268,23 @@ x <- rnorm(10)
 x
 ```
 
-    ##  [1] -0.26071944 -1.23906279  0.05589265 -0.97157743  0.37306084 -0.81300526
-    ##  [7]  0.54860469 -0.27845412 -0.50368128 -0.36757009
+    ##  [1]  0.6448143 -1.1132636  0.2952703 -1.3810307  1.2432901 -0.9772492
+    ##  [7]  0.0903852 -0.1123754  1.0191912 -0.8322704
 
 ``` r
 x <- rnorm(10, 20, 2)
 x
 ```
 
-    ##  [1] 17.40615 22.09130 21.31109 18.96237 20.44793 19.39137 19.48162 18.23976
-    ##  [9] 20.33007 14.62607
+    ##  [1] 18.90352 20.41594 20.51282 21.23871 22.39231 17.45707 17.60113 21.16633
+    ##  [9] 20.13324 22.37841
 
 ``` r
 summary(x)
 ```
 
     ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    ##   14.63   18.42   19.44   19.23   20.42   22.09
+    ##   17.46   19.21   20.46   20.22   21.22   22.39
 
 Setting the random number seed with `set.seed` ensures
 “reproducibility”  
@@ -540,7 +540,7 @@ system.time(readLines("http://www.jhsph.edu"))
 ```
 
     ##    user  system elapsed 
-    ##   0.021   0.005   1.792
+    ##   0.021   0.005   1.313
 
 ``` r
 # The chunk of the time is just spent waiting for the network, or for the data 
@@ -559,7 +559,7 @@ system.time(svd(x))
 ```
 
     ##    user  system elapsed 
-    ##   2.843   0.017   2.868
+    ##   2.915   0.029   2.958
 
 Timing longer expressions:
 
@@ -575,7 +575,7 @@ system.time({
 ```
 
     ##    user  system elapsed 
-    ##   0.083   0.004   0.087
+    ##   0.083   0.005   0.088
 
 ## Part 2
 
@@ -612,11 +612,45 @@ sample.interval=10000
 
 #### by.total
 
+``` r
+# $by.total
+#                           total.time         total.pct     self.time        self.pct
+# "lm"                            7.41           100.00           0.30            4.05
+# "lm.fit"                        3.50            47.23           2.99           40.35
+# "model.frame.default"           2.24            30.23           0.12            1.62
+# "eval"                          2.24            30.23           0.00            0.00
+# "model.frame"                   2.24            30.23           0.00            0.00
+# "na.omit"                       1.54            20.78           0.24            3.24
+# "na.omit.data.frame"            1.30            17.54           0.49            6.61
+# "lapply"                        1.04            14.04           0.00            0.00
+# "[.data.frame"                  1.03            13.90           0.79           10.66
+# "["                             1.03            13.90           0.00            0.00
+# "as.list.data.frame"            0.82            11.07           0.82           11.07
+# "as.list"                       0.82            11.07           0.00           11.00
+```
+
 #### by.self
 
 Tells you how much time is being spent in a given function, but after
 subtracting out all of the other time spent in lower level functions
 that it calls.
+
+``` r
+# $by.self
+#                          self.time          elf.pct     total.time       total.pct
+# "lm"                          2.99            40.35           3.50           47.23
+# "as.list.data.frame"          0.82            11.07           0.82           11.07
+# "[.data.frame"                0.79            10.66           1.03           13.90
+# "structure"                   0.73             9.85           0.73            9.85
+# "na.omit.data.frame"          0.49             6.61           1.30           17.54
+# "list"                        0.46             6.21           0.46            6.21
+# "lm"                          0.30             4.05           7.41          100.00
+# "model.matrix.default"        0.27             3.64           0.79           10.66
+# "na.omit"                     0.24             3.24           1.54           20.78
+# "as.character"                0.18             2.43           0.18            2.43
+# "model.frame.default"         0.12             1.62           2.24           30.23
+# "anyDuplicated.default"       0.02             0.27           0.02            0.27
+```
 
 #### summaryRprof() output
 
@@ -733,275 +767,60 @@ setwd("/Users/hyeonwooyang/Desktop/Desktop/5_Coursera/1_R_Programming/git_projec
 
 ``` r
 outcome <- read.csv("outcome-of-care-measures.csv", colClasses = "character")
-head(outcome)
+# head(outcome)
+# ncol(outcome)
+# names(outcome)
+# summary(outcome)
+str(outcome)
 ```
 
-    ##   Provider.Number                    Hospital.Name                  Address.1
-    ## 1          010001 SOUTHEAST ALABAMA MEDICAL CENTER     1108 ROSS CLARK CIRCLE
-    ## 2          010005    MARSHALL MEDICAL CENTER SOUTH 2505 U S HIGHWAY 431 NORTH
-    ## 3          010006   ELIZA COFFEE MEMORIAL HOSPITAL         205 MARENGO STREET
-    ## 4          010007         MIZELL MEMORIAL HOSPITAL              702 N MAIN ST
-    ## 5          010008      CRENSHAW COMMUNITY HOSPITAL        101 HOSPITAL CIRCLE
-    ## 6          010010    MARSHALL MEDICAL CENTER NORTH    8000 ALABAMA HIGHWAY 69
-    ##   Address.2 Address.3         City State ZIP.Code County.Name Phone.Number
-    ## 1                           DOTHAN    AL    36301     HOUSTON   3347938701
-    ## 2                             BOAZ    AL    35957    MARSHALL   2565938310
-    ## 3                         FLORENCE    AL    35631  LAUDERDALE   2567688400
-    ## 4                              OPP    AL    36467   COVINGTON   3344933541
-    ## 5                          LUVERNE    AL    36049    CRENSHAW   3343353374
-    ## 6                     GUNTERSVILLE    AL    35976    MARSHALL   2565718000
-    ##   Hospital.30.Day.Death..Mortality..Rates.from.Heart.Attack
-    ## 1                                                      14.3
-    ## 2                                                      18.5
-    ## 3                                                      18.1
-    ## 4                                             Not Available
-    ## 5                                             Not Available
-    ## 6                                             Not Available
-    ##   Comparison.to.U.S..Rate...Hospital.30.Day.Death..Mortality..Rates.from.Heart.Attack
-    ## 1                                                No Different than U.S. National Rate
-    ## 2                                                No Different than U.S. National Rate
-    ## 3                                                No Different than U.S. National Rate
-    ## 4                                                           Number of Cases Too Small
-    ## 5                                                           Number of Cases Too Small
-    ## 6                                                           Number of Cases Too Small
-    ##   Lower.Mortality.Estimate...Hospital.30.Day.Death..Mortality..Rates.from.Heart.Attack
-    ## 1                                                                                 12.1
-    ## 2                                                                                 14.7
-    ## 3                                                                                 14.8
-    ## 4                                                                        Not Available
-    ## 5                                                                        Not Available
-    ## 6                                                                        Not Available
-    ##   Upper.Mortality.Estimate...Hospital.30.Day.Death..Mortality..Rates.from.Heart.Attack
-    ## 1                                                                                 17.0
-    ## 2                                                                                 23.0
-    ## 3                                                                                 21.8
-    ## 4                                                                        Not Available
-    ## 5                                                                        Not Available
-    ## 6                                                                        Not Available
-    ##   Number.of.Patients...Hospital.30.Day.Death..Mortality..Rates.from.Heart.Attack
-    ## 1                                                                            666
-    ## 2                                                                             44
-    ## 3                                                                            329
-    ## 4                                                                             14
-    ## 5                                                                              9
-    ## 6                                                                             22
-    ##                                Footnote...Hospital.30.Day.Death..Mortality..Rates.from.Heart.Attack
-    ## 1                                                                                                  
-    ## 2                                                                                                  
-    ## 3                                                                                                  
-    ## 4 number of cases is too small (fewer than 25) to reliably tell how well the hospital is performing
-    ## 5 number of cases is too small (fewer than 25) to reliably tell how well the hospital is performing
-    ## 6 number of cases is too small (fewer than 25) to reliably tell how well the hospital is performing
-    ##   Hospital.30.Day.Death..Mortality..Rates.from.Heart.Failure
-    ## 1                                                       11.4
-    ## 2                                                       15.2
-    ## 3                                                       11.3
-    ## 4                                                       13.6
-    ## 5                                                       13.8
-    ## 6                                                       12.5
-    ##   Comparison.to.U.S..Rate...Hospital.30.Day.Death..Mortality..Rates.from.Heart.Failure
-    ## 1                                                 No Different than U.S. National Rate
-    ## 2                                                        Worse than U.S. National Rate
-    ## 3                                                 No Different than U.S. National Rate
-    ## 4                                                 No Different than U.S. National Rate
-    ## 5                                                 No Different than U.S. National Rate
-    ## 6                                                 No Different than U.S. National Rate
-    ##   Lower.Mortality.Estimate...Hospital.30.Day.Death..Mortality..Rates.from.Heart.Failure
-    ## 1                                                                                   9.5
-    ## 2                                                                                  12.2
-    ## 3                                                                                   9.1
-    ## 4                                                                                  10.0
-    ## 5                                                                                   9.9
-    ## 6                                                                                   9.9
-    ##   Upper.Mortality.Estimate...Hospital.30.Day.Death..Mortality..Rates.from.Heart.Failure
-    ## 1                                                                                  13.7
-    ## 2                                                                                  18.8
-    ## 3                                                                                  13.9
-    ## 4                                                                                  18.2
-    ## 5                                                                                  18.7
-    ## 6                                                                                  15.6
-    ##   Number.of.Patients...Hospital.30.Day.Death..Mortality..Rates.from.Heart.Failure
-    ## 1                                                                             741
-    ## 2                                                                             234
-    ## 3                                                                             523
-    ## 4                                                                             113
-    ## 5                                                                              53
-    ## 6                                                                             163
-    ##   Footnote...Hospital.30.Day.Death..Mortality..Rates.from.Heart.Failure
-    ## 1                                                                      
-    ## 2                                                                      
-    ## 3                                                                      
-    ## 4                                                                      
-    ## 5                                                                      
-    ## 6                                                                      
-    ##   Hospital.30.Day.Death..Mortality..Rates.from.Pneumonia
-    ## 1                                                   10.9
-    ## 2                                                   13.9
-    ## 3                                                   13.4
-    ## 4                                                   14.9
-    ## 5                                                   15.8
-    ## 6                                                    8.7
-    ##   Comparison.to.U.S..Rate...Hospital.30.Day.Death..Mortality..Rates.from.Pneumonia
-    ## 1                                             No Different than U.S. National Rate
-    ## 2                                             No Different than U.S. National Rate
-    ## 3                                             No Different than U.S. National Rate
-    ## 4                                             No Different than U.S. National Rate
-    ## 5                                             No Different than U.S. National Rate
-    ## 6                                                   Better than U.S. National Rate
-    ##   Lower.Mortality.Estimate...Hospital.30.Day.Death..Mortality..Rates.from.Pneumonia
-    ## 1                                                                               8.6
-    ## 2                                                                              11.3
-    ## 3                                                                              11.2
-    ## 4                                                                              11.6
-    ## 5                                                                              11.4
-    ## 6                                                                               6.8
-    ##   Upper.Mortality.Estimate...Hospital.30.Day.Death..Mortality..Rates.from.Pneumonia
-    ## 1                                                                              13.7
-    ## 2                                                                              17.0
-    ## 3                                                                              15.8
-    ## 4                                                                              19.0
-    ## 5                                                                              21.5
-    ## 6                                                                              11.0
-    ##   Number.of.Patients...Hospital.30.Day.Death..Mortality..Rates.from.Pneumonia
-    ## 1                                                                         371
-    ## 2                                                                         372
-    ## 3                                                                         836
-    ## 4                                                                         239
-    ## 5                                                                          61
-    ## 6                                                                         315
-    ##   Footnote...Hospital.30.Day.Death..Mortality..Rates.from.Pneumonia
-    ## 1                                                                  
-    ## 2                                                                  
-    ## 3                                                                  
-    ## 4                                                                  
-    ## 5                                                                  
-    ## 6                                                                  
-    ##   Hospital.30.Day.Readmission.Rates.from.Heart.Attack
-    ## 1                                                19.0
-    ## 2                                       Not Available
-    ## 3                                                17.8
-    ## 4                                       Not Available
-    ## 5                                       Not Available
-    ## 6                                       Not Available
-    ##   Comparison.to.U.S..Rate...Hospital.30.Day.Readmission.Rates.from.Heart.Attack
-    ## 1                                          No Different than U.S. National Rate
-    ## 2                                                     Number of Cases Too Small
-    ## 3                                          No Different than U.S. National Rate
-    ## 4                                                     Number of Cases Too Small
-    ## 5                                                     Number of Cases Too Small
-    ## 6                                                     Number of Cases Too Small
-    ##   Lower.Readmission.Estimate...Hospital.30.Day.Readmission.Rates.from.Heart.Attack
-    ## 1                                                                             16.6
-    ## 2                                                                    Not Available
-    ## 3                                                                             14.9
-    ## 4                                                                    Not Available
-    ## 5                                                                    Not Available
-    ## 6                                                                    Not Available
-    ##   Upper.Readmission.Estimate...Hospital.30.Day.Readmission.Rates.from.Heart.Attack
-    ## 1                                                                             21.7
-    ## 2                                                                    Not Available
-    ## 3                                                                             21.5
-    ## 4                                                                    Not Available
-    ## 5                                                                    Not Available
-    ## 6                                                                    Not Available
-    ##   Number.of.Patients...Hospital.30.Day.Readmission.Rates.from.Heart.Attack
-    ## 1                                                                      728
-    ## 2                                                                       21
-    ## 3                                                                      342
-    ## 4                                                                        1
-    ## 5                                                                        4
-    ## 6                                                                       13
-    ##                                      Footnote...Hospital.30.Day.Readmission.Rates.from.Heart.Attack
-    ## 1                                                                                                  
-    ## 2 number of cases is too small (fewer than 25) to reliably tell how well the hospital is performing
-    ## 3                                                                                                  
-    ## 4 number of cases is too small (fewer than 25) to reliably tell how well the hospital is performing
-    ## 5 number of cases is too small (fewer than 25) to reliably tell how well the hospital is performing
-    ## 6 number of cases is too small (fewer than 25) to reliably tell how well the hospital is performing
-    ##   Hospital.30.Day.Readmission.Rates.from.Heart.Failure
-    ## 1                                                 23.7
-    ## 2                                                 22.5
-    ## 3                                                 19.8
-    ## 4                                                 27.1
-    ## 5                                                 24.7
-    ## 6                                                 23.9
-    ##   Comparison.to.U.S..Rate...Hospital.30.Day.Readmission.Rates.from.Heart.Failure
-    ## 1                                           No Different than U.S. National Rate
-    ## 2                                           No Different than U.S. National Rate
-    ## 3                                                 Better than U.S. National Rate
-    ## 4                                           No Different than U.S. National Rate
-    ## 5                                           No Different than U.S. National Rate
-    ## 6                                           No Different than U.S. National Rate
-    ##   Lower.Readmission.Estimate...Hospital.30.Day.Readmission.Rates.from.Heart.Failure
-    ## 1                                                                              21.3
-    ## 2                                                                              19.2
-    ## 3                                                                              17.2
-    ## 4                                                                              22.4
-    ## 5                                                                              19.9
-    ## 6                                                                              20.1
-    ##   Upper.Readmission.Estimate...Hospital.30.Day.Readmission.Rates.from.Heart.Failure
-    ## 1                                                                              26.5
-    ## 2                                                                              26.1
-    ## 3                                                                              22.9
-    ## 4                                                                              31.9
-    ## 5                                                                              30.2
-    ## 6                                                                              28.2
-    ##   Number.of.Patients...Hospital.30.Day.Readmission.Rates.from.Heart.Failure
-    ## 1                                                                       891
-    ## 2                                                                       264
-    ## 3                                                                       614
-    ## 4                                                                       135
-    ## 5                                                                        59
-    ## 6                                                                       173
-    ##   Footnote...Hospital.30.Day.Readmission.Rates.from.Heart.Failure
-    ## 1                                                                
-    ## 2                                                                
-    ## 3                                                                
-    ## 4                                                                
-    ## 5                                                                
-    ## 6                                                                
-    ##   Hospital.30.Day.Readmission.Rates.from.Pneumonia
-    ## 1                                             17.1
-    ## 2                                             17.6
-    ## 3                                             16.9
-    ## 4                                             19.4
-    ## 5                                             18.0
-    ## 6                                             18.7
-    ##   Comparison.to.U.S..Rate...Hospital.30.Day.Readmission.Rates.from.Pneumonia
-    ## 1                                       No Different than U.S. National Rate
-    ## 2                                       No Different than U.S. National Rate
-    ## 3                                       No Different than U.S. National Rate
-    ## 4                                       No Different than U.S. National Rate
-    ## 5                                       No Different than U.S. National Rate
-    ## 6                                       No Different than U.S. National Rate
-    ##   Lower.Readmission.Estimate...Hospital.30.Day.Readmission.Rates.from.Pneumonia
-    ## 1                                                                          14.4
-    ## 2                                                                          15.0
-    ## 3                                                                          14.7
-    ## 4                                                                          15.9
-    ## 5                                                                          14.0
-    ## 6                                                                          15.7
-    ##   Upper.Readmission.Estimate...Hospital.30.Day.Readmission.Rates.from.Pneumonia
-    ## 1                                                                          20.4
-    ## 2                                                                          20.6
-    ## 3                                                                          19.5
-    ## 4                                                                          23.2
-    ## 5                                                                          22.8
-    ## 6                                                                          22.2
-    ##   Number.of.Patients...Hospital.30.Day.Readmission.Rates.from.Pneumonia
-    ## 1                                                                   400
-    ## 2                                                                   374
-    ## 3                                                                   842
-    ## 4                                                                   254
-    ## 5                                                                    56
-    ## 6                                                                   326
-    ##   Footnote...Hospital.30.Day.Readmission.Rates.from.Pneumonia
-    ## 1                                                            
-    ## 2                                                            
-    ## 3                                                            
-    ## 4                                                            
-    ## 5                                                            
-    ## 6
+    ## 'data.frame':    4706 obs. of  46 variables:
+    ##  $ Provider.Number                                                                      : chr  "010001" "010005" "010006" "010007" ...
+    ##  $ Hospital.Name                                                                        : chr  "SOUTHEAST ALABAMA MEDICAL CENTER" "MARSHALL MEDICAL CENTER SOUTH" "ELIZA COFFEE MEMORIAL HOSPITAL" "MIZELL MEMORIAL HOSPITAL" ...
+    ##  $ Address.1                                                                            : chr  "1108 ROSS CLARK CIRCLE" "2505 U S HIGHWAY 431 NORTH" "205 MARENGO STREET" "702 N MAIN ST" ...
+    ##  $ Address.2                                                                            : chr  "" "" "" "" ...
+    ##  $ Address.3                                                                            : chr  "" "" "" "" ...
+    ##  $ City                                                                                 : chr  "DOTHAN" "BOAZ" "FLORENCE" "OPP" ...
+    ##  $ State                                                                                : chr  "AL" "AL" "AL" "AL" ...
+    ##  $ ZIP.Code                                                                             : chr  "36301" "35957" "35631" "36467" ...
+    ##  $ County.Name                                                                          : chr  "HOUSTON" "MARSHALL" "LAUDERDALE" "COVINGTON" ...
+    ##  $ Phone.Number                                                                         : chr  "3347938701" "2565938310" "2567688400" "3344933541" ...
+    ##  $ Hospital.30.Day.Death..Mortality..Rates.from.Heart.Attack                            : chr  "14.3" "18.5" "18.1" "Not Available" ...
+    ##  $ Comparison.to.U.S..Rate...Hospital.30.Day.Death..Mortality..Rates.from.Heart.Attack  : chr  "No Different than U.S. National Rate" "No Different than U.S. National Rate" "No Different than U.S. National Rate" "Number of Cases Too Small" ...
+    ##  $ Lower.Mortality.Estimate...Hospital.30.Day.Death..Mortality..Rates.from.Heart.Attack : chr  "12.1" "14.7" "14.8" "Not Available" ...
+    ##  $ Upper.Mortality.Estimate...Hospital.30.Day.Death..Mortality..Rates.from.Heart.Attack : chr  "17.0" "23.0" "21.8" "Not Available" ...
+    ##  $ Number.of.Patients...Hospital.30.Day.Death..Mortality..Rates.from.Heart.Attack       : chr  "666" "44" "329" "14" ...
+    ##  $ Footnote...Hospital.30.Day.Death..Mortality..Rates.from.Heart.Attack                 : chr  "" "" "" "number of cases is too small (fewer than 25) to reliably tell how well the hospital is performing" ...
+    ##  $ Hospital.30.Day.Death..Mortality..Rates.from.Heart.Failure                           : chr  "11.4" "15.2" "11.3" "13.6" ...
+    ##  $ Comparison.to.U.S..Rate...Hospital.30.Day.Death..Mortality..Rates.from.Heart.Failure : chr  "No Different than U.S. National Rate" "Worse than U.S. National Rate" "No Different than U.S. National Rate" "No Different than U.S. National Rate" ...
+    ##  $ Lower.Mortality.Estimate...Hospital.30.Day.Death..Mortality..Rates.from.Heart.Failure: chr  "9.5" "12.2" "9.1" "10.0" ...
+    ##  $ Upper.Mortality.Estimate...Hospital.30.Day.Death..Mortality..Rates.from.Heart.Failure: chr  "13.7" "18.8" "13.9" "18.2" ...
+    ##  $ Number.of.Patients...Hospital.30.Day.Death..Mortality..Rates.from.Heart.Failure      : chr  "741" "234" "523" "113" ...
+    ##  $ Footnote...Hospital.30.Day.Death..Mortality..Rates.from.Heart.Failure                : chr  "" "" "" "" ...
+    ##  $ Hospital.30.Day.Death..Mortality..Rates.from.Pneumonia                               : chr  "10.9" "13.9" "13.4" "14.9" ...
+    ##  $ Comparison.to.U.S..Rate...Hospital.30.Day.Death..Mortality..Rates.from.Pneumonia     : chr  "No Different than U.S. National Rate" "No Different than U.S. National Rate" "No Different than U.S. National Rate" "No Different than U.S. National Rate" ...
+    ##  $ Lower.Mortality.Estimate...Hospital.30.Day.Death..Mortality..Rates.from.Pneumonia    : chr  "8.6" "11.3" "11.2" "11.6" ...
+    ##  $ Upper.Mortality.Estimate...Hospital.30.Day.Death..Mortality..Rates.from.Pneumonia    : chr  "13.7" "17.0" "15.8" "19.0" ...
+    ##  $ Number.of.Patients...Hospital.30.Day.Death..Mortality..Rates.from.Pneumonia          : chr  "371" "372" "836" "239" ...
+    ##  $ Footnote...Hospital.30.Day.Death..Mortality..Rates.from.Pneumonia                    : chr  "" "" "" "" ...
+    ##  $ Hospital.30.Day.Readmission.Rates.from.Heart.Attack                                  : chr  "19.0" "Not Available" "17.8" "Not Available" ...
+    ##  $ Comparison.to.U.S..Rate...Hospital.30.Day.Readmission.Rates.from.Heart.Attack        : chr  "No Different than U.S. National Rate" "Number of Cases Too Small" "No Different than U.S. National Rate" "Number of Cases Too Small" ...
+    ##  $ Lower.Readmission.Estimate...Hospital.30.Day.Readmission.Rates.from.Heart.Attack     : chr  "16.6" "Not Available" "14.9" "Not Available" ...
+    ##  $ Upper.Readmission.Estimate...Hospital.30.Day.Readmission.Rates.from.Heart.Attack     : chr  "21.7" "Not Available" "21.5" "Not Available" ...
+    ##  $ Number.of.Patients...Hospital.30.Day.Readmission.Rates.from.Heart.Attack             : chr  "728" "21" "342" "1" ...
+    ##  $ Footnote...Hospital.30.Day.Readmission.Rates.from.Heart.Attack                       : chr  "" "number of cases is too small (fewer than 25) to reliably tell how well the hospital is performing" "" "number of cases is too small (fewer than 25) to reliably tell how well the hospital is performing" ...
+    ##  $ Hospital.30.Day.Readmission.Rates.from.Heart.Failure                                 : chr  "23.7" "22.5" "19.8" "27.1" ...
+    ##  $ Comparison.to.U.S..Rate...Hospital.30.Day.Readmission.Rates.from.Heart.Failure       : chr  "No Different than U.S. National Rate" "No Different than U.S. National Rate" "Better than U.S. National Rate" "No Different than U.S. National Rate" ...
+    ##  $ Lower.Readmission.Estimate...Hospital.30.Day.Readmission.Rates.from.Heart.Failure    : chr  "21.3" "19.2" "17.2" "22.4" ...
+    ##  $ Upper.Readmission.Estimate...Hospital.30.Day.Readmission.Rates.from.Heart.Failure    : chr  "26.5" "26.1" "22.9" "31.9" ...
+    ##  $ Number.of.Patients...Hospital.30.Day.Readmission.Rates.from.Heart.Failure            : chr  "891" "264" "614" "135" ...
+    ##  $ Footnote...Hospital.30.Day.Readmission.Rates.from.Heart.Failure                      : chr  "" "" "" "" ...
+    ##  $ Hospital.30.Day.Readmission.Rates.from.Pneumonia                                     : chr  "17.1" "17.6" "16.9" "19.4" ...
+    ##  $ Comparison.to.U.S..Rate...Hospital.30.Day.Readmission.Rates.from.Pneumonia           : chr  "No Different than U.S. National Rate" "No Different than U.S. National Rate" "No Different than U.S. National Rate" "No Different than U.S. National Rate" ...
+    ##  $ Lower.Readmission.Estimate...Hospital.30.Day.Readmission.Rates.from.Pneumonia        : chr  "14.4" "15.0" "14.7" "15.9" ...
+    ##  $ Upper.Readmission.Estimate...Hospital.30.Day.Readmission.Rates.from.Pneumonia        : chr  "20.4" "20.6" "19.5" "23.2" ...
+    ##  $ Number.of.Patients...Hospital.30.Day.Readmission.Rates.from.Pneumonia                : chr  "400" "374" "842" "254" ...
+    ##  $ Footnote...Hospital.30.Day.Readmission.Rates.from.Pneumonia                          : chr  "" "" "" "" ...
 
 ``` r
 outcome[, 11] <- as.numeric(outcome[, 11])
@@ -1020,99 +839,377 @@ hist(outcome[, 11])
 ``` r
 best <- function(state, outcome) {
         ## Read outcome data
+        data <- read.csv("outcome-of-care-measures.csv", colClasses = "character")
+        a <- split(data, data[, "State"])
         
         ## Check that state and outcome are valid
+        if (!state %in% names(a)) {
+                return(paste("Error in best(", state, ", ", outcome, ") : invalid state", sep = ""))
+        }
+        else if (!outcome %in% c("heart attack", "heart failure", "pneumonia")) {
+                return(paste("Error in best(", state, ", ", outcome, ") : invalid outcome", sep = ""))
+        }
         
         ## Return hospital name in that state with lowest 30-day death
         ## rate
+        b <- a[[state]]
+        
+        x <- b[, "Hospital.Name"]
+        
+        if (outcome == "heart attack") {
+                c <- 11
+        }
+        else if (outcome == "heart failure") {
+                c <- 17
+        }
+        else {
+                c <- 23
+        }
+        y <- as.numeric(b[, c])
+
+        combine <- data.frame(x, y)
+
+        good <- complete.cases(x, y)
+        newdata <- combine[good, ]
+
+        order <- newdata[order(newdata[, 2], newdata[, 1]), ]
+        # = newdata[with(newdata, order(y, x)), ]
+
+        ans <- unname(order[1, 1])
+        
+        return(ans)
 }
 ```
 
-<!-- ## Question 1 -->
+``` r
+dump("best", file = "best.R")
+```
 
-<!-- ```{r} -->
+``` r
+rm(list = ls())
+source("best.R")
+```
 
-<!-- best("SC", "heart attack") -->
+``` r
+best("TX", "heart attack")
+```
 
-<!-- ``` -->
+    ## [1] "CYPRESS FAIRBANKS MEDICAL CENTER"
 
-<!-- ## Question 2 -->
+``` r
+best("TX", "heart failure")
+```
 
-<!-- ```{r} -->
+    ## [1] "FORT DUNCAN MEDICAL CENTER"
 
-<!-- best("NY", "pneumonia") -->
+``` r
+best("MD", "heart attack")
+```
 
-<!-- ``` -->
+    ## [1] "JOHNS HOPKINS HOSPITAL, THE"
 
-<!-- ## Question 3 -->
+``` r
+best("MD", "pneumonia")
+```
 
-<!-- ```{r} -->
+    ## [1] "GREATER BALTIMORE MEDICAL CENTER"
 
-<!-- best("AK", "pneumonia") -->
+``` r
+best("BB", "heart attack")
+```
 
-<!-- ``` -->
+    ## [1] "Error in best(BB, heart attack) : invalid state"
 
-<!-- ## Question 4 -->
+``` r
+best("NY", "hert attack")
+```
 
-<!-- ```{r} -->
+    ## [1] "Error in best(NY, hert attack) : invalid outcome"
 
-<!-- rankhospital("NC", "heart attack", "worst") -->
+## 3\. Ranking hospitals by outcome in a state
 
-<!-- ``` -->
+``` r
+rankhospital <- function(state, outcome, num = "best") {
+        ## Read outcome data
+        data <- read.csv("outcome-of-care-measures.csv", colClasses = "character")
+        a <- split(data, data[, "State"])
+        
+        ## Check that state and outcome are valid
+        if (!state %in% names(a)) {
+                return(paste("Error in best(", state, ", ", outcome, ") : invalid state", sep = ""))
+                # stop(paste("Error in best(", state, ", ", outcome, ") : invalid state", sep = ""))
+        }
+        else if (!outcome %in% c("heart attack", "heart failure", "pneumonia")) {
+                return(paste("Error in best(", state, ", ", outcome, ") : invalid outcome", sep = ""))
+                # stop(paste("Error in best(", state, ", ", outcome, ") : invalid outcome", sep = ""))
+        }
+        
+        ## Return hospital name in that state with the given rank
+        ## 30-day death rate
+        b <- a[[state]]
+        
+        x <- b[, "Hospital.Name"]
+        
+        if (outcome == "heart attack") {
+                c <- 11
+        }
+        else if (outcome == "heart failure") {
+                c <- 17
+        }
+        else {
+                c <- 23
+        }
+        y <- as.numeric(b[, c])
 
-<!-- ## Question 5 -->
+        combine <- data.frame(x, y)
+        colnames(combine) <- c("Hospital.Name", "Rate")
 
-<!-- ```{r} -->
+        good <- complete.cases(x, y)
+        newdata <- combine[good, ]
+        
+        order <- newdata[order(newdata[, 2], newdata[, 1]), ]
+        # = newdata[with(newdata, order(y, x)), ]
 
-<!-- rankhospital("WA", "heart attack", 7) -->
+        order$Rank <- 1:nrow(order)
+        
+        if (num == "best") {
+                ans <- unname(order[1, 1])
+        }
+        else if (num == "worst") {
+                ans <- unname(order[nrow(order), 1])
+        }
+        else if (num > nrow(order)) {
+                ans <- NA
+        }
+        else {
+              ans <- unname(order[num, 1])  
+        }
+        return(ans)
+}
+```
 
-<!-- ``` -->
+``` r
+dump("rankhospital", file = "rankhospital.R")
+```
 
-<!-- ## Question 6 -->
+``` r
+source("rankhospital.R")
+rankhospital("TX", "heart failure", 4)
+```
 
-<!-- ```{r} -->
+    ## [1] "DETAR HOSPITAL NAVARRO"
 
-<!-- rankhospital("TX", "pneumonia", 10) -->
+``` r
+rankhospital("MD", "heart attack", "worst")
+```
 
-<!-- ``` -->
+    ## [1] "HARFORD MEMORIAL HOSPITAL"
 
-<!-- ## Question 7 -->
+``` r
+rankhospital("MN", "heart attack", 5000)
+```
 
-<!-- ```{r} -->
+    ## [1] NA
 
-<!-- rankhospital("NY", "heart attack", 7) -->
+## 4\. Ranking hospitals in all states
 
-<!-- ``` -->
+``` r
+rankall <- function(outcome, num = "best") {
+        ## Read outcome data
+        data <- read.csv("outcome-of-care-measures.csv", colClasses = "character")
+        a <- split(data, data[, "State"])
+        
+        ## Check that outcome is valid
+        if (!outcome %in% c("heart attack", "heart failure", "pneumonia")) {
+                return(paste("Error in best(", state, ", ", outcome, ") : invalid outcome", sep = ""))
+                # stop(paste("Error in best(", state, ", ", outcome, ") : invalid outcome", sep = ""))
+        }
+        
+        ## For each state, find the hospital of the given rank
+        if (outcome == "heart attack") {
+                c <- 11
+        }
+        else if (outcome == "heart failure") {
+                c <- 17
+        }
+        else {
+                c <- 23
+        }
+                
+        zList <- lapply(a, function(df) {
+                        x <- df[, "Hospital.Name"]
+                        y <- as.numeric(df[, c])
+                
+                        combine <- data.frame(x, y)
+                        colnames(combine) <- c("Hospital.Name", "Rate")
+                
+                        good <- complete.cases(x, y)
+                        newdata <- combine[good, ]
+                
+                        order <- newdata[order(newdata[, 2], newdata[, 1]), ]
+                        # = newdata[with(newdata, order(y, x)), ]
+                
+                        order$Rank <- 1:nrow(order)
+                
+                        if (num == "best") {
+                                ans <- unname(order[1, 1])
+                        }
+                        else if (num == "worst") {
+                                ans <- unname(order[nrow(order), 1])
+                        }
+                        else if (num > nrow(order)) {
+                                ans <- NA
+                        }
+                        else {
+                                ans <- unname(order[num, 1])  
+                        }
+                        return(ans)
+                })
+        
+        ## Return a data frame with the hospital names and the
+        ## (abbreviated) state name
+        df2 <- data.frame()
+        
+        for (i in seq_along(zList)) {
+                z <- c(zList[[i]], names(zList[i]))
+                df2 <- rbind(df2, z)
+        }
+        
+        colnames(df2) <- c("hospital", "state")
+        return(df2)
+}
+```
 
-<!-- ## Question 8 -->
+``` r
+dump("rankall", file = "rankall.R")
+```
 
-<!-- ```{r} -->
+``` r
+source("rankall.R")
+head(rankall("heart attack", 20), 10)
+```
 
-<!-- r <- rankall("heart attack", 4) -->
+    ##                               hospital state
+    ## 1                                 <NA>    AK
+    ## 2       D W MCMILLAN MEMORIAL HOSPITAL    AL
+    ## 3    ARKANSAS METHODIST MEDICAL CENTER    AR
+    ## 4  JOHN C LINCOLN DEER VALLEY HOSPITAL    AZ
+    ## 5                SHERMAN OAKS HOSPITAL    CA
+    ## 6             SKY RIDGE MEDICAL CENTER    CO
+    ## 7              MIDSTATE MEDICAL CENTER    CT
+    ## 8                                 <NA>    DC
+    ## 9                                 <NA>    DE
+    ## 10      SOUTH FLORIDA BAPTIST HOSPITAL    FL
 
-<!-- as.character(subset(r, state == "HI")$hospital) -->
+``` r
+tail(rankall("pneumonia", "worst"), 3)
+```
 
-<!-- ``` -->
+    ##                                      hospital state
+    ## 52 MAYO CLINIC HEALTH SYSTEM - NORTHLAND, INC    WI
+    ## 53                     PLATEAU MEDICAL CENTER    WV
+    ## 54           NORTH BIG HORN HOSPITAL DISTRICT    WY
 
-<!-- ## Question 9 -->
+``` r
+tail(rankall("heart failure"), 10)
+```
 
-<!-- ```{r} -->
+    ##                                                             hospital state
+    ## 45                         WELLMONT HAWKINS COUNTY MEMORIAL HOSPITAL    TN
+    ## 46                                        FORT DUNCAN MEDICAL CENTER    TX
+    ## 47 VA SALT LAKE CITY HEALTHCARE - GEORGE E. WAHLEN VA MEDICAL CENTER    UT
+    ## 48                                          SENTARA POTOMAC HOSPITAL    VA
+    ## 49                            GOV JUAN F LUIS HOSPITAL & MEDICAL CTR    VI
+    ## 50                                              SPRINGFIELD HOSPITAL    VT
+    ## 51                                         HARBORVIEW MEDICAL CENTER    WA
+    ## 52                                    AURORA ST LUKES MEDICAL CENTER    WI
+    ## 53                                         FAIRMONT GENERAL HOSPITAL    WV
+    ## 54                                        CHEYENNE VA MEDICAL CENTER    WY
 
-<!-- r <- rankall("pneumonia", "worst") -->
+## Programming Assignment Quiz
 
-<!-- as.character(subset(r, state == "NJ")$hospital) -->
+## Question 1
 
-<!-- ``` -->
+``` r
+best("SC", "heart attack")
+```
 
-<!-- ## Question 10 -->
+    ## [1] "MUSC MEDICAL CENTER"
 
-<!-- ```{r} -->
+## Question 2
 
-<!-- r <- rankall("heart failure", 10) -->
+``` r
+best("NY", "pneumonia")
+```
 
-<!-- as.character(subset(r, state == "NV")$hospital) -->
+    ## [1] "MAIMONIDES MEDICAL CENTER"
 
-<!-- ``` -->
+## Question 3
+
+``` r
+best("AK", "pneumonia")
+```
+
+    ## [1] "YUKON KUSKOKWIM DELTA REG HOSPITAL"
+
+## Question 4
+
+``` r
+rankhospital("NC", "heart attack", "worst")
+```
+
+    ## [1] "WAYNE MEMORIAL HOSPITAL"
+
+## Question 5
+
+``` r
+rankhospital("WA", "heart attack", 7)
+```
+
+    ## [1] "YAKIMA VALLEY MEMORIAL HOSPITAL"
+
+## Question 6
+
+``` r
+rankhospital("TX", "pneumonia", 10)
+```
+
+    ## [1] "SETON SMITHVILLE REGIONAL HOSPITAL"
+
+## Question 7
+
+``` r
+rankhospital("NY", "heart attack", 7)
+```
+
+    ## [1] "BELLEVUE HOSPITAL CENTER"
+
+## Question 8
+
+``` r
+r <- rankall("heart attack", 4)
+as.character(subset(r, state == "HI")$hospital)
+```
+
+    ## [1] "CASTLE MEDICAL CENTER"
+
+## Question 9
+
+``` r
+r <- rankall("pneumonia", "worst")
+as.character(subset(r, state == "NJ")$hospital)
+```
+
+    ## [1] "BERGEN REGIONAL MEDICAL CENTER"
+
+## Question 10
+
+``` r
+r <- rankall("heart failure", 10)
+as.character(subset(r, state == "NV")$hospital)
+```
+
+    ## [1] "RENOWN SOUTH MEADOWS MEDICAL CENTER"
 
 # Key Takeaway Functions
 
@@ -1138,6 +1235,15 @@ best <- function(state, outcome) {
       - *sample.internal*
   - **Programming Assignment**
       - *hist()*
+      - *element %in% vector*
+      - *vector\[order(vector\[, 1\]), \]*
+      - *vector\[order(vector\[, 2\], vector\[, 1\]), \]*
+      - *names(df)*
+      - *unname(matrix\[1, 1\])*
+      - *stop()*
+      - *colnames(df)*
+      - *df$new\_column \<-*
+      - *for (i in seq\_along(vector))*
 
 `ctrl` + `shift` + `c`
 
@@ -1145,3 +1251,5 @@ best <- function(state, outcome) {
 <https://bookdown.org/yihui/rmarkdown/html-document.html#mathjax-equations>  
 <https://gist.github.com/a-rodin/fef3f543412d6e1ec5b6cf55bf197d7b>  
 <https://rpruim.github.io/s341/S19/from-class/MathinRmd.html>
+
+<https://chartio.com/resources/tutorials/how-to-sort-a-data-frame-by-multiple-columns-in-r/>

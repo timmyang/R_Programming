@@ -46,11 +46,12 @@ Display a list of files in the working directory
 dir()
 ```
 
-    ##  [1] "complete.R"                     "corr.R"                        
-    ##  [3] "data.R"                         "Hospital_Revised_Flatfiles.pdf"
-    ##  [5] "hospital-data.csv"              "hw1_data.csv"                  
-    ##  [7] "outcome-of-care-measures.csv"   "pollutantmean.R"               
-    ##  [9] "specdata"                       "y.R"
+    ##  [1] "best.R"                         "complete.R"                    
+    ##  [3] "corr.R"                         "data.R"                        
+    ##  [5] "Hospital_Revised_Flatfiles.pdf" "hospital-data.csv"             
+    ##  [7] "hw1_data.csv"                   "outcome-of-care-measures.csv"  
+    ##  [9] "pollutantmean.R"                "specdata"                      
+    ## [11] "y.R"
 
 Create a function
 
@@ -67,7 +68,7 @@ Execute a function
 myfunction()
 ```
 
-    ## [1] -0.02214976
+    ## [1] 0.004522599
 
 Display a list of objects in the current environment
 
@@ -1241,11 +1242,12 @@ getwd()
 dir()
 ```
 
-    ##  [1] "complete.R"                     "corr.R"                        
-    ##  [3] "data.R"                         "Hospital_Revised_Flatfiles.pdf"
-    ##  [5] "hospital-data.csv"              "hw1_data.csv"                  
-    ##  [7] "outcome-of-care-measures.csv"   "pollutantmean.R"               
-    ##  [9] "specdata"                       "y.R"
+    ##  [1] "best.R"                         "complete.R"                    
+    ##  [3] "corr.R"                         "data.R"                        
+    ##  [5] "Hospital_Revised_Flatfiles.pdf" "hospital-data.csv"             
+    ##  [7] "hw1_data.csv"                   "outcome-of-care-measures.csv"  
+    ##  [9] "pollutantmean.R"                "specdata"                      
+    ## [11] "y.R"
 
 ``` r
 table <- read.csv("hw1_data.csv")
@@ -1472,7 +1474,8 @@ Time
 
 # Key Takeaway Functions
 
-Comment out a block of code: `Cmd` + `Shift` + `C`
+Comment out a block of code: `Cmd` + `Shift` + `C`, `Ctrl` + `Shift` +
+`C`
 
   - **Background Material**
       - Working Directory
