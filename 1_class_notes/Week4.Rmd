@@ -702,49 +702,46 @@ as.character(subset(r, state == "NV")$hospital)
 # Key Takeaway Functions
 
 - **The str Function**
-  - *str()*
-  - *gl(levels, repeat)*
+  - `str()`
+  - `gl(levels, repeat)`
 
 - **Simulation**
   - Generating Random Numbers
-    - *`<img src="https://render.githubusercontent.com/render/math?math=">`*
-    - *rnorm(n, mean = 0, sd = 1)*
-    - *rnorm(), dnorm(), pnorm(), rpois()*
-    - *binorm(n, size, prob)*  
-    - *set.seed()*
+    - `<img src="https://render.githubusercontent.com/render/math?math=">`
+    - `rnorm(n, mean = 0, sd = 1)`
+    - `rnorm(), dnorm(), pnorm(), rpois()`
+    - `binorm(n, size, prob)`
+    - `set.seed()`
    
   - Simulating a Linear Model
-    - *rbinorm()*
-    - *plot(x, y); abline(lm(y ~ x), col = "blue")*
-    - *summary(lm(y ~ x))*
+    - `rbinorm()`
+    - `plot(x, y); abline(lm(y ~ x), col = "blue")`
+    - `summary(lm(y ~ x))`
   
   - Random Sampling
-    - *sample()*
+    - `sample()`
     
 - **R Profiler**
-  - *system.time()*
-  - *Rprof(), summaryRprof(), by.total, by.self*
-  - *sample.internal*
+  - `system.time()`
+  - `Rprof(), summaryRprof(), by.total, by.self`
+  - `sample.internal`
 
 - **Programming Assignment**
-  - *hist()*
-  - *element %in% vector*
-  - *vector[order(vector[, 1]), ]*
-  - *vector[order(vector[, 2], vector[, 1]), ]*
-  - *names(df)*
-  - *unname(matrix[1, 1])*
-  - *stop()* 
-  - *colnames(df)*
-  - *df$new_column <-*
-  - *for (i in seq_along(vector))*
-  
-`ctrl` + `shift` + `c`
-  
+  - `hist()`
+  - `element %in% vector`
+  - `vector[order(vector[, 1]), ]`
+  - `vector[order(vector[, 2], vector[, 1]), ]`
+  - `names(df)`
+  - `unname(matrix[1, 1])`
+  - `stop()`
+  - `colnames(df)`
+  - `df$new_column <-`
+  - `for (i in seq_along(vector))`
+
 <https://www.stat.cmu.edu/~cshalizi/rmarkdown/#math-in-r-markdown>  
 <https://bookdown.org/yihui/rmarkdown/html-document.html#mathjax-equations>  
 <https://gist.github.com/a-rodin/fef3f543412d6e1ec5b6cf55bf197d7b>  
 <https://rpruim.github.io/s341/S19/from-class/MathinRmd.html>  
-
 <https://chartio.com/resources/tutorials/how-to-sort-a-data-frame-by-multiple-columns-in-r/>  
 
   

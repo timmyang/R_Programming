@@ -66,13 +66,13 @@ summary(x)
 ```
 
     ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    ## -5.8495  0.5185  2.8395  2.6527  4.8158  9.9887
+    ## -7.1045 -0.4463  2.2648  2.1352  4.2583 13.3102
 
 ``` r
 str(x)
 ```
 
-    ##  num [1:100] -0.512 2.309 3.814 7.999 4.819 ...
+    ##  num [1:100] -3.63 1.22 2.81 1.65 2.8 ...
 
 **Factor**
 
@@ -169,14 +169,14 @@ m <- matrix(rnorm(100), 10, 10)
 str(m) # Matrix is a two-dimensional array
 ```
 
-    ##  num [1:10, 1:10] 0.727 -0.6396 -0.1257 -0.6435 0.0877 ...
+    ##  num [1:10, 1:10] -0.0146 1.0158 0.9064 -0.0101 -0.1149 ...
 
 ``` r
 m[, 1]
 ```
 
-    ##  [1]  0.72704388 -0.63958948 -0.12573078 -0.64346439  0.08767437 -1.53337741
-    ##  [7] -0.38507222  0.50688643 -0.62664562  0.87119472
+    ##  [1] -0.01455083  1.01575572  0.90642991 -0.01010178 -0.11486947  1.13403724
+    ##  [7]  0.85115828  0.39898613  0.34014457  1.74112713
 
 **List**
 
@@ -268,23 +268,23 @@ x <- rnorm(10)
 x
 ```
 
-    ##  [1] -0.4816782  0.9920085 -0.8825682 -0.6725672  0.9637336 -0.7970285
-    ##  [7] -0.5138107 -1.1460195  0.9405328 -0.5717978
+    ##  [1]  0.3767754 -2.1750947  0.1908360 -0.4468267 -0.5410206 -1.2545425
+    ##  [7] -1.4040137 -0.6578417 -0.6462678 -0.1557921
 
 ``` r
 x <- rnorm(10, 20, 2)
 x
 ```
 
-    ##  [1] 19.97991 20.94328 22.23784 18.95630 21.96108 19.65292 21.86949 17.73838
-    ##  [9] 21.40040 21.75562
+    ##  [1] 21.22949 18.06236 18.83993 20.79081 19.15858 22.22918 17.89790 20.86332
+    ##  [9] 19.38798 19.37758
 
 ``` r
 summary(x)
 ```
 
     ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    ##   17.74   19.73   21.17   20.65   21.84   22.24
+    ##   17.90   18.92   19.38   19.78   20.85   22.23
 
 Setting the random number seed with `set.seed` ensures
 “reproducibility”  
@@ -540,7 +540,7 @@ system.time(readLines("http://www.jhsph.edu"))
 ```
 
     ##    user  system elapsed 
-    ##   0.017   0.003   1.738
+    ##   0.023   0.005   1.421
 
 ``` r
 # The chunk of the time is just spent waiting for the network, or for the data 
@@ -559,7 +559,7 @@ system.time(svd(x))
 ```
 
     ##    user  system elapsed 
-    ##   2.885   0.023   2.922
+    ##   2.946   0.037   3.022
 
 Timing longer expressions:
 
@@ -575,7 +575,7 @@ system.time({
 ```
 
     ##    user  system elapsed 
-    ##   0.085   0.003   0.089
+    ##   0.083   0.003   0.087
 
 ## Part 2
 
@@ -1214,43 +1214,40 @@ as.character(subset(r, state == "NV")$hospital)
 # Key Takeaway Functions
 
   - **The str Function**
-      - *str()*
-      - *gl(levels, repeat)*
+      - `str()`
+      - `gl(levels, repeat)`
   - **Simulation**
       - Generating Random Numbers
-          - *`<img
-            src="https://render.githubusercontent.com/render/math?math=">`*
-          - *rnorm(n, mean = 0, sd = 1)*
-          - *rnorm(), dnorm(), pnorm(), rpois()*
-          - *binorm(n, size, prob)*  
-          - *set.seed()*
+          - `<img
+            src="https://render.githubusercontent.com/render/math?math=">`
+          - `rnorm(n, mean = 0, sd = 1)`
+          - `rnorm(), dnorm(), pnorm(), rpois()`
+          - `binorm(n, size, prob)`
+          - `set.seed()`
       - Simulating a Linear Model
-          - *rbinorm()*
-          - *plot(x, y); abline(lm(y \~ x), col = “blue”)*
-          - *summary(lm(y \~ x))*
+          - `rbinorm()`
+          - `plot(x, y); abline(lm(y ~ x), col = "blue")`
+          - `summary(lm(y ~ x))`
       - Random Sampling
-          - *sample()*
+          - `sample()`
   - **R Profiler**
-      - *system.time()*
-      - *Rprof(), summaryRprof(), by.total, by.self*
-      - *sample.internal*
+      - `system.time()`
+      - `Rprof(), summaryRprof(), by.total, by.self`
+      - `sample.internal`
   - **Programming Assignment**
-      - *hist()*
-      - *element %in% vector*
-      - *vector\[order(vector\[, 1\]), \]*
-      - *vector\[order(vector\[, 2\], vector\[, 1\]), \]*
-      - *names(df)*
-      - *unname(matrix\[1, 1\])*
-      - *stop()*
-      - *colnames(df)*
-      - *df$new\_column \<-*
-      - *for (i in seq\_along(vector))*
-
-`ctrl` + `shift` + `c`
+      - `hist()`
+      - `element %in% vector`
+      - `vector[order(vector[, 1]), ]`
+      - `vector[order(vector[, 2], vector[, 1]), ]`
+      - `names(df)`
+      - `unname(matrix[1, 1])`
+      - `stop()`
+      - `colnames(df)`
+      - `df$new_column <-`
+      - `for (i in seq_along(vector))`
 
 <https://www.stat.cmu.edu/~cshalizi/rmarkdown/#math-in-r-markdown>  
 <https://bookdown.org/yihui/rmarkdown/html-document.html#mathjax-equations>  
 <https://gist.github.com/a-rodin/fef3f543412d6e1ec5b6cf55bf197d7b>  
-<https://rpruim.github.io/s341/S19/from-class/MathinRmd.html>
-
+<https://rpruim.github.io/s341/S19/from-class/MathinRmd.html>  
 <https://chartio.com/resources/tutorials/how-to-sort-a-data-frame-by-multiple-columns-in-r/>

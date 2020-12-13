@@ -69,7 +69,7 @@ Execute a function
 myfunction()
 ```
 
-    ## [1] -0.05067718
+    ## [1] -0.08041285
 
 Display a list of objects in the current environment
 
@@ -1396,7 +1396,7 @@ max(x[, "Ozone"], na.rm = TRUE)
 
 # Attributes (objects may have)
 
-#### class
+## class
 
 *Vectors*
 
@@ -1431,14 +1431,14 @@ Time
   - user time
   - elapsed time
 
-#### length
+## length
 
   - **Number of elements in a *vector*:**
       - atomic vector (= factors, matrix)
   - **Number of elements in a *list*:**
       - list (= data frame)
 
-#### dim
+## dim
 
   - **NULL**:
       - atomic vector (= factors)
@@ -1448,7 +1448,7 @@ Time
       - data frame (can be converted to a matrix by calling
         `data.matrix()` - coerces objects to be the same class)
 
-#### dimnames
+## dimnames
 
   - **NULL**
       - atomic vector (= factors)
@@ -1458,7 +1458,7 @@ Time
         c("col1", "col2"))`
       - data frame
 
-#### names
+## names
 
   - **Name of each element in a vector or a list**
       - atomic vector (= factors, matrix) (if specified) `names(vector)
@@ -1466,7 +1466,7 @@ Time
       - list (if specified) `list(foo = 1, bar = "a")`  
       - data frame
 
-#### levels
+## levels
 
   - **NULL**
       - atomic vector (= matrix)
@@ -1476,8 +1476,8 @@ Time
 
 # Key Takeaway Functions
 
-Comment out a block of code: `Cmd` + `Shift` + `C`, `Ctrl` + `Shift` +
-`C`
+Comment out a block of code: `Cmd/Ctrl` + `Shift` + `C`  
+Auto indent = `Cmd + I`
 
   - **Background Material**
       - Working Directory

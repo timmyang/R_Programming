@@ -692,12 +692,12 @@ cacheSolve(a)
 
 - **Loop Functions**  
   - lapply
-    - *rnorm(n, mean = 0, sd = 1), runif(n, min = 0, max = 1)*
+    - `rnorm(n, mean = 0, sd = 1), runif(n, min = 0, max = 1)`
   - mapply
-    - *rep(x, times)*
+    - `rep(x, times)`
   - tapply
-    - *gl(levels, repeat)*
+    - `gl(levels, repeat)`
     
 - **Debugging Tools**
   - Diagnosing the Problem
-    - *invisible()*
+    - `invisible()`

@@ -690,7 +690,7 @@ max(x[, "Ozone"], na.rm = TRUE)
 
 # Attributes (objects may have)
 
-#### class  
+## class  
 *Vectors*  
 
 - Atomic Vector: vectors consisted of only one class  
@@ -721,7 +721,7 @@ Time
 - user time
 - elapsed time
 
-#### length
+## length
 
 - **Number of elements in a *vector*:**
   - atomic vector (= factors, matrix)  
@@ -729,7 +729,7 @@ Time
 - **Number of elements in a *list*:**
   - list (= data frame)  
   
-#### dim
+## dim
 
 - **NULL**:
   - atomic vector (= factors)
@@ -739,7 +739,7 @@ Time
   - matrix (is an atomic vector with a "dimension" attribute)
   - data frame (can be converted to a matrix by calling `data.matrix()` - coerces objects to be the same class)
   
-#### dimnames
+## dimnames
 
 - **NULL**
   - atomic vector (= factors)
@@ -749,14 +749,14 @@ Time
   - matrix (if specified) `dimnames(m) <- list(c("row1", row2"), c("col1", "col2"))`
   - data frame
 
-#### names
+## names
 
 - **Name of each element in a vector or a list**
   - atomic vector (= factors, matrix) (if specified) `names(vector) <- c("one", "two")`
   - list (if specified) `list(foo = 1, bar = "a")`  
   - data frame
 
-#### levels
+## levels
 
 - **NULL**
   - atomic vector (= matrix)
@@ -766,7 +766,8 @@ Time
   - factors (is an atomic vector with "labels (= levels)")  
 
 # Key Takeaway Functions
-Comment out a block of code: `Cmd` + `Shift` + `C`, `Ctrl` + `Shift` + `C`    
+Comment out a block of code: `Cmd/Ctrl` + `Shift` + `C`  
+Auto indent = `Cmd + I`   
 
 - **Background Material**
   - Working Directory
