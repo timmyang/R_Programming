@@ -50,8 +50,9 @@ dir()
     ##  [3] "corr.R"                         "data.R"                        
     ##  [5] "Hospital_Revised_Flatfiles.pdf" "hospital-data.csv"             
     ##  [7] "hw1_data.csv"                   "outcome-of-care-measures.csv"  
-    ##  [9] "pollutantmean.R"                "specdata"                      
-    ## [11] "y.R"
+    ##  [9] "pollutantmean.R"                "rankall.R"                     
+    ## [11] "rankhospital.R"                 "specdata"                      
+    ## [13] "y.R"
 
 Create a function
 
@@ -68,7 +69,7 @@ Execute a function
 myfunction()
 ```
 
-    ## [1] 0.004522599
+    ## [1] -0.05067718
 
 Display a list of objects in the current environment
 
@@ -1246,8 +1247,9 @@ dir()
     ##  [3] "corr.R"                         "data.R"                        
     ##  [5] "Hospital_Revised_Flatfiles.pdf" "hospital-data.csv"             
     ##  [7] "hw1_data.csv"                   "outcome-of-care-measures.csv"  
-    ##  [9] "pollutantmean.R"                "specdata"                      
-    ## [11] "y.R"
+    ##  [9] "pollutantmean.R"                "rankall.R"                     
+    ## [11] "rankhospital.R"                 "specdata"                      
+    ## [13] "y.R"
 
 ``` r
 table <- read.csv("hw1_data.csv")
