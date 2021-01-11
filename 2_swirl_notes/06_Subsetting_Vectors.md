@@ -1,4 +1,4 @@
-R Notebook
+Practical R Exercises in Swirl
 ================
 
 # 6: Subsetting Vectors

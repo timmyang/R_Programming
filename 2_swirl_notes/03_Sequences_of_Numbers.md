@@ -1,4 +1,4 @@
-R Notebook
+Practical R Exercises in Swirl
 ================
 
 # 3: Sequences of Numbers
